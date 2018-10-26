@@ -7,13 +7,13 @@ public  interface Converter
 	/**
 
      * @param
-     * text in html
+     *  link
      * @return
      * a csv file
 	 */
 	
-	public FileMatrix convertFromHtml(String text) ;
-	public FileMatrix convertFromWikitext(String text) ;
+	public FileMatrix convertFromHtml(String link) ;
+	public FileMatrix convertFromWikitext(String link) ;
 
 }
 
