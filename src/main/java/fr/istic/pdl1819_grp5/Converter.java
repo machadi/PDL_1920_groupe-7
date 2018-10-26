@@ -1,8 +1,9 @@
 package fr.istic.pdl1819_grp5;
 
 
+import java.util.Set;
 
-public  interface Converter 
+public  interface Converter
 {
 	/**
 
@@ -12,8 +13,8 @@ public  interface Converter
      * a csv file
 	 */
 	
-	public FileMatrix convertFromHtml(String link) ;
-	public FileMatrix convertFromWikitext(String link) ;
+	public Set<FileMatrix> convertFromHtml(String link) ;
+	public Set<FileMatrix> convertFromWikitext(String link) ;
 
 }
 

@@ -1,7 +1,8 @@
 package fr.istic.pdl1819_grp5;
 
 
-
+import java.util.HashSet;
+import java.util.Set;
 
 public class ConverterToCsv implements Converter
 {
@@ -10,16 +11,17 @@ public class ConverterToCsv implements Converter
 	}
 
 
-	public FileMatrix convert(String text) {
-		return new Csv();
+
+	public Set<FileMatrix> convertFromHtml(String text) {
+		return new HashSet<FileMatrix>();
 	}
 
-	public FileMatrix convertFromHtml(String text) {
-		return new Csv();
+	private String convertTableFromHtml(String htmlTable){
+		return null;
 	}
 
-	public FileMatrix convertFromWikitext(String text) {
-		return new Csv();
+	public Set<FileMatrix> convertFromWikitext(String text) {
+		return new HashSet<FileMatrix>();
 	}
 }
 
