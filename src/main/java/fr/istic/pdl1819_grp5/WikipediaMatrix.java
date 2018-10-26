@@ -1,4 +1,10 @@
 package fr.istic.pdl1819_grp5;
+
+
+import info.bliki.wiki.model.WikiModel;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,6 +37,7 @@ public class WikipediaMatrix
 		// TODO implement me
 		return null;
 	}
+
 
 }
 
