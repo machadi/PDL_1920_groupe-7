@@ -14,5 +14,12 @@ public class ConverterToCsv implements Converter
 		return new Csv();
 	}
 
+	public FileMatrix convertFromHtml(String text) {
+		return new Csv();
+	}
+
+	public FileMatrix convertFromWikitext(String text) {
+		return new Csv();
+	}
 }
 

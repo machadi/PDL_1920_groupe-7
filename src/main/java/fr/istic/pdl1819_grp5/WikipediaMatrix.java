@@ -1,8 +1,6 @@
 package fr.istic.pdl1819_grp5;
-import java.util.HashSet;
+
 import java.util.Set;
-
-
 
 
 public class WikipediaMatrix
@@ -11,8 +9,6 @@ public class WikipediaMatrix
 	
 	private Set<UrlMatrix> urlsMatrix;
 
-	
-	
 	private Converter converter;
 
 

@@ -12,8 +12,8 @@ public  interface Converter
      * a csv file
 	 */
 	
-	public FileMatrix convert(String text) ;
-
+	public FileMatrix convertFromHtml(String text) ;
+	public FileMatrix convertFromWikitext(String text) ;
 
 }
 
