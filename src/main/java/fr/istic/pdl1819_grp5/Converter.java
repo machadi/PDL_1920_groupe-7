@@ -18,7 +18,6 @@ public  interface Converter
 	
 	public Set<FileMatrix> convertFromHtml(String link) ;
 	public Set<FileMatrix> convertFromWikitext(String link) ;
-	public String convertHtmlTable(Element htmlTable);
 
 }
 
