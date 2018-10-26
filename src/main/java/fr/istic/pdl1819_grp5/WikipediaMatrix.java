@@ -24,6 +24,7 @@ public class WikipediaMatrix
 
 	public WikipediaMatrix(Set<String> urls, UrlType urlType){
 		for (String url : urls)
+
 			this.urlsMatrix.add(new UrlMatrix(url, urlType));
 
 	}
