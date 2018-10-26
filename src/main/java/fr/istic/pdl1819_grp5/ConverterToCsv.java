@@ -16,7 +16,7 @@ public class ConverterToCsv implements Converter
 		return new HashSet<FileMatrix>();
 	}
 
-	private String convertTableFromHtml(String htmlTable){
+	private String converthtmlTable(String htmlTable){
 		return null;
 	}
 
