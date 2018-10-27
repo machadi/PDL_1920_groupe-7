@@ -8,22 +8,20 @@ import java.util.Set;
 public class FileMatrix {
 
 	
-	protected String name="";
+	private String name;
 	
-	protected String text="";
+	private String text="";
 
 
-	public FileMatrix(){
+	public FileMatrix(String name){
+		this.name=name;
 	}
-
 
 	
 	public String getName() {
 		return name;
 	}
 
-
-	
 	public String getText() {
 		return text;
 	}

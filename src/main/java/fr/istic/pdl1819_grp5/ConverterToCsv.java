@@ -9,6 +9,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+
+
 public class ConverterToCsv implements Converter
 {
 
@@ -54,6 +56,31 @@ public class ConverterToCsv implements Converter
 
 	public Set<FileMatrix> convertFromWikitext(String text) {
 		return new HashSet<FileMatrix>();
+	}
+
+	public static void main(String[] args){
+
+		Document doc  = Jsoup.parseBodyFragment(" <table style=\"width:100%\">\n" +
+				"  <tr>\n" +
+				"    <th>Firstname</th>\n" +
+				"    <th>Lastname</th>\n" +
+				"    <th>Age</th>\n" +
+				"  </tr>\n" +
+				"  <tr>\n" +
+				"    <td>Jill</td>\n" +
+				"    <td>Smith</td>\n" +
+				"    <td>50</td>\n" +
+				"  </tr>\n" +
+				"  <tr>\n" +
+				"    <td>Eve</td>\n" +
+				"    <td>Jackson</td>\n" +
+				"    <td>94</td>\n" +
+				"  </tr>\n" +
+				"</table> ");
+
+		Element element = doc.getElementsByTag("table").first();
+
+		System.out.println(new ConverterToCsv().convertHtmlTable(element));
 	}
 
 

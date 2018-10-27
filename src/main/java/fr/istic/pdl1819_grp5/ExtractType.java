@@ -1,7 +1,7 @@
 package fr.istic.pdl1819_grp5;
 
 
-public enum UrlType
+public enum ExtractType
 {
 	HTML, WIKITEXT;
 }

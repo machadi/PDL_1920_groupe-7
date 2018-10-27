@@ -7,23 +7,23 @@ public class UrlMatrix
 
 	private String link;
 
-	private UrlType urlType;
+    private Set<FileMatrix> filesMatrix;
 
-    private Set<FileMatrix> fileMatrix;
-
-	public UrlMatrix(String link, UrlType urlType){
+	public UrlMatrix(String link){
 		this.link = link;
-		this.urlType = urlType;
 	}
 
 	public String getLink() {
-		// TODO implement me
-		return "";
+		return link;
 	}
 
     public Set<FileMatrix> getFileMatrix() {
-        return fileMatrix;
+        return filesMatrix;
     }
+
+    public void addFileMatrix(FileMatrix fileMatrix){
+		filesMatrix.add(fileMatrix);
+	}
 
 }
 
