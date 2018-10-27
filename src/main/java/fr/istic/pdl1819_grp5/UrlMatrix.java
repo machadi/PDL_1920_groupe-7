@@ -7,7 +7,7 @@ public class UrlMatrix
 
 	private String link;
 
-    private Set<FileMatrix> filesMatrix;
+    private Set<FileMatrix> fileMatrixSet;
 
 	public UrlMatrix(String link){
 		this.link = link;
@@ -18,12 +18,15 @@ public class UrlMatrix
 	}
 
     public Set<FileMatrix> getFileMatrix() {
-        return filesMatrix;
+        return fileMatrixSet;
     }
 
     public void addFileMatrix(FileMatrix fileMatrix){
-		filesMatrix.add(fileMatrix);
+		fileMatrixSet.add(fileMatrix);
 	}
 
+	public void setFilesMatrix(Set<FileMatrix> fileMatrixSet) {
+		this.fileMatrixSet = fileMatrixSet;
+	}
 }
 
