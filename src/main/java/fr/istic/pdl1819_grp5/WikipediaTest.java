@@ -10,8 +10,8 @@ public class WikipediaTest {
     public static void main(String[] args) throws IOException {
 
 
-        //insert url here
-        String url = "https://www.w3schools.com/html/html_tables.asp";
+        //insert your url
+        String url = "https://fr.wikipedia.org/wiki/Tableau_synoptique";
 
         Set<UrlMatrix> urlMatrixSet = new HashSet<UrlMatrix>();
 
@@ -19,7 +19,7 @@ public class WikipediaTest {
 
         WikipediaMatrix wikipediaMatrix = new WikipediaMatrix();
         //configuration WikipediaMatrix
-        wikipediaMatrix.setExtractType(ExtractType.HTML); // Change to wikitext if you want this extraction
+        wikipediaMatrix.setExtractType(ExtractType.WIKITEXT); // Change to wikitext if you want this extraction
         wikipediaMatrix.setUrlsMatrix(urlMatrixSet);
         urlMatrixSet = wikipediaMatrix.getConvertResult();
 

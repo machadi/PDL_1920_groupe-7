@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import info.bliki.wiki.model.WikiModel;
+import net.sourceforge.jwbf.core.contentRep.Article;
+import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -76,8 +79,19 @@ public class ConverterToCsv implements Converter
 		return csv;
 	}
 
-	public Set<FileMatrix> convertFromWikitext(String text) {
-		return new HashSet<FileMatrix>();
+	public Set<FileMatrix> convertFromWikitext(String url) {
+		Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
+		MediaWikiBot wikiBot = new MediaWikiBot(url.substring(0,url.lastIndexOf("iki/"))+"/");
+		Article article= wikiBot.getArticle(url.substring(url.lastIndexOf("/")+1,url.length()));
+		String htmlText = WikiModel.toHtml(article.getText());
+		Document doc = Jsoup.parse(htmlText);
+
+		Elements tables = doc.getElementsByTag("table");
+
+		for(Element table : tables){
+			csvSet.add(convertHtmlTable(table));
+		}
+		return csvSet;
 	}
 
 
