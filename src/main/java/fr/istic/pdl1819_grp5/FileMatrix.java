@@ -16,7 +16,6 @@ public class FileMatrix {
 	public FileMatrix(String name){
 		this.name=name;
 	}
-
 	
 	public String getName() {
 		return name;

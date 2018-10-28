@@ -26,11 +26,18 @@ public class WikipediaTest {
 
         for (UrlMatrix urlMatrix : urlMatrixSet){
             Set<FileMatrix> fileMatrixSet = urlMatrix.getFileMatrix();
+            int csvNumber =1;
             for (FileMatrix fileMatrix : fileMatrixSet){
-                System.out.println(fileMatrix.getText());
-                System.out.println("-------------------------------------");
+            	 Csv file = new Csv(ExtractType.WIKITEXT+"tableau"+csvNumber);
+            	 file.saveCsvFile(fileMatrix);
+            	 csvNumber++;
+             
+               
             }
         }
+        
+        
+       
 
     }
 }

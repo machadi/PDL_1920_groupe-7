@@ -16,7 +16,7 @@ public class UrlMatrix
 	public String getLink() {
 		return link;
 	}
-
+	
     public Set<FileMatrix> getFileMatrix() {
         return fileMatrixSet;
     }
