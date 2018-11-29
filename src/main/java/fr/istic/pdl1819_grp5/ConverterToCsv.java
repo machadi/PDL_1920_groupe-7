@@ -80,6 +80,37 @@ public class ConverterToCsv implements Converter
 		return new HashSet<FileMatrix>();
 	}
 
+	public static void main(String[] args) throws IOException {
+		Document doc = Jsoup.parseBodyFragment("<table>\n" +
+				" <th>\n" +
+				" nombres\n" +
+				" </th>\n" +
+				" <th>\n" +
+				" table\n" +
+				" </th>\n" +
+				"<tbody>\n" +
+				"<tr><td>123344</td>\n" +
+				"<td><table>\n" +
+				" <th>\n" +
+				" ney\n" +
+				" </th>\n" +
+				" <th>\n" +
+				" mar\n" +
+				" </th>\n" +
+				"<tbody>\n" +
+				"<tr><td>psg</td>\n" +
+				"<td>brazil</td></tr>\n" +
+				"\n" +
+				"</tbody>\n" +
+				"</table></td></tr>\n" +
+				"\n" +
+				"</tbody>\n" +
+				"</table>");
+		Elements tables = doc.getElementsByTag("table");
+
+		System.out.println(new ConverterToCsv().convertHtmlTable(tables.first()));
+	}
+
 
 }
 
