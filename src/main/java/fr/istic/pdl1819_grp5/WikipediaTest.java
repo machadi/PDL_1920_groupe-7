@@ -25,7 +25,7 @@ public class WikipediaTest {
             Set<FileMatrix> fileMatrixSet = urlMatrix.getFileMatrix();
             for (FileMatrix fileMatrix : fileMatrixSet){
                 System.out.println(fileMatrix.getText());
-                System.out.println("------------------------------------------------");
+                System.out.println("-------------------------");
             }
         }
 
