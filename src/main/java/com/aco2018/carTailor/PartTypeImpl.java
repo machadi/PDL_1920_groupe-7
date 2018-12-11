@@ -11,58 +11,35 @@ import java.util.List;
  * @generated
  */
 
-public class PartImpl implements Part
+public class PartTypeImpl implements PartType
 {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String partName;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private String partDescription;
+	private String partTypeName;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+	private String partTypeDescription;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
 	private CategoryImpl categoryImpl;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+	private PartImp partImp;
+
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
 	 * @generated
 	 */
-	public PartImpl(String name, String description){
+	public PartTypeImpl(String name, String description){
 		super();
-		this.partName = name;
-		this.partDescription = description;
+		this.partTypeName = name;
+		this.partTypeDescription = description;
+	}
+	@Override
+	public PartImp getPartImp() {
+		return partImp;
+	}
+	@Override
+	public void setPartImp(PartImp partImp) {
+		this.partImp = partImp;
 	}
 
 	/**
@@ -72,9 +49,9 @@ public class PartImpl implements Part
 	 * @ordered
 	 */
 	@Override
-	public String getPartName() {
+	public String getPartTypeName() {
 		// TODO implement me
-		return partName;
+		return partTypeName;
 	}
 
 	/**
@@ -84,9 +61,9 @@ public class PartImpl implements Part
 	 * @ordered
 	 */
 	@Override
-	public String getPartDescription() {
+	public String getPartTypeDescription() {
 		// TODO implement me
-		return partDescription;
+		return partTypeDescription;
 	}
 
 
@@ -97,7 +74,7 @@ public class PartImpl implements Part
 	 * @generated
 	 * @ordered
 	 */
-	
+
 
 
 	/**
@@ -114,11 +91,10 @@ public class PartImpl implements Part
 	 * @ordered
 	 */
 	@Override
-	public Category getCategory() {
+	public CategoryImpl getCategory() {
 		// TODO implement me
 		return categoryImpl;
 	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!--  end-user-doc  -->
@@ -131,12 +107,7 @@ public class PartImpl implements Part
 		this.categoryImpl = categoryImpl;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+
 
 }
 

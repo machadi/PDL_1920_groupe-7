@@ -17,65 +17,41 @@ public class CategoryImpl implements Category
 	 * @generated
 	 * @ordered
 	 */
-	
+
 	private String categoryName;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private Set<PartImpl> partSet;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
+
+	private Set<PartTypeImpl> partTypeSet;
+
+
 	public CategoryImpl(String name){
 		super();
 		this.categoryName = name;
-		partSet = new HashSet<>();
+		partTypeSet = new HashSet<>();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+
 	@Override
 	public String getCategoryName() {
 		// TODO implement me
 		return categoryName;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+
 	@Override
-	public void addPart(PartImpl partImpl) {
+	public void addPartType(PartTypeImpl partTypeImpl) {
 		// TODO implement me
-		if(!partSet.contains(partImpl)){
-			partSet.add(partImpl);
+		if(!partTypeSet.contains(partTypeImpl)){
+			partTypeSet.add(partTypeImpl);
 		}
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+
 
 	@Override
-	public Set<PartImpl> getParts() {
-		return partSet;
+	public Set<PartTypeImpl> getParts() {
+		return partTypeSet;
 	}
 
 }

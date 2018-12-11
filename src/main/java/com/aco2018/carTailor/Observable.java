@@ -15,25 +15,21 @@ public  interface Observable
 	 * @generated
 	 * @ordered
 	 */
-	
+
 	public void notifyObserver() ;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+	 *
+	 * @param observer add observer
 	 */
-	
+
 	public void register(Observer observer) ;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+	 *
+	 * @param observer remove observer
 	 */
-	
+
 	public void unregister(Observer observer) ;
 
 

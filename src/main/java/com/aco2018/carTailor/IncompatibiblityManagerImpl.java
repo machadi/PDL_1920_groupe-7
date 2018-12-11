@@ -5,17 +5,12 @@ import java.util.Map;
 import java.util.Set;
 
 
-/**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
- */
 
 public  class IncompatibiblityManagerImpl implements IncompatibilityManager
 {
 
-	Map<PartImpl, Set<PartImpl>> requirements = new HashMap<>();
-	Map<PartImpl, Set<PartImpl>> incompatibilities = new HashMap<>();
+	Map<PartTypeImpl, Set<PartTypeImpl>> requirements = new HashMap<>();
+	Map<PartTypeImpl, Set<PartTypeImpl>> incompatibilities = new HashMap<>();
 	private static IncompatibiblityManagerImpl instance;
 	/**
 	 * <!-- begin-user-doc -->
@@ -33,67 +28,23 @@ public  class IncompatibiblityManagerImpl implements IncompatibilityManager
 		return instance;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+
 	@Override
-	public void addIncompatibilities(PartImpl reference, Set<PartImpl> incompatilities) {
+	public void addIncompatibilities(PartTypeImpl reference, Set<PartTypeImpl> incompatilities) {
+
 		incompatibilities.put(reference,incompatilities);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+
 	@Override
-	public void addRequirements(PartImpl reference,Set<PartImpl> requirements) {
+	public void addRequirements(PartTypeImpl reference,Set<PartTypeImpl> requirements) {
 		this.requirements.put(reference, requirements);
 	}
 
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	@Override
-	public Set<PartImpl> getIncompatibilities(PartImpl reference) {
-		Set<PartImpl> incompatibilitiesFound = new HashSet<>(); ;
-		if(incompatibilities.get(reference)!=null){
-			incompatibilitiesFound = incompatibilities.get(reference);
-		}else{
-			incompatibilities.put(reference, incompatibilitiesFound);
-		}
-		return incompatibilitiesFound;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	@Override
-	public Set<PartImpl> getRequirements(PartImpl reference) {
-		Set<PartImpl> requirementsFound = new HashSet<>(); ;
-		if(requirements.get(reference)!=null){
-			requirementsFound = requirements.get(reference);
-		}else{
-			requirements.put(reference, requirementsFound);
-		}
-		return requirementsFound;
-	}
-
-	@Override
-	public boolean addIncompatibility(PartImpl partIncompatibility, PartImpl partReference) {
+	public boolean addIncompatibility(PartTypeImpl partIncompatibility, PartTypeImpl partReference) {
 		boolean add=false;
-		Set<PartImpl>incompatibilitiesOfPartReference=getIncompatibilities(partReference);
+		Set<PartTypeImpl>incompatibilitiesOfPartReference=getIncompatibilities(partReference);
 		if(partIncompatibility!=null && partReference!=null){
 			if(!incompatibilitiesOfPartReference.contains(partIncompatibility))
 				add=incompatibilitiesOfPartReference.add(partIncompatibility);
@@ -102,9 +53,9 @@ public  class IncompatibiblityManagerImpl implements IncompatibilityManager
 	}
 
 	@Override
-	public boolean addRequirement(PartImpl partRequirement, PartImpl partReference) {
+	public boolean addRequirement(PartTypeImpl partRequirement, PartTypeImpl partReference) {
 		boolean add=false;
-		Set<PartImpl>requirementsOfPartReference=getRequirements(partReference);
+		Set<PartTypeImpl>requirementsOfPartReference=getRequirements(partReference);
 		if(partRequirement!=null && partReference!=null){
 			if(!requirementsOfPartReference.contains(partRequirement)){
 				add = requirementsOfPartReference.add(partRequirement);
@@ -115,17 +66,34 @@ public  class IncompatibiblityManagerImpl implements IncompatibilityManager
 
 
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 	@Override
-	public boolean removeIcompatibility(PartImpl partIncompatibility,PartImpl partReference) {
+	public Set<PartTypeImpl> getIncompatibilities(PartTypeImpl reference) {
+		Set<PartTypeImpl> incompatibilitiesFound = new HashSet<>(); ;
+		if(incompatibilities.get(reference)!=null){
+			incompatibilitiesFound = incompatibilities.get(reference);
+		}else{
+			incompatibilities.put(reference, incompatibilitiesFound);
+		}
+		return incompatibilitiesFound;
+	}
+
+
+	@Override
+	public Set<PartTypeImpl> getRequirements(PartTypeImpl reference) {
+		Set<PartTypeImpl> requirementsFound = new HashSet<>(); ;
+		if(requirements.get(reference)!=null){
+			requirementsFound = requirements.get(reference);
+		}else{
+			requirements.put(reference, requirementsFound);
+		}
+		return requirementsFound;
+	}
+
+	@Override
+	public boolean removeIcompatibility(PartTypeImpl partIncompatibility,PartTypeImpl partReference) {
 		boolean remove=false;
 		if(partIncompatibility!=null && partReference!=null){
-			Set<PartImpl>incompatibilitiesOfPartReference=getIncompatibilities(partReference);
+			Set<PartTypeImpl>incompatibilitiesOfPartReference=getIncompatibilities(partReference);
 			if(incompatibilitiesOfPartReference.contains(partIncompatibility))
 				remove=incompatibilitiesOfPartReference.remove(partIncompatibility);
 		}
@@ -133,9 +101,9 @@ public  class IncompatibiblityManagerImpl implements IncompatibilityManager
 	}
 
 	@Override
-	public boolean removeRequirement(PartImpl partRequirement,PartImpl partReference) {
+	public boolean removeRequirement(PartTypeImpl partRequirement,PartTypeImpl partReference) {
 		boolean remove=false;
-		Set<PartImpl>requirementsOfPartReference=getRequirements(partReference);
+		Set<PartTypeImpl>requirementsOfPartReference=getRequirements(partReference);
 		if(partRequirement!=null && partReference!=null){
 			if(requirementsOfPartReference.contains(partRequirement)){
 				remove=requirementsOfPartReference.remove(partRequirement);
@@ -144,6 +112,7 @@ public  class IncompatibiblityManagerImpl implements IncompatibilityManager
 		}
 		return remove;
 	}
+
 
 }
 

@@ -3,9 +3,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-
 import java.util.Set;
 
 
@@ -14,124 +14,41 @@ import java.util.Set;
  * <!--  end-user-doc  -->
  * @generated
  */
+
 public class ConfiguratorImpl implements Configurator
 {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	private Set<CategoryImpl> categorySet;
 
-	public IncompatibiblityManagerImpl getIncompatibiblityManager() {
-		return incompatibiblityManager;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+	private Set<CategoryImpl> categorySet = new HashSet<>();
 
 
-	private IncompatibiblityManagerImpl incompatibiblityManager;
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 */
+
+	private IncompatibiblityManagerImpl incompatibiblityManager= IncompatibiblityManagerImpl.getInstance();
+
 	public ConfiguratorImpl(){
 		super();
-		categorySet = new HashSet<>();
-		incompatibiblityManager= IncompatibiblityManagerImpl.getInstance();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
+	public Set<CategoryImpl> getCategorySet() {
+		return categorySet;
+	}
+
 
 	@Override
-	public void launch(File jsonFile){
-		StringBuilder strB=readFile(jsonFile);
-		JSONObject jsonObject= new JSONObject(strB.toString());
-
-		//Creating category and part
-
-		JSONArray categoryArray =  jsonObject.getJSONArray("categoryList");
-
-		int lenghtCategoryArray = categoryArray.length();
-
-		for(int i=0; i<lenghtCategoryArray;i++){
-			JSONObject categoryObject = categoryArray.getJSONObject(i);
-			CategoryImpl currentCategory = new CategoryImpl(categoryObject.getString("name"));
-
-			JSONArray partArray =  categoryObject.getJSONArray("partList");
-			int lenghtPartArray = partArray.length();
-
-			for (int j=0; j<lenghtPartArray;j++){
-				JSONObject partObject = partArray.getJSONObject(j);
-				PartImpl currentpart = new PartImpl(partObject.getString("name"),partObject.getString("description"));
-				currentpart.setCategory(currentCategory);
-				currentCategory.addPart(currentpart);
+	public Set<PartTypeImpl>getVariantsForCategory(String name){
+		if(name!=null){
+			for (CategoryImpl category : categorySet){
+				if(category.getCategoryName().equalsIgnoreCase(name)){
+					return Collections.unmodifiableSet(category.getParts());
+				}
 			}
 
-			categorySet.add(currentCategory);
-
 		}
-
-		//requirements setting
-		Set<PartImpl> requirements;
-
-		JSONArray requirementArray = jsonObject.getJSONArray("requirementsList");
-		int lenghtRequirementArray = requirementArray.length();
-
-		for (int i=0; i<lenghtRequirementArray;i++){
-			requirements = new HashSet<>();
-			JSONObject currentRequirement = requirementArray.getJSONObject(i);
-			PartImpl reference = getPartByName(currentRequirement.getString("name"));
-			JSONArray partRequirements = currentRequirement.getJSONArray("requirements");
-			int lenghtpartRequirements = partRequirements.length();
-			for (int j=0; j<lenghtpartRequirements;j++){
-				PartImpl part = getPartByName(partRequirements.getJSONObject(j).getString("name"));
-				requirements.add(part);
-
-			}
-			incompatibiblityManager.addRequirements(reference, requirements);
-		}
-
-		//incompatibilities setting
-
-		Set<PartImpl> incompatibilities;
-
-		JSONArray incompatibilityArray = jsonObject.getJSONArray("incompatibilityList");
-		int lenghtincompatibilityArray = incompatibilityArray.length();
-
-		for (int i=0; i<lenghtincompatibilityArray;i++){
-			incompatibilities = new HashSet<>();
-			JSONObject currentIncompatibility = incompatibilityArray.getJSONObject(i);
-			PartImpl reference = getPartByName(currentIncompatibility.getString("name"));
-			JSONArray partIncompatiilies = currentIncompatibility.getJSONArray("incompatibilities");
-			int lenghtpartIncompatiilies = partIncompatiilies.length();
-			for (int j=0; j<lenghtpartIncompatiilies;j++){
-				PartImpl part = getPartByName(partIncompatiilies.getJSONObject(j).getString("name"));
-				incompatibilities.add(part);
-			}
-
-			incompatibiblityManager.addIncompatibilities(reference, incompatibilities);
-
-		}
-
-
-
-
+		return null;
 
 	}
+
+
+
 	@Override
 	public StringBuilder readFile  (File jsonFile){
 		StringBuilder jsonText = new StringBuilder();
@@ -168,93 +85,145 @@ public class ConfiguratorImpl implements Configurator
 		return jsonText;
 	}
 	@Override
-	public Set<PartImpl>getVariantsForCategory(String name){
-		if(name!=null){
-			for (CategoryImpl category : categorySet){
-				if(category.getCategoryName().equalsIgnoreCase(name)){
-					return Collections.unmodifiableSet(category.getParts());
-				}
+	public void launch(File jsonFile){
+		StringBuilder strB=readFile(jsonFile);
+		JSONObject jsonObject= new JSONObject(strB.toString());
+
+		//Creating category and part
+
+		JSONArray categoryArray =  jsonObject.getJSONArray("categoryList");
+
+		int lenghtCategoryArray = categoryArray.length();
+
+		for(int i=0; i<lenghtCategoryArray;i++){
+			JSONObject categoryObject = categoryArray.getJSONObject(i);
+			CategoryImpl currentCategory = new CategoryImpl(categoryObject.getString("name"));
+
+
+			JSONArray partArray =  categoryObject.getJSONArray("partList");
+			int lenghtPartArray = partArray.length();
+
+			for (int j=0; j<lenghtPartArray;j++){
+				JSONObject partObject = partArray.getJSONObject(j);
+				PartTypeImpl currentPartTypeImpl = new PartTypeImpl(partObject.getString("name"),partObject.getString("description"));
+				PartImp currentPartImp = new PartImp(currentPartTypeImpl);
+				currentPartImp.price = Double.parseDouble(partObject.getString("prix"));
+                currentPartTypeImpl.setPartImp(currentPartImp);
+
+
+				if(currentCategory.getCategoryName().equalsIgnoreCase("exterior")){
+                    JSONArray colorListArray=partObject.getJSONArray("colorList");
+                    int lenghtcolorListArray=colorListArray.length();
+                    Set<String> possibilities = new HashSet<>();
+
+                    for(int k=0;k<lenghtcolorListArray;k++){
+                        possibilities.add(colorListArray.getString(k));
+                    }
+
+                    currentPartImp.addProperty("color", currentPartImp::getColor, currentPartImp::setColor, possibilities);
+                }
+
+				currentPartTypeImpl.setCategory(currentCategory);
+				currentCategory.addPartType(currentPartTypeImpl);
 			}
 
-		}
-		return null;
+			categorySet.add(currentCategory);
 
-	}
-
-
-	@Override
-	public PartImpl getPartByName(String partName){
-		PartImpl part = null ;
-		boolean found =false;
-		for (CategoryImpl category : categorySet){
-			for (PartImpl partImpl : category.getParts()){
-				if(partImpl.getPartName().equalsIgnoreCase(partName)){
-					part = partImpl;
-					found = true;
-					break;
-				}
-			}
-			if(found)break;
 		}
 
-		return part;
-	}
-	@Override
-	public void printDescription() {
+		//requirements setting
+		Set<PartTypeImpl> requirements;
 
-		System.out.println("Category   PartName   PartDescription     incompatibilities        requirements\n");
-		for (CategoryImpl category : categorySet){
-			System.out.println(category.getCategoryName());
+		JSONArray requirementArray = jsonObject.getJSONArray("requirementsList");
+		int lenghtRequirementArray = requirementArray.length();
 
-			for (PartImpl part : category.getParts()) {
-				System.out.print("            " + part.getPartName() + "  ---  " + part.getPartDescription() + "    ");
-
-				Set<PartImpl> requirements = incompatibiblityManager.getRequirements(part);
-				Set<PartImpl> incompatibilities = incompatibiblityManager.getIncompatibilities(part);
-
-				if(incompatibilities!=null)
-				for (PartImpl incomp : incompatibilities) {
-					System.out.print(incomp.getPartName() + "*");
-				}
-				System.out.print("---");
-				if(requirements!=null)
-				for (PartImpl req : requirements) {
-
-					System.out.println(req.getPartName() + "*");
-				}
-
-				  System.out.println();
+		for (int i=0; i<lenghtRequirementArray;i++){
+			requirements = new HashSet<>();
+			JSONObject currentRequirement = requirementArray.getJSONObject(i);
+			PartTypeImpl reference = getPartTypeByName(currentRequirement.getString("name"));
+			JSONArray partRequirements = currentRequirement.getJSONArray("requirements");
+			int lenghtpartRequirements = partRequirements.length();
+			for (int j=0; j<lenghtpartRequirements;j++){
+				PartTypeImpl part = getPartTypeByName(partRequirements.getJSONObject(j).getString("name"));
+				requirements.add(part);
 
 			}
+			incompatibiblityManager.addRequirements(reference, requirements);
 		}
+
+		//incompatibilities setting
+
+		Set<PartTypeImpl> incompatibilities;
+
+		JSONArray incompatibilityArray = jsonObject.getJSONArray("incompatibilityList");
+		int lenghtincompatibilityArray = incompatibilityArray.length();
+
+		for (int i=0; i<lenghtincompatibilityArray;i++){
+			incompatibilities = new HashSet<>();
+			JSONObject currentIncompatibility = incompatibilityArray.getJSONObject(i);
+			PartTypeImpl reference = getPartTypeByName(currentIncompatibility.getString("name"));
+			JSONArray partIncompatiilies = currentIncompatibility.getJSONArray("incompatibilities");
+			int lenghtpartIncompatiilies = partIncompatiilies.length();
+			for (int j=0; j<lenghtpartIncompatiilies;j++){
+				PartTypeImpl part = getPartTypeByName(partIncompatiilies.getJSONObject(j).getString("name"));
+				incompatibilities.add(part);
+			}
+
+			incompatibiblityManager.addIncompatibilities(reference, incompatibilities);
+
+		}
+
+		//
+
+
 	}
 	@Override
-	public boolean addRequirement(String requirement,String reference){
-		PartImpl partRequirement=getPartByName(requirement);
-		PartImpl partReference=getPartByName(reference);
+	public PartImp choosePartImp(String partName){
+       return  getPartTypeByName(partName)==null?null:getPartTypeByName(partName).getPartImp();
+	}
+	@Override
+    public PartTypeImpl getPartTypeByName(String partName){
+        PartTypeImpl partType = null ;
+        boolean found =false;
+        for (Category category : categorySet){
+            for (PartTypeImpl partTypeImpl : category.getParts()){
+                if(partTypeImpl.getPartTypeName().equalsIgnoreCase(partName)){
+                    partType = partTypeImpl;
+                    found = true;
+                    break;
+                }
+            }
+            if(found)break;
+        }
+
+        return partType;
+    }
+	@Override
+	public boolean addRequirement(String requirement,String refererence){
+		PartTypeImpl partRequirement=getPartTypeByName(requirement);
+		PartTypeImpl partReference=getPartTypeByName(refererence);
 		return incompatibiblityManager.addRequirement(partRequirement,partReference);
 	}
 	@Override
-	public boolean removeRequirement(String requirement,String reference){
-		PartImpl partRequirement=getPartByName(requirement);
-		PartImpl partReference=getPartByName(reference);
+	public boolean removeRequirement(String requirement,String referernce){
+		PartTypeImpl partRequirement=getPartTypeByName(requirement);
+		PartTypeImpl partReference=getPartTypeByName(referernce);
 		return incompatibiblityManager.removeRequirement(partRequirement,partReference);
 	}
 	@Override
-	public boolean addIncompatibility(String incompatibility,String reference){
-		PartImpl partRequirement=getPartByName(incompatibility);
-		PartImpl partReference=getPartByName(reference);
-		return incompatibiblityManager.addIncompatibility(partRequirement,partReference);
+	public boolean addIncompatibility(String incompatibility,String referernce){
+		PartTypeImpl partIncompatibility=getPartTypeByName(incompatibility);
+		PartTypeImpl partReference=getPartTypeByName(referernce);
+		return incompatibiblityManager.addIncompatibility(partIncompatibility,partReference);
 	}
 	@Override
-	public boolean removeIncompatibility(String incompatibility,String reference){
-		PartImpl partRequirement=getPartByName(incompatibility);
-		PartImpl partReference=getPartByName(reference);
-		return incompatibiblityManager.removeIcompatibility(partRequirement,partReference);
+	public boolean removeIncompatibility(String incompatibility,String referernce){
+		PartTypeImpl partIncompatibility=getPartTypeByName(incompatibility);
+		PartTypeImpl partReference=getPartTypeByName(referernce);
+		return incompatibiblityManager.removeIcompatibility(partIncompatibility,partReference);
 	}
-	@Override
-	public Set<CategoryImpl> getCategorySet() {
-		return Collections.unmodifiableSet(categorySet);
-	}
+
+
+
 }
 

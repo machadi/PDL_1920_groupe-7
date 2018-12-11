@@ -4,70 +4,51 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-/**
- * <!-- begin-user-doc -->
- * <!--  end-user-doc  -->
- * @generated
- */
+
 public  interface IncompatibilityManager 
 {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+	 *
+	 * @param reference
+	 * @param incompatility
+	 * add add set incompatibility to reference
 	 */
-	
-	public void addIncompatibilities(PartImpl reference, Set<PartImpl> incompatility) ;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public void addRequirements(PartImpl reference,Set<PartImpl> requirements) ;
+	public void addIncompatibilities(PartTypeImpl reference, Set<PartTypeImpl> incompatility) ;
 
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Set<PartImpl> getIncompatibilities(PartImpl reference) ;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Set<PartImpl> getRequirements(PartImpl reference) ;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+	 *
+	 * @param reference
+	 * @param requirements
+	 * add add set requirement to reference
 	 */
 
-	public boolean removeRequirement(PartImpl partIncompatibility,PartImpl partReference);
+	public void addRequirements(PartTypeImpl reference,Set<PartTypeImpl> requirements) ;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
 
-	public boolean removeIcompatibility(PartImpl partIncompatibility,PartImpl partReference);
 
-	public boolean addRequirement(PartImpl partRequirement, PartImpl partReference);
-	public boolean addIncompatibility(PartImpl partIncompatibility, PartImpl partReference);
+
+	public boolean addIncompatibility(PartTypeImpl partIncompatibility,PartTypeImpl partReference) ;
+
+
+
+	public boolean addRequirement(PartTypeImpl partRequirement,PartTypeImpl partReference) ;
+
+
+
+
+	public Set<PartTypeImpl> getIncompatibilities(PartTypeImpl reference) ;
+
+
+
+	public Set<PartTypeImpl> getRequirements(PartTypeImpl reference) ;
+
+
+	public boolean removeRequirement(PartTypeImpl partRequirement,PartTypeImpl partReference);
+
+	public boolean removeIcompatibility(PartTypeImpl partIncompatibility,PartTypeImpl partReference);
+
 
 }
 

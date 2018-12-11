@@ -1,6 +1,9 @@
 package com.aco2018.carTailor;
 
 
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -8,41 +11,68 @@ import java.util.Set;
  * <!--  end-user-doc  -->
  * @generated
  */
-public  interface Part
+public  interface Part 
 {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+	 *
+	 * @return the part type of  part
 	 */
+	public PartType getPartType() ;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
-	 */
-	
-	public Category getCategory() ;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+	 *
+	 * @return set of all property
 	 */
 
+
+	public Set<String> getPropertyNames() ;
+
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+	 *
+	 * @param propertyName property name
+	 * @return return property if part contains this property else empty optional
 	 */
-	
-	public void setCategory(CategoryImpl parameter) ;
-	public String getPartName();
-	public String getPartDescription();
+	public Optional<String> getProperty(String propertyName);
+
+	/**
+	 *
+	 * @param propertyName property name
+	 * @param propertyValue add this value to property
+	 */
+
+	public void setProperty(String propertyName, String propertyValue);
+
+	/**
+	 *
+	 * @param propertyName
+	 * @return all values of property name
+	 */
+	public Set<String> getAvailablePropertyValues(String propertyName);
+
+	/**
+	 *
+	 * @return part price
+	 */
+
+	public double getPrice();
+
+	/**
+	 *
+	 * @return name of part
+	 */
+	public String getName();
+
+	/**
+	 *
+	 * @return color of part
+	 */
+	public String getColor();
+
+	/**
+	 *
+	 * @param color set color of part
+	 */
+	public void setColor(String color);
 
 }
 

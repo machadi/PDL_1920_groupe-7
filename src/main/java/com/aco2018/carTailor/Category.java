@@ -11,24 +11,25 @@ import java.util.Set;
 public  interface Category 
 {
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+	 *
+	 * @param partTypeImpl  add  partType in the part type list of this category
 	 */
-	
-	public void addPart(PartImpl part) ;
+	public void addPartType(PartTypeImpl partTypeImpl);
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!--  end-user-doc  -->
-	 * @generated
-	 * @ordered
+	 *
+	 * @return the category name
 	 */
-
 	public String getCategoryName();
-	public Set<PartImpl> getParts();
 
+
+
+
+	/**
+	 *
+	 * @return part type list of this category
+	 */
+	public Set<PartTypeImpl> getParts();
 
 
 }

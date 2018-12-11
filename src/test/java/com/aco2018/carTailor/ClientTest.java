@@ -1,28 +1,25 @@
 package com.aco2018.carTailor;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
-import java.io.File;
-import java.util.Set;
+import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 class ClientTest {
-    static Client  client=new Client();
-    private static ConfigurationImpl configuration;
-    private  static  ConfiguratorImpl configurator;
+    static Client client;
+    static private ConfigurationImpl configuration;
+    static private  ConfiguratorImpl configurator;
     @BeforeAll
-     static void initialisation(){
-
-        configurator=client.getConfiguratorImpl();
+    static void initialisation(){
+        client=new Client();
+        configurator=client.getConfigurator();
         configurator.launch(new File("adminConfiguration.json"));
-        configuration=client.getConfigurationImpl();
+        configuration=client.getConfiguration();
         configuration.register(client);
     }
-
 
     @Test
     void demarrerSimulation() {
@@ -33,36 +30,71 @@ class ClientTest {
         myCategory=chooseCategory("TRANSMISSION");
         assertTrue(myCategory!=null);
 
-        PartImpl myPartImpl=selectPartImpl(myCategory,"REGUIO");;
-        assertEquals(myPartImpl,null);
-        myPartImpl=selectPartImpl(myCategory,"TA5");
+        PartImp myPartImp=selectPartImpl(myCategory,"REGUIO");;
+        assertEquals(myPartImp,null);
+        myPartImp=selectPartImpl(myCategory,"TA5");
 
-        assertTrue(configuration.addPart(myPartImpl));
+        assertTrue(configuration.addPart(myPartImp));
 
-        myPartImpl=selectPartImpl(myCategory,"TC120");
-        assertTrue(configuration.addPart(myPartImpl));
+        myPartImp=selectPartImpl(myCategory,"TC120");
+        assertTrue(configuration.addPart(myPartImp));
         myCategory=chooseCategory("ENGINE");
 
-        myPartImpl=selectPartImpl(myCategory,"EG100");
-        configuration.addPart(myPartImpl);
+        myPartImp=selectPartImpl(myCategory,"EG100");
+        configuration.addPart(myPartImp);
         assertFalse(client.isComplete());
         assertFalse(client.isValid());
 
         myCategory=chooseCategory("ENGINE");
 
-        myPartImpl=selectPartImpl(myCategory,"EH120");
-        configuration.addPart(myPartImpl);
+        myPartImp=selectPartImpl(myCategory,"EH120");
+        configuration.addPart(myPartImp);
         assertTrue(client.isComplete());
         assertFalse(client.isValid());
 
+        //Car la configuration est invalide
+        assertEquals(configuration.getPriceConfiguation(),0);
+
         myCategory=chooseCategory("ENGINE");
 
-        myPartImpl=selectPartImpl(myCategory,"EG100");
+        myPartImp=selectPartImpl(myCategory,"EG100");
 
         assertFalse(configuration.deletePart("edefrf"));
-        assertTrue(configuration.deletePart(myPartImpl.getPartName()));
+        assertTrue(configuration.deletePart(myPartImp.getName()));
+
+        assertEquals(configuration.getPriceConfiguation(),15290);
+
         assertTrue(client.isComplete());
         assertTrue(client.isComplete());
+
+
+        myCategory=chooseCategory("EXTERIOR");
+
+        myPartImp=selectPartImpl(myCategory,"XC");
+        configuration.addPart(myPartImp);
+
+
+        assertEquals(configuration.getPriceConfiguation(),16190);
+        myPartImp.setColor("BLEU");
+        assertEquals(configuration.getPriceConfiguation(),16390);
+
+        myPartImp.setColor("vert");
+
+        assertEquals(configuration.getPriceConfiguation(),16760);
+
+        try {
+            configuration.printDesciption(new PrintStream(new FileOutputStream("configuration.html")));
+           // assertTrue(FileUtils.contentEquals(new File("configurationTestClient.html"),new File("configuration.html")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
 
 
 
@@ -81,11 +113,11 @@ class ClientTest {
         return myCategory;
     }
 
-    PartImpl selectPartImpl(CategoryImpl category,String namePartImpl){
-        PartImpl myPartImpl=null;
-        for (PartImpl part:category.getParts()){
-            if(part.getPartName().equalsIgnoreCase(namePartImpl)){
-                myPartImpl=part;
+    PartImp selectPartImpl(CategoryImpl category,String namePartImpl){
+        PartImp myPartImpl=null;
+        for (PartTypeImpl part:category.getParts()){
+            if(part.getPartImp().getName().equalsIgnoreCase(namePartImpl)){
+                myPartImpl=part.getPartImp();
                 break;
             }
         }
