@@ -1,0 +1,19 @@
+{
+  "categoryList":
+    [
+      {"name" : "Engine",
+      "partList":[{"name" : "EG100", "description":"Gasoline, 100KW"},{"name" : "EG133", "description":"Gasoline, 133KW"},{"name" : "EG210", "description":"Gasoline, 210KW"},{"name" : "ED110", "description":"Diesel, 110KW"},{"name" : "ED180", "description":"Diesel, 180KW"},{"name" : "EH120", "description":"Gasoline/electric hybride, 120KW"}]
+      },
+      {"name" : "Transmission",
+        "partList":[{"name" : "TM5", "description":"Manual, 5gears"},{"name" : "TM6", "description":"Manual, 6gears"},{"name" : "TA5", "description":"Automatic, 5gears"},{"name" : "TS6", "description":"Sequentiel, 6gears"},{"name" : "TSF7", "description":"Sequential, 7gears, 4wheels drive"},{"name" : "TC120", "description":"Converter, 120KW max"}]
+      },
+      {"name" : "Exterior",
+        "partList":[{"name" : "XC", "description":"Classic paint"},{"name" : "XM", "description":"Metalic paint"},{"name" : "XS", "description":"Red paint and sport decoration"}]
+      },
+      {"name" : "Interior",
+        "partList":[{"name" : "IN", "description":"Standard interior"},{"name" : "IH", "description":"High-end interior"},{"name" : "IS", "description":"Sport finish"}]
+      }
+    ],
+  "incompatibilityList":[{"name" : "TA5","incompatibilities" : [{"name" : "EG100"}] },{"name" : "TSF7","incompatibilities" : [{"name" : "EG100"},{"name" : "EG133"},{"name" : "ED110"}] },{"name" : "XC","incompatibilities" : [{"name" : "EG210"}] },{"name" : "XM","incompatibilities" : [{"name" : "EG100"}] },{"name" : "XS","incompatibilities" : [{"name" : "EG100"}] },{"name" : "IS","incompatibilities" : [{"name" : "EG100"},{"name" : "TM5"}] }],
+  "requirementsList":[{"name" : "EH120","requirements" : [{"name" : "TC120"}] },{"name" : "TC120","requirements" : [{"name" : "EH120"}] },{"name" : "XS","requirements" : [{"name" : "IS"}] },{"name" : "IS","requirements" : [{"name" : "XS"}] }]
+}
