@@ -10,6 +10,10 @@
           <option name="url" value="https://github.com/Wikidata/Wikidata-Toolkit-Examples.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://gitlab.istic.univ-rennes1.fr" />
+          <option name="userName" value="yattoube" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="$USER_HOME$/Documents" />
