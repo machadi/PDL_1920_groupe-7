@@ -1,0 +1,6 @@
+<application>
+  <component name="PathMacrosImpl">
+    <macro name="MAVEN_REPOSITORY" value="/home/yattoube/.m2/repository" />
+    <macro name="KOTLIN_BUNDLED" value="/home/yattoube/Téléchargements/ideaIU-2018.2.3/idea-IU-182.4323.46/plugins/Kotlin/kotlinc" />
+  </component>
+</application>
