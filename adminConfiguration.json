@@ -1,0 +1,19 @@
+{
+  "categoryList":
+    [
+      {"name" : "Engine",
+      "partList":[{"name" : "EG100", "description":"Gasoline, 100KW", "prix" : "2000"},{"name" : "EG133", "description":"Gasoline, 133KW","prix" : "3000"},{"name" : "EG210", "description":"Gasoline, 210KW", "prix" : "3600"},{"name" : "ED110", "description":"Diesel, 110KW", "prix" : "4500"},{"name" : "ED180", "description":"Diesel, 180KW", "prix" : "2500"},{"name" : "EH120", "description":"Gasoline/electric hybride, 120KW", "prix" : "5400"}]
+      },
+      {"name" : "Transmission",
+        "partList":[{"name" : "TM5", "description":"Manual, 5gears","prix" : "5200"},{"name" : "TM6", "description":"Manual, 6gears","prix" : "2780"},{"name" : "TA5", "description":"Automatic, 5gears", "prix" : "7800"},{"name" : "TS6", "description":"Sequentiel, 6gears", "prix" : "2200"},{"name" : "TSF7", "description":"Sequential, 7gears, 4wheels drive", "prix" : "1000"},{"name" : "TC120", "description":"Converter, 120KW max", "prix" : "2090"}]
+      },
+      {"name" : "Exterior",
+        "partList":[{"name" : "XC", "description":"Classic paint", "prix" : "900", "colorList" : ["bleu", "rouge"]},{"name" : "XM", "description":"Metalic paint", "prix" : "670", "colorList" : ["vert", "orange"]},{"name" : "XS", "description":"Red paint and sport decoration", "prix" : "960", "colorList" : ["bleu", "vert"]}]
+      },
+      {"name" : "Interior",
+        "partList":[{"name" : "IN", "description":"Standard interior", "prix" : "200"},{"name" : "IH", "description":"High-end interior", "prix" : "570"},{"name" : "IS", "description":"Sport finish", "prix" : "790"}]
+      }
+    ],
+  "incompatibilityList":[{"name" : "TA5","incompatibilities" : [{"name" : "EG100"}] },{"name" : "TSF7","incompatibilities" : [{"name" : "EG100"},{"name" : "EG133"},{"name" : "ED110"}] },{"name" : "XC","incompatibilities" : [{"name" : "EG210"}] },{"name" : "XM","incompatibilities" : [{"name" : "EG100"}] },{"name" : "XS","incompatibilities" : [{"name" : "EG100"}] },{"name" : "IS","incompatibilities" : [{"name" : "EG100"},{"name" : "TM5"}] }],
+  "requirementsList":[{"name" : "EH120","requirements" : [{"name" : "TC120"}] },{"name" : "TC120","requirements" : [{"name" : "EH120"}] },{"name" : "XS","requirements" : [{"name" : "IS"}] },{"name" : "IS","requirements" : [{"name" : "XS"}] }]
+}
