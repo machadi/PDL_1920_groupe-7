@@ -14,8 +14,12 @@
           <option name="url" value="https://gitlab.istic.univ-rennes1.fr/yattoube/cartailor.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/jocelindegni/PDL_1819_grp5.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="$USER_HOME$/Bureau" />
+    <option name="cloneParentDir" value="/media/decancun/winux/univRennesProjects" />
   </component>
 </application>
