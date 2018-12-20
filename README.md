@@ -7,7 +7,7 @@ The software is able to analyze the HTML or wikitext syntax of a given wikipedia
 
 Installation of JDK (Java Development Kit) which contains the JRE (to run Java applications)
 
-1. Go to[www.oracle.com](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
+1. Go to [www.oracle.com](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 2. You are then asked to accept the Accept License Agreement before proceeding.
 
@@ -54,4 +54,3 @@ This project is registered under a license
 ##Acknowledgledgments
 
 A big thank you to mr ACHER Mathieu
-Translated with www.DeepL.com/Translator
