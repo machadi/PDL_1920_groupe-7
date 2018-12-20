@@ -1,0 +1,55 @@
+! OMF,AAF,MIDI,WAV,MP3,AAC,Ogg,REX2,AIFF,FLAC,Others
+Acoustica,{{No}},{{No}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{Yes}}
+Ardour,{{No}}[2],{{No}}[3],{{Unk}},{{Yes}},{{Unk}},{{Unk}},{{Yes}},{{Unk}},{{No}},{{Yes}}
+Audacity,{{No}},{{No}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{Yes}}
+AudioDesk,{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{No}},{{Yes}},{{Yes}},{{No}}
+Audiotool,{{No}},{{No}},{{No}},{{Partial|Import}},{{Partial|Export}},{{No}},{{Partial|Export}},{{No}},{{No}},{{No}}
+Audition,{{Yes}},{{Unk}},{{No}} (unsupported since CS5),{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{Yes}}
+BIAS Peak,{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}}
+Cubase,{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{Yes}}
+Diamond Cut ART,{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}}
+Digital Performer,{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{No}},{{Yes}},{{Yes}},{{No}}
+Ecasound,{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}}
+FL Studio,{{No}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Partial|Import}},{{Yes}}
+GarageBand,{{No}},{{No}},{{Yes}}[4],{{Unk}},{{Yes}},{{Yes}},{{Unk}},{{Unk}},{{No}},{{No}}
+Goldwave,{{Unk}},{{Unk}},{{Unk}},{{Yes}},{{Yes}},{{Unk}},{{Yes}},{{Unk}},{{Yes}},{{Yes}}
+Harrison Mixbus,{{No}},{{No}},{{Yes}},{{Yes}},{{Unk}},{{Unk}},{{Yes}},{{Unk}},{{No}},{{Yes}}
+! OMF,AAF,MIDI,WAV,MP3,AAC,Ogg,REX2,AIFF,FLAC,Others
+Jokosher,{{No}},{{No}},{{No}},{{Yes}},{{Yes}},{{Unk}},{{Yes}},{{Unk}},{{Unk}},{{Unk}}
+Kristal,{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}}
+Live,{{No}},{{No}},{{Yes}},{{Yes}},{{Partial|Import}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}}
+LMMS,{{Unk}},{{Unk}},{{Yes}},{{Yes}},{{Yes}},{{Unk}},{{Yes}},{{Unk}},{{Yes}},{{Yes}}
+Logic Express/Studio,{{partial}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Unk}},{{Yes}},{{Yes}},{{Yes}}
+Mixcraft,{{No}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{No}},{{Yes}},{{Yes}}
+mp3DirectCut,{{No}},{{No}},{{No}},{{No}},{{Yes}},{{No}},{{No}},{{No}},{{No}},{{No}}
+MuLab,{{No}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{No}}
+MusE,{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}}
+N-Track,{{No}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{No}},{{Yes}},{{Yes}}
+Nuendo,{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{No}}
+NU-Tech,{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}}
+Podium,{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}}
+Pro Tools,{{Yes}}[5],{{Yes}}[5],{{Yes}},{{Yes}},{{Yes}},{{Partial|Import}},{{Partial|Import}},{{Yes}} (7.4),{{Yes}},{{No}}
+Qtractor,{{No}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{No}},{{Yes}},{{Yes}}
+REAPER,{{partial}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{Yes}}
+Reason,{{No}},{{No}},{{Yes}},{{Yes}},{{Partial|Import}},{{Partial|Import}},{{No}},{{Yes}},{{Yes}},{{No}}
+Record,{{No}},{{No}},{{Yes}},{{Yes}},{{No}},{{No}},{{No}},{{Yes}},{{Yes}},{{No}}
+! OMF,AAF,MIDI,WAV,MP3,AAC,Ogg,REX2,AIFF,FLAC,Others
+Renoise,{{No}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{No}},{{Yes}},{{Yes}}
+RiffWorks,{{No}},{{No}},{{No}},{{Partial|Export}},{{No}},{{No}},{{Partial|Export}},{{Yes}},{{No}},{{No}}
+Rosegarden,{{No}},{{No}},{{Yes}}[6],{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}}
+Samplitude,{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{Yes}}
+SONAR,{{Yes}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Partial|Import}},{{Yes}},{{No}},{{Yes}}
+Sound Forge,{{Unk}},{{Unk}},{{Unk}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Unk}},{{Yes}},{{Yes}}
+Soundbooth,{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}}
+Soundscape 32,{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}},{{Unk}}
+SoX,{{Unk}},{{Unk}},{{Unk}},{{Yes}},External LAME,{{Unk}},{{Yes}},{{Unk}},{{Yes}},{{Yes}}
+SpectraLayers,{{Unk}},{{Unk}},{{Unk}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Unk}},{{Yes}},{{Yes}}
+Studio One,{{No}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{Yes}},{{Yes}},{{Yes}}
+Sweep,{{No}},{{No}},{{No}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{No}},{{Yes}},{{Yes}}
+Total Recorder,{{No}},{{No}},{{No}},{{No}},{{Yes}},{{No}},{{Yes}},{{No}},{{No}},{{Yes}}
+Tracktion,{{No}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{Yes}}
+Traverso,{{No}},{{No}},{{Unk}},{{Yes}},{{Yes}},{{Unk}},{{Yes}},{{Unk}},{{No}},{{Yes}}
+WaveLab,{{No}},{{No}},{{partial|Controllers}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{Yes}}
+WavePad,{{No}},{{No}},{{partial|Import}},{{Yes}},{{Yes}},{{Yes}},{{Yes}},{{No}},{{Yes}},{{Yes}}
+WaveSurfer,{{No}},{{No}},{{No}},{{Yes}},{{Partial|Import}},{{No}},{{Partial|With plugin}},{{No}},{{Yes}},{{No}}
+! OMF,AAF,MIDI,WAV,MP3,AAC,Ogg,REX2,AIFF,FLAC,Others
