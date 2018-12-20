@@ -1,0 +1,46 @@
+,Server OS support,Features,,,,,,,,,,,,Storage,,Users
+Mail server,Linux/Unix,SMTP,POP3,IMAP,IMAP IDLE,SMTP over TLS,DANE,POP over TLS,IPv6,SSL,Webmail,ActiveSync,Sieve,Database,Filesystem,Other
+agorum core,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,No,No
+Apache James,Yes,Yes,Yes,Yes,Yes,Yes,?,Yes,?,Yes,No,No,Yes,Yes,Yes,No
+Axigen,Yes,Yes,Yes,Yes,Yes,Yes,?,Yes,Yes,Yes,"Ajax, Basic & Mobile",Yes,Yes,"Proprietary, Embedded, Optimized for Email and Groupware",No,Yes
+Citadel,Yes,Yes,Yes,Yes,No,Yes,?,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No
+CommuniGate Pro,Yes,Yes,Yes,Yes,Yes,Yes,?,Yes,Yes,Yes,Yes,Yes,?,Yes,Yes,Yes
+Courier Mail Server,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,maildrop,No,maildir,No
+Cyrus IMAP,Yes,No,Yes,Yes,Yes,No,?,Yes,Yes,Yes,No,No,Yes,Yes (indexes),Yes,Yes
+Dovecot,Yes[4],No,Yes,Yes,Yes,No,?,Yes,Yes,Yes,No,No,Yes,Yes,"maildir, mbox, dbox",No
+Eudora Internet Mail Server,No,Yes,Yes,Yes,?,No,?,No,?,No,No,No,?,No,No,Yes
+Exim,Yes,Yes,"Dovecot, UW IMAP","Dovecot, UW IMAP","Dovecot, UW IMAP",Yes,Yes[6],No,Yes,Yes,No,No,Yes,Yes,Yes,No
+FirstClass,Yes,Yes,Yes,Yes,?,Yes,?,Yes,?,Yes,Yes,Yes,?,Yes,Yes,Yes
+Gordano Messaging Suite,Yes,Yes,Yes,Yes,Yes,Yes,?,Yes,?,Yes,Yes,Yes,No,Yes,Yes,Yes
+GroupWise,Yes,Yes,Yes,Yes,?,Yes,?,Yes,?,Yes,Yes,Yes,?,Yes,No,No
+Halon,Yes,Yes,No,No,No,Yes,Yes[8],No,Yes,Yes,No,No,?,Yes,Yes,Yes
+Haraka,Yes,Yes,No,No,No,Yes,?,No,Yes,Yes,No,No,?,Yes,Yes,Yes
+hMailServer,No,Yes,Yes,Yes,Yes,Yes,?,Yes,Yes,Yes,Yes,No,?,Yes,Yes,No
+IBM Lotus Domino,Yes,Yes,Yes,Yes,?,Yes,?,Yes,Yes,Yes,Yes,Yes,?,Yes,No,No
+IceWarp Mail Server,Yes,Yes,Yes,Yes,Yes,Yes,?,Yes,Yes,Yes,Yes,Yes,?,Yes,Yes,No
+Ipswitch IMail Server,No,Yes,Yes,Yes,Yes (since v12.2)[9],Yes,?,Yes,?,Yes,Yes,Yes,?,No,Yes,No
+Kerio Connect,Yes,Yes,Yes,Yes,Yes,Yes,?,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No
+Kolab,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Kopano,Yes,External[10],Yes,Yes,Yes,External[10],No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Amazon S3
+Mailsite,No,Yes,Yes,Yes,?,Yes,?,Yes,?,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+Mailtraq,No,Yes,Yes,Yes,Yes,Yes,?,Yes,?,Yes,Yes,No,?,Yes,Yes,Yes
+MDaemon,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes
+Mercury Mail Transport System,No,Yes,Yes,Yes,Yes,Yes,?,Yes,?,Yes,Yes,No,?,No,Yes,No
+Microsoft Exchange Server,No,Yes,Yes,Yes,Yes[12][13],Yes,?,Yes,Yes (2007 sp1 onwards)[14],Yes,Yes,Yes,?,ESE only,Yes (up to 2003 only)[15],Yes
+NetMail,Yes,Yes,Yes,Yes,?,Yes,?,Yes,?,Yes,Yes,No,?,Yes,No,No
+OpenSMTPD,Yes,Yes,No,No,No,Yes,No[16],No,Yes,Yes,No,No,?,possible through custom backends,Yes,No
+Open-Xchange,Yes,Yes,Yes,Yes,?,Yes,?,Yes,?,Yes,Yes,Yes,?,Yes,No,No
+Oracle Communications Messaging Server,Yes,Yes,Yes,Yes,?,Yes,?,Yes,?,Yes,Yes,No,?,Yes,Yes,No
+Postfix,Yes,Yes,"Dovecot, UW IMAP","Dovecot, UW IMAP","Dovecot, UW IMAP",Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes
+qmail,Yes,Yes,Yes,"Dovecot, UW IMAP","Dovecot, UW IMAP",No,No,"Dovecot, UW IMAP",via Qsmtp,No,No,No,?,(cdb),Yes,No
+Qpopper,Yes,No,Yes,No,No,No,?,Yes,?,Yes,No,No,?,No,Yes,Yes
+Scalix,Yes,Yes,Yes,Yes,Yes,Yes (via Stunnel),?,Yes (via Stunnel),?,Yes (via Stunnel),Yes,Yes,?,Yes,Yes,No
+Sendmail,Yes,Yes,"Dovecot, UW IMAP","Dovecot, UW IMAP","Dovecot, UW IMAP",Yes,?,No,Yes,Yes,No,No,No,?,Yes,?
+SparkEngine,Yes,Yes,No,No,No,Yes,?,No,?,Yes,No,No,?,Yes,Yes,Yes
+Synovel Collabsuite,Yes,Yes,Yes,Yes,?,Yes,?,Yes,?,Yes,Yes,No,?,Yes,Yes,?
+UW IMAP,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,WebPine,No,No,Yes (Indexes),Yes,No
+WinGate,No,Yes,Yes,Yes,Yes,Yes,?,Yes,No,Yes,Yes,No,?,No,Yes,No
+Zarafa,Yes,External[10],Yes,Yes,Yes,External[10],No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No
+Zentyal,Yes,Yes,Yes,Yes,Yes,Yes,?,Yes,No,Yes,Yes,Yes,?,Yes,Yes,No
+Zimbra,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No
+Mail server,Linux/Unix,SMTP,POP3,IMAP,IMAP IDLE,SMTP over TLS,DANE,POP over TLS,IPv6,SSL,Webmail,ActiveSync,Sieve,Database,Filesystem,Other

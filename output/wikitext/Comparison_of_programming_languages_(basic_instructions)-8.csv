@@ -1,0 +1,37 @@
+! variable,constant,type synonym
+Ada[1],identifier : type «:= initial_value»{{ref|Ada declaration|[e]}},identifier : constant type := final_value
+ALGOL 68,modename name «:= initial_value»;,modename name = value;
+C (C99),type name «= initial_value»;,enum{ name = value };
+Objective-C,,
+C++,,const type name = value;
+C#,type name «= initial_value»; or var name = value;,const type name = value; or readonly type name = value;
+D,type name «= initial_value»; or auto name = value;,const type name = value; or immutable type name = value;
+Java,type name «= initial_value»;,final type name = value;
+JavaScript,var name «= initial_value»;,const name = value;
+Go,var name type «= initial_value» or name := initial_value,const name «type» = value
+Swift,var name «: type» «= initial_value»,let name «: type» = value
+Common Lisp,(defparameter name initial_value) or (defvar name initial_value) or (setf (symbol-value 'symbol) initial_value),(defconstant name value)
+Scheme,(define name initial_value),
+ISLISP,(defglobal name initial_value) or (defdynamic name initial_value),(defconstant name value)
+Pascal{{ref|Pascal's declarations|[a]}},name: type «= initial_value»,name = value
+Visual Basic,Dim name As type,Const name As type = value
+Visual Basic .NET,Dim name As type«= initial_value»,
+Xojo,Dim name As type«= initial_value»,
+Python,name = initial_value,rowspan=2 {{n/a}}
+CoffeeScript,,{{n/a}}
+S-Lang,name = initial_value;,
+Fortran,type name,"type, PARAMETER :: name = value"
+PHP,$name = initial_value;,"define("name", value); const name = value (5.3+)"
+Perl,«my» $name «= initial_value»;{{ref|Perl's my keyword|[c]}},use constant name => value;
+Perl 6,«my «type»» $name «= initial_value»;{{ref|Perl's my keyword|[c]}},«my «type»» constant name = value;
+Ruby,name = initial_value,Name = value
+Scala,var name«: type» = initial_value,val name«: type» = value
+Windows PowerShell,«[type]» $name = initial_value,{{n/a}}
+Bash shell,name=initial_value,{{n/a}}
+OCaml,let name «: type ref» = ref value{{ref|ML ref|[d]}},let name «: type» = value
+F#,let mutable name «: type» = value,
+Standard ML,val name «: type ref» = ref value{{ref|ML ref|[d]}},val name «: type» = value
+Haskell,,«name::type;» name = value
+Forth,VARIABLE name (in some systems use value VARIABLE name instead),value CONSTANT name
+COBOL,level-number name type clauses.,«0»1 name CONSTANT «AS» value.
+Mathematica,name=initialvalue,{{n/a}}

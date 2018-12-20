@@ -1,0 +1,113 @@
+Unit,Base,American,British,ANZAC,Soviet,French,German,Italian,Japanese
+Artillery,10.5 cm leFH 18,,,,,,{{yes|1942 Second Edition}},,
+,88mm Flak 36,,,,,,{{okay|Europe}},{{okay|Europe 1940}},
+,105mm Howitzer,{{yes|Europe}},{{okay|Europe}},{{okay|Pacific 1940}},{{okay|Europe}},{{okay|Europe 1940}},,,
+,152mm Howitzer,,,,{{yes|Europe 1940 Second Edition}},{{yes|Europe 1940 Second Edition}},,,
+,BL 5.5 inch,,,{{yes|1942 Second Edition}},,,,,
+,Cannone da 75/32,,,,,,,{{yes|Europe 1940 Second Edition}},
+,Ordnance QF 25 pounder,,{{yes|1942 Second Edition}},,,,,,
+,Type 92 70mm,,,,,,,{{okay|Anniversary}},{{yes|Pacific}}
+Mechanized Infantry,M5 Half-track,{{yes|Pacific 1940}},{{okay|Pacific 1940}},{{okay|Pacific 1940}},,,,,
+,Priest,,{{yes|Pacific 1940 Second Edition}},,,,,,
+,Ram-Kangaroo,,,{{yes|Pacific 1940 Second Edition}},,,,,
+,Sd.Kfz. 251,,,,,,{{yes|Pacific 1940}},{{okay|Pacific 1940}},{{okay|Pacific 1940}}
+,SPA Dovunque 35,,,,,,,{{yes|Pacific 1940 Second Edition}},
+,Type 1,,,,,,,,{{yes|Pacific 1940 Second Edition}}
+,ZIS-42,,,,{{yes|Pacific 1940}},{{yes|Europe 1940}},,,
+Tank,AC Sentinel,,,{{yes|Pacific 1940 Second Edition}},,,,,
+,IS-2,{{yes|1941}},{{yes|1941}},,{{yes|1941}},,,,
+,M14/41,,,,,,,{{okay|Anniversary}},
+,M15/42,,,,,,,{{yes|Europe 1940 Second Edition}},
+,Matilda II,,{{yes|Anniversary}},{{okay|Pacific 1940}},,,,,
+,Panther,,,,,,{{yes|Europe}},{{okay|Europe 1940}},
+,Sherman,{{yes|Europe}},{{okay|Europe}},,,,,,
+,T-34,,,,{{yes|Pacific}},{{yes|Europe 1940}},,,
+,Tiger,,,,,,{{yes|1941}},,{{yes|1941}}
+,Type 95,,,,,,,,{{yes|Pacific}}
+Truck,GMC 2 1/2-ton,{{yes|Battle of the Bulge}},,,,,,,
+,Opel 3-ton,,,,,,{{yes|Battle of the Bulge}},,
+Antiaircraft Gun,(Generic),{{okay|Guadalcanal}},,,,,,,{{okay|Guadalcanal}}
+,3.7in QFAA,,{{yes|1942 Second Edition}},,,,,,
+,8.8cm Flak 41,,,,,,{{yes|1942 Second Edition}},,
+,75mm Type 88,,,,,,,,{{yes|1942 Second Edition}}
+,85mm M1939,,,,{{yes|1942 Second Edition}},{{yes|Europe 1940 Second Edition}},,,
+,90mm M1,{{yes|1942 Second Edition}},,,,,,,
+,L/70 40mm,,,{{yes|Pacific 1940 Second Edition}},,,,,
+,Cannone da 90/53,,,,,,,{{yes|Pacific 1940 Second Edition}},
+Transport,Baltic Timber Ship,,,,{{yes|Europe 1940 Second Edition}},{{yes|Europe 1940 Second Edition}},,,
+,{{sclass2-|Fort|replenishment oiler|4}},{{yes|1941}},{{yes|1941}},,{{yes|1941}},,,,
+,Hakusan Maru class,,,,,,,,{{yes|Pacific}}
+,Hilfskreuzer,,,,,,{{yes|Europe}},{{okay|Anniversary}},
+,{{MV|Iridio Mantovani||2}},,,,,,,{{yes|Pacific 1940 Second Edition}},
+,Liberty ship,{{yes|Europe}},{{yes|Europe}},{{okay|Pacific 1940}},{{okay|Pacific 1940}},{{okay|Pacific 1940}},,,
+,{{HMNZS|Monowai|F59|2}},,,{{yes|Pacific 1940 Second Edition}},,,,,
+,Yamazuki Maru class,,,,,,{{yes|1941}},,{{yes|1941}}
+Destroyer,{{sclass-|Akizuki|destroyer (1942)|4}},,,,,,{{yes|1941}},,{{yes|1941}}
+,{{sclass-|Fubuki|destroyer|4}},,,,,,,,{{yes|Pacific}}
+,{{sclass-|Gnevny|destroyer|4}},,,,{{yes|1942}},{{yes|Europe 1940}},,,
+,Johnston class,{{yes|Europe}},{{okay|Europe}},{{okay|Pacific 1940}},{{okay|Europe}},,,,
+,{{HMS|Saumarez|G12|2}},,{{yes|1942 Second Edition}},,,,,,
+,{{sclass-|Soldati|destroyer|4}},,,,,,,{{yes|Pacific 1940 Second Edition}},
+,Sumner class,{{yes|1941}},{{yes|1941}},,{{yes|1941}},,,,
+,{{sclass2-|Tribal|destroyer (1936)|4}},,,{{yes|Pacific 1940 Second Edition}},,,,,
+,Zerstörer 1934,,,,,,{{yes|Europe}},{{okay|Anniversary}},
+Submarine,I class,,,,,,,,{{yes|Pacific}}
+,Kaichu class,,,,,,{{yes|1941}},,{{yes|1941}}
+,{{sclass-|Marconi|submarine|4}},,,,,,,{{yes|Pacific 1940 Second Edition}},
+,Ray class,{{yes|Europe}},{{okay|Europe}},{{okay|Pacific 1940}},{{okay|Europe}},{{okay|Europe 1940}},,,
+,S class,,,{{yes|Pacific 1940 Second Edition}},,,,,
+,Srednyaya class,,,,{{yes|Europe 1940 Second Edition}},{{yes|Europe 1940 Second Edition}},,,
+,{{HMS|Truculent|P315|2}},,{{yes|1942 Second Edition}},,,,,,
+,U class,{{yes|1941}},{{yes|1941}},,{{yes|1941}},,,,
+,Type VII,,,,,,{{yes|Europe}},{{okay|Anniversary}},
+Cruiser,{{sclass-|Admiral Hipper|cruiser|4}},,,,,,{{yes|Anniversary}},{{okay|Anniversary}},
+,Kent class,,{{yes|Anniversary}},{{yes|Pacific 1940}},{{okay|Anniversary}},,,,
+,{{sclass-|Kirov|cruiser|4}},,,,{{yes|1942}},{{yes|Europe 1940}},,,
+,{{sclass-|Portland|cruiser|4}},{{yes|Guadalcanal}},,,,,,,
+,{{sclass-|Takao|cruiser|4}},,,,,,,,{{yes|Guadalcanal}}
+,{{sclass-|Zara|cruiser (Italy)|4}},,,,,,,{{yes|Europe 1940 Second Edition}},
+Carrier,{{ship|Japanese aircraft carrier|Akagi||2}},,,,,,{{yes|1941}},,{{yes|1941}}
+,{{ship|Italian aircraft carrier|Aquila||2}},,,,,,,{{yes|Europe 1940 Second Edition}},
+,{{ship|German aircraft carrier|Graf Zeppelin||2}},,,,,,{{yes|Europe}},{{okay|Anniversary}},
+,{{sclass-|Illustrious|aircraft carrier|4}},,{{yes|Europe}},{{okay|Pacific 1940}},{{yes|Europe}},{{yes|Europe 1940}},,,
+,{{sclass-|Kostromitinova|aircraft carrier|4}},{{yes|1941}},{{yes|1941}},,{{yes|1941}},,,,
+,Majestic class,,,{{yes|1942 Second Edition}},,,,,
+,{{ship|Japanese aircraft carrier|Shinano||2}},,,,,,,,{{yes|Pacific}}
+,{{USS|Wasp|CV-7|2}},{{yes|Europe}},,,,,,,
+Battleship,{{sclass-|Bismarck|battleship|4}},,,,,,{{yes|Europe}},{{okay|Anniversary}},
+,{{sclass-|Gangut|battleship|4}},,,,{{yes|1942}},{{yes|Europe 1940}},,,
+,{{HMS|Hood|51|2}},{{yes|1941}},{{yes|1941}},,{{yes|1941}},,,,
+,{{sclass-|Iowa|battleship|4}},{{yes|Europe}},,,,,,,
+,Kongo class,,,,,,{{yes|1941}},,{{yes|1941}}
+,{{sclass-|Littorio|battleship|4}},,,,,,,{{yes|Europe 1940 Second Edition}},
+,Royal Oak class,,{{yes|Europe}},{{okay|Pacific 1940}},{{okay|Europe}},,,,
+,{{HMS|Warspite|03|2}},,,{{yes|1942 Second Edition}},,,,,
+,{{sclass-|Yamato|battleship|4}},,,,,,,,{{yes|Pacific}}
+Fighter,C.202,,,,,,,{{yes|Europe 1940 Second Edition}},
+,CA-12,,,{{yes|Pacific 1940 Second Edition}},,,,,
+,Fw 190,,,,,,{{yes|1941}},,{{yes|1941}}
+,Bf 109,,,,,,{{yes|Anniversary}},{{okay|Anniversary}},
+,MiG-3,,,,{{yes|Pacific 1940 Second Edition}},{{yes|Pacific 1940 Second Edition}},,,
+,P-38 Lightning,{{yes|Europe}},,,,,,,
+,P-40 Warhawk,{{yes|1941}},{{yes|1941}},,{{yes|1941}},,,,
+,Spitfire,,{{yes|Europe}},{{okay|Pacific 1940}},,,,,
+,Stuka,,,,,,{{okay|Europe}},,
+,Wildcat,{{okay|Pacific}},,,,,,,
+,Yak,,,,{{okay|Europe}},{{okay|Europe 1940}},,,
+,Zero,,,,,,,,{{yes|Pacific}}
+Tactical Bomber,Dauntless,{{yes|Pacific 1940}},,,,,,,
+,Mosquito,,{{yes|Pacific 1940}},{{okay|Pacific 1940}},,,,,
+,SM.79,,,,,,,{{yes|Europe 1940 Second Edition}},
+,Stuka,,,,,,{{yes|Europe 1940}},{{okay|Europe 1940}},
+,Sturmovik,,,,{{yes|Europe 1940}},{{yes|Europe 1940}},,,
+,TB.Mk.I,,,{{yes|Pacific 1940 Second Edition}},,,,,
+,Val,,,,,,,,{{yes|Pacific 1940}}
+Bomber,B-17,{{yes|Europe}},,,,,,,
+,Betty,,,,,,,{{okay|Anniversary}},{{yes|Pacific}}
+,Halifax,,{{yes|Europe}},{{okay|Pacific 1940}},,,,,
+,He 111,,,,,,{{yes|1941}},,{{yes|1941}}
+,Ju 88,,,,,,{{yes|Europe}},{{okay|Europe 1940}},
+,Lancaster,{{yes|1941}},{{yes|1941}},,{{yes|1941}},,,,
+,P.108,,,,,,,{{yes|Europe 1940 Second Edition}},
+,Pe-8,,,,{{yes|Europe}},{{yes|Europe 1940}},,,
+,PV-1,,,{{yes|Pacific 1940 Second Edition}},,,,,

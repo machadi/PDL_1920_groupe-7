@@ -1,0 +1,23 @@
+,AIX,*BSD,HP-UX,Linux,OS X,Solaris,Windows,Others
+Ansible,{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{yes}} (Need linux control machine),{{yes}}[97]
+Bcfg2,{{partial}}[98],{{yes}}[99],{{no}},{{yes}}[100],{{partial}}[101],{{yes}},{{no}},{{no}}
+CFEngine,{{yes}},{{yes}}[99],{{yes}},{{yes}},{{no}},{{yes}},{{yes}},{{yes}}[102]
+cdist,,{{yes}},,{{yes}},{{yes}},,{{no}},
+Chef,{{yes}}[103],{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{yes}}[104],{{yes}}
+ISconf,{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{no}},{{no}}
+Juju,,,,{{yes}},,,{{yes}}[105],
+Local ConFiGuration system (LCFG),{{no}},{{no}},{{no}},{{partial}}[106],{{partial}}[107],{{partial}}[108],{{no}},{{no}}
+OCS Inventory NG,{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{no}}
+Open pc server integration (Opsi),{{no}},{{no}},{{no}},{{yes}},{{no}},{{no}},{{yes}},{{no}}
+PIKT,{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{no}},{{yes}}[109]
+Puppet,{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{yes}}
+Quattor,{{no}},{{no}},{{no}},{{yes}},{{partial}}[110],{{yes}},{{no}},{{no}}
+Radmind,{{yes}},{{yes}}[99][111][112],{{no}},{{yes}},{{yes}},{{yes}},{{yes}},{{no}}
+Rex,,{{yes}},,{{yes}},{{yes}}[113],{{yes}},{{yes}}[113],{{no}}
+Rudder,{{yes}},{{partial}}[114],{{no}},{{yes}},{{partial}}[114],{{partial}}[115],{{yes}},{{yes}}[116]
+SmartFrog,{{no}}[117],{{no}}[117],{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{no}}[117]
+Salt,{{yes}},{{yes}},{{partial}}[118],{{yes}}[119],{{yes}},{{yes}}[120],{{yes}},{{partial}}[118]
+Spacewalk,{{no}}[121],{{no}},{{no}},{{yes}}[122],{{no}},{{yes}}[123],{{no}},{{no}}
+STAF,{{yes}}[124],{{yes}}[125],{{yes}}[126],{{yes}}[127],{{yes}}[128],{{yes}}[129],{{yes}}[130],{{yes}}[131]
+Synctool,{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{yes}},{{no}},{{yes}}[132]
+,AIX,*BSD,HP-UX,Linux,OS X,Solaris,Windows,Others
