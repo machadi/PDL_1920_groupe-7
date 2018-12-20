@@ -16,7 +16,7 @@ Installation of JDK (Java Development Kit) which contains the JRE (to run Java a
 
 ####Installing
 
-* Download IntelliJ IDEA Community from[www.jetbrains.com](www.jetbrains.com/idea/download/). 
+* Download IntelliJ IDEA Community from [www.jetbrains.com](www.jetbrains.com/idea/download/). 
 * Install the IDE by following the instructions on the screen.
 On the configuration import choice screen, click Do not import settings
 * Creation of the project. Click on Create New Project in the main screen. You will come across a screen displaying different possibilities to create a project from a base. 
