@@ -149,10 +149,10 @@ public class ConverterToCsv implements Converter
 
 			}
 		}catch (UnknownHostException e){
-			e.printStackTrace();
+			//e.printStackTrace();
 
 		}catch (HttpStatusException e){
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 
@@ -176,7 +176,7 @@ public class ConverterToCsv implements Converter
 
 
 		//corps
-        Elements trs = htmlTable.select("tbody tr");
+        	Elements trs = htmlTable.select("tbody tr");
 		writeInCsv(trs, csvBuilder, nbCol);
 
 		listOfCells.clear();
