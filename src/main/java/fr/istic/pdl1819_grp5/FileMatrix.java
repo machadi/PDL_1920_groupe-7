@@ -1,9 +1,8 @@
 package fr.istic.pdl1819_grp5;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 
 
@@ -13,7 +12,7 @@ public class FileMatrix {
 	
 	private String name;
 	
-	private String text="";
+	private String text;
 
 
 	public FileMatrix(String name){
@@ -37,12 +36,13 @@ public class FileMatrix {
         this.text = text;
     }
 
-	public File saveCsv(String path) throws IOException {
-		File csv= new File(path+"/"+getName()+".csv");
+	public File saveCsv(String csvPath) throws IOException {
+		File csv= new File(csvPath);
 		FileWriter fr = new FileWriter(csv);
 		fr.write(this.getText());
 		fr.close();
 		return csv;
+
 	}
 }
 
