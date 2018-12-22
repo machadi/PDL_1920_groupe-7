@@ -1,6 +1,6 @@
 # Wikipedia matrix
 
-wikipedia matrix is a table extractor via two way : HTML and WIKITEXT.
+wikipedia matrix is a table extractor via two ways : HTML and WIKITEXT.
 Its goal is to extract as many relevant tables from wikipedia links.
 the output format is csv.
 
