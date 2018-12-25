@@ -69,8 +69,8 @@ class ConverterToCsvTest {
             e.printStackTrace();
         }
 
-        parcoursUrl(ExtractType.WIKITEXT,outputDirWikitext);
         parcoursUrl(ExtractType.HTML,outputDirHtml);
+        parcoursUrl(ExtractType.WIKITEXT,outputDirWikitext);
 
 
 
