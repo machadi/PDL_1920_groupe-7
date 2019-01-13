@@ -129,8 +129,8 @@ class ConverterToCsvTest {
             int html=0, wikitext =0;
            if( (html = nombreOfTable(s, ExtractType.HTML)) != (wikitext=nombreOfTable(s, ExtractType.WIKITEXT))){
 
-               System.out.println(s);
-               System.out.println("html ; "+html+"  wiki :" +wikitext);
+             
+              
                assertTrue(false);
            }
        }
