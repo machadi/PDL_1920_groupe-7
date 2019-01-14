@@ -1,6 +1,7 @@
 package fr.istic.pdl1819_grp5;
 
 
+import info.bliki.api.Connector;
 import info.bliki.wiki.model.WikiModel;
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
@@ -19,7 +20,7 @@ import java.util.Set;
 
 
 /**
- *
+ * converter implementation
  */
 public class ConverterToCsv implements Converter
 {
@@ -89,8 +90,10 @@ public class ConverterToCsv implements Converter
 	 * @return true if table is relevant
 	 */
 	public boolean isRelevant(Element table) {
-		boolean isRelevant = table.selectFirst("li[class*=\"nv-talk\"]")==null; //select element which has class name nv-talk
-		return  isRelevant;
+		boolean isRelevant = table.selectFirst("[class*=\"nv-\"]")==null  || table.selectFirst("[class*=\"box\"]")==null
+				|| !table.className().contains("box") || !table.className().contains("nv-");
+
+		return table.className().contains("wikitable") && isRelevant;
 	}
 
 
@@ -212,8 +215,8 @@ public class ConverterToCsv implements Converter
 					if(index>=tds.size()){
 						csvBuilder.append(separateur);
 					}else {
-						String rowSpan ="";
-						String columnSpan="";
+						String rowSpan = "";
+						String columnSpan= "";
 
 						rowSpan=tds.get(index).attr("rowspan");
 						columnSpan=tds.get(index).attr("colspan");
@@ -244,9 +247,9 @@ public class ConverterToCsv implements Converter
 	public Set<FileMatrix> convertFromWikitext(String url) {
 		Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
 		try {
+
 			MediaWikiBot wikiBot = new MediaWikiBot(url.substring(0,url.lastIndexOf("iki/"))+"/");
 			Article article= wikiBot.getArticle(url.substring(url.lastIndexOf("/")+1,url.length()));
-
 
 			Document doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
 
@@ -255,7 +258,7 @@ public class ConverterToCsv implements Converter
 			try {
 				for(int i =0; i<tables.size();i++){
 
-					if(isRelevant(tables.get(i)) && !isNested(tables.get(i))){
+					if(!isNested(tables.get(i)) && isRelevant(tables.get(i))){
 						csvSet.add(convertHtmlTable(tables.get(i)));
 
 					}

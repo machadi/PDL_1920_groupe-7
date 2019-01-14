@@ -8,6 +8,7 @@ the output format is csv.
 clone https://github.com/jocelindegni/PDL_1819_grp5.git for development and testing purposes
 
 ## Prerequisites
+* JRE >= 1.8
 * java IDE
 * [Maven](https://maven.apache.org/) - Dependency Management to get all dependencies of this project.
  

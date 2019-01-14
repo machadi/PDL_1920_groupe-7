@@ -1,9 +1,16 @@
 package fr.istic.pdl1819_grp5;
 
+import info.bliki.wiki.model.WikiModel;
+import net.sourceforge.jwbf.core.contentRep.Article;
+import net.sourceforge.jwbf.core.contentRep.SimpleArticle;
+import net.sourceforge.jwbf.mediawiki.actions.editing.GetRevision;
+import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -12,18 +19,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static fr.istic.pdl1819_grp5.ConverterToCsvTest.nombreOfTable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ConverterToCsvTest {
-    Set<UrlMatrix> urlMatrixSet = new HashSet<UrlMatrix>();
-    WikipediaMatrix wikipediaMatrix = new WikipediaMatrix();
-    String outputDirHtml = "output" + File.separator + "html" + File.separator;
-    String outputDirWikitext = "output" + File.separator + "wikitext" + File.separator;
-    File file = new File("inputdata" + File.separator + "wikiurls.txt");
-    List<String> urls = new ArrayList<String>();
+   static  Set<UrlMatrix> urlMatrixSet = new HashSet<UrlMatrix>();
+   static  WikipediaMatrix wikipediaMatrix = new WikipediaMatrix();
+    static String outputDirHtml = "output" + File.separator + "html" + File.separator;
+    static String outputDirWikitext = "output" + File.separator + "wikitext" + File.separator;
+    static File file = new File("inputdata" + File.separator + "wikiurls.txt");
+    static List<String> urls = new ArrayList<String>();
 
-    String url;
+    static  String url;
+
     @Test
     void convertHtmlTable() throws IOException{
 
@@ -69,7 +79,8 @@ class ConverterToCsvTest {
             e.printStackTrace();
         }
 
-        parcoursUrl(ExtractType.HTML,outputDirHtml);
+       // parcoursUrl(ExtractType.HTML,outputDirHtml);
+
         parcoursUrl(ExtractType.WIKITEXT,outputDirWikitext);
 
 
@@ -79,14 +90,13 @@ class ConverterToCsvTest {
         //configuration WikipediaMatrix
         // Change to wikitext if you want this extraction
 
-        wikitextVShtml1();
 
     }
-    String mkCSVFileName(String url, int n) {
+    static String mkCSVFileName(String url, int n) {
         return url.trim() + "-" + n + ".csv";
     }
 
-    void parcoursUrl(ExtractType e,String directory ){
+    static void parcoursUrl(ExtractType e,String directory ){
         String csvFileName;
         wikipediaMatrix.setExtractType(e);
         try {
@@ -111,33 +121,41 @@ class ConverterToCsvTest {
         }
     }
 
-    void wikitextVShtml1( ){
+    @AfterAll
+    static void  wikitextVShtml1( ) throws IOException {
 
-        String[] wikitextFiles =  new File(outputDirWikitext).list();
-       String[] htmlFiles = new File(outputDirHtml).list();
 
-       for(String s : urls)
-           assertTrue(existIn(s, wikitextFiles)?existIn(s, htmlFiles):!existIn(s,htmlFiles));
+       for(String s : urls){
+            int html=0, wikitext =0;
+           if( (html = nombreOfTable(s, ExtractType.HTML)) != (wikitext=nombreOfTable(s, ExtractType.WIKITEXT))){
 
-       //assertEquals(wikitextFiles.length, htmlFiles.length);
+             
+              
+               assertTrue(false);
+           }
+       }
+
 
     }
 
-    boolean existIn(String text, String[] tab ){
+    static int  nombreOfTable(String title, ExtractType e){
 
-        boolean contain = false;
+        String[] files = new File(e==ExtractType.HTML?outputDirHtml:outputDirWikitext).list();
 
-        for(int i=0; i<tab.length;i++){
-            if (tab[i].equals(text)) {
-                contain = true;
-                break;
-            }
+        int nbre = 0;
+
+        for (String s : files){
+            if(s.contains(title))
+                nbre++;
         }
-        return contain;
+
+        return nbre;
     }
 
 
-    public String ReadFile(String file){
+
+
+    public static String ReadFile(String file){
         String htmltext="";
         try{
             BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(file)));
@@ -154,7 +172,7 @@ class ConverterToCsvTest {
         return htmltext;
     }
     @Test
-    void convertTable() throws IOException {
+    static void convertTable() throws IOException {
 
         ConverterToCsv c=new ConverterToCsv();
         Document doc= Jsoup.parse(ReadFile("src/test/1 rowspan/html"));
