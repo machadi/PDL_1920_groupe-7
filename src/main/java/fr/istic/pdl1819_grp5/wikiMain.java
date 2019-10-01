@@ -10,21 +10,22 @@ public class wikiMain {
     public static void main(String[] args) throws IOException {
 
 
-        if(args.length<2){
+        /*if(args.length<2){
             System.err.println("Usage : wiki -<inputFile> -<OuputDirectory>\n" +
                     "-inputFile : list of wikipedia's article title \n" +
                     "-ouputDirectory : destination directory\n");
             System.exit(0);
-        }
+        }*/
 
-        File urlsFile = new File(args[0]);
+        File urlsFile = new File("D:\\PROJET M1\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
+
 
         if(!urlsFile.exists() && !urlsFile.isDirectory()){
             System.err.println("input file not found");
             System.exit(0);
         }
 
-        File directory = new File(args[1]);
+        File directory = new File("D:\\PROJET M1\\PDL_1920_groupe-7\\output");
 
         if(!directory.exists() || !directory.isDirectory()){
             System.err.println("Bad destination path");
