@@ -1,8 +1,8 @@
-<p>Partie Readme
-  
-  
-  </p>
+#Synthèse des informations récupérées lors de l'analyse du projet. Mettez les infos dans la catégorie qui vous semble appropriée
 
-Partie Design
+##Partie Readme
+  
 
-Partie install
+##Partie Design
+
+##Partie install
