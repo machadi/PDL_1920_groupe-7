@@ -1,8 +1,0 @@
-#Synthèse des informations récupérées lors de l'analyse du projet. Mettez les infos dans la catégorie qui vous semble appropriée
-
-##Partie Readme
-  
-
-##Partie Design
-
-##Partie install
