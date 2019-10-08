@@ -2,25 +2,29 @@
 
 ##Prerequisites
 
-Java version 1.8
+- Java version 1.8
 
-IDE like Eclipse or IntelliJ
+- IDE Java like Eclipse or IntelliJ
 
-##Settings of Inputs and outputs
+##installation procedure
 
-In the class wikiMain, change the path by your path to access of your repertory Input.
+- Clone the project, URL=*https://github.com/manuc352/PDL_1920_groupe-7*;
+- Install __maven__;
+- **[Mieux formuler]** In the class wikiMain, change the path by your path to access of your repertory Input;
 
+##Running options
 
---> Cloner le code source
+- Automatically, the extractor will extract a big quantity of tables which are on a list of URL which are written in the file wikiurls.txt in the repertory inputdata. 
+If you want to run the extractor on only one URL, you have to replace links in wikiurls.txt by your URL.   
 
---> Install maven 
+##After running 
 
---> If all is correct, you can run the program. 
-The system will create a file for each table in the URL wikipedia. 
+- The system has created a file for each table in the URL wikipedia. 
 Files which are created thanks to wikitext code will be in the repertory wikitext, and files which are create thanks to HTML code will be in the repertory HTML
 
---> Comment lancer un extracteur sur une page donnée --> Modifier l'URL dans le fichier input.
+##Errors 
 
 --> Sous section pour d'éventuelles difficultés mais une section générale qui est susceptible de faire marcher le projet.
 
---> Si il y a une erreur de compilation de type : "release version 5 not supported", aller dans File> Settings > Build, execution, deployment > Java Compiler, dans target bytecode version, noter 1.8. 
+-  If you have a compilation warning of type : "release version 5 not supported", 
+go to File> Settings > Build, execution, deployment > Java Compiler, in target bytecode version, write 1.8.
