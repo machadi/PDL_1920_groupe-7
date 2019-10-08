@@ -13,9 +13,7 @@ In the class wikiMain, change the path by your path to access of your repertory 
 
 --> Cloner le code source
 
---> Installer maven
-
--->
+--> Install maven 
 
 --> If all is correct, you can run the program. 
 The system will create a file for each table in the URL wikipedia. 
