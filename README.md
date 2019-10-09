@@ -18,7 +18,7 @@ clone https://github.com/manuc352/PDL_1920_groupe-7 for development and testing 
 * java IDE  (Eclispe,Intelliji Idea etc..)
 * [Maven](https://maven.apache.org/) - Dependency Management to get all dependencies of this project.
 * for installing and testing we are inviting you to click on, this below link
-[](link of install.md file)
+[Install.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/INSTALL.md)
 * you will see A step by step series of examples that tell you how to install  and test this,after that
 you can run the project for testing and extracting csv files from wikipedia pages which are 
 available in the directory inputdat--> wikiurls.txt.
@@ -39,8 +39,8 @@ In order to attain this goal, there are several areas of concern that Maven atte
 * Allowing transparent migration to new features
 
 you will find more informations to increase your comprehension of the project when you will read thise below files
-[install.md]()
-[Design.md]()
+[Install.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/INSTALL.md)
+[Design.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/DESIGN.md)
 
 ##Fonctionnalities
 
