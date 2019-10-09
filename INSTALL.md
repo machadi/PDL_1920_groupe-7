@@ -1,12 +1,12 @@
-#Installation
+# Installation
 
-##Prerequisites
+## Prerequisites
 
 - Java version 1.8
 
 - IDE Java like Eclipse or IntelliJ
 
-##installation procedure
+## installation procedure
 
 - Clone the project, URL=*https://github.com/manuc352/PDL_1920_groupe-7*;
 - Install __maven__;
