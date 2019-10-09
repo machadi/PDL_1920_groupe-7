@@ -27,4 +27,6 @@ Files which are created thanks to wikitext code will be in the repertory wikitex
 --> Sous section pour d'éventuelles difficultés mais une section générale qui est susceptible de faire marcher le projet.
 
 -  If you have a compilation warning of type : "release version 5 not supported", 
-go to File> Settings > Build, execution, deployment > Java Compiler, in target bytecode version, write 1.8.
+go to File> Settings > Build, execution, deployment > Java Compiler, in target bytecode version, write 1.8.   
+
+...
