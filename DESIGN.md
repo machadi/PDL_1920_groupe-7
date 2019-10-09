@@ -1,7 +1,7 @@
-#Introduction
+# Introduction
 
 
-#UML Diagram
+# UML Diagram
 
-#Sequence Diagram 
-#Class description
+# Sequence diagram
+# Class diagram
