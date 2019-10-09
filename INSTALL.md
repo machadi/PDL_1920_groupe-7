@@ -13,10 +13,10 @@
 - In the class wikiMain, change the path line 20 by your personnal path to access of your repertory Input;
 - Same thing for the path line 28 with the repertory output
 
-## Running options
+## Running 
 
 - Automatically, the extractor will extract a big quantity of tables which are on a list of URL which are written in the file wikiurls.txt in the repertory inputdata. 
-If you want to run the extractor on only one URL, you have to replace links in wikiurls.txt by your URL.   
+- If you want to run the extractor on only one URL, you have to replace links in wikiurls.txt by your URL.   
 
 ## After running 
 
