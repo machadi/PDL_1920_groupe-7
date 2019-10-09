@@ -26,7 +26,7 @@ public class ConverterToCsv implements Converter
 {
 
     /*
-    Celll of html table which have rowspan and colspan attribute
+    Cell of html table which have rowspan and colspan attribute
      */
 
     class PriorityCell{
