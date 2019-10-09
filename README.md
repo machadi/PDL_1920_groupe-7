@@ -4,8 +4,8 @@ Wikipedia Matrix <<THE TRUTH>> is a table extractor via two ways : HTML and WIKI
 the purpose of this project is to improve the first version of the project which has 
 been done by the students of last years at ISTIC MASTER 1 (2018-2019)
 It's goal is to extract as many relevant tables from wikipedia links.
-the output format is csv.
-like any project we have several diffrents version and the purpose of this it's to improve it 
+The output format is csv.
+like any project we have several different version and the purpose of this it's to improve it 
 from version to version over time to make it more powerful and better than the others versions made
 by the students of Master degree from last year.
 
@@ -24,7 +24,7 @@ you can run the project for testing and extracting csv files from wikipedia page
 available in the directory inputdat--> wikiurls.txt.
 
 ### For Developpers
-After having those prerequisites above you should add thise below
+After having those prerequisites above you should add these below
 * [jsoup](https://jsoup.org) is a Java library for working with real-world HTML. 
 It provides a very convenient API for extracting and manipulating data, 
 using the best of DOM, CSS, and jquery-like methods.
@@ -82,5 +82,5 @@ now it's our turn to improve their work
 * Emmanuel CHAUVEL 
 * Narcisse KOUADIO
 * Oceane THELISMA
-* Noussi AMAL
+* Amal NOUSSI
 * Karima GRAMI
