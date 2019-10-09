@@ -10,7 +10,8 @@
 
 - Clone the project, URL=*https://github.com/manuc352/PDL_1920_groupe-7*;
 - Install __maven__;
-- **[Mieux formuler]** In the class wikiMain, change the path by your path to access of your repertory Input;
+- In the class wikiMain, change the path line 20 by your personnal path to access of your repertory Input;
+- Same thing for the path line 28 with the repertory output
 
 ##Running options
 
@@ -24,9 +25,5 @@ Files which are created thanks to wikitext code will be in the repertory wikitex
 
 ##Errors 
 
---> Sous section pour d'éventuelles difficultés mais une section générale qui est susceptible de faire marcher le projet.
-
 -  If you have a compilation warning of type : "release version 5 not supported", 
 go to File> Settings > Build, execution, deployment > Java Compiler, in target bytecode version, write 1.8.   
-
-...
