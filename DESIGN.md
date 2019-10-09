@@ -1,12 +1,3 @@
-# UML Diagram
-
-<img align="center" src="/src/img/ipdl_uml.png">
-
-# Sequence diagram
-
-<img align="center" src="/src/img/sequence1.png">
-<img align="center" src="/src/img/sequence2.png">
-
 # Class diagram
 
 The code part consists of:
@@ -44,3 +35,13 @@ The Main gets a Set of FileMatrix obtained using setFilesMatrix().
 ### class « FileMatrix »:  saveCsv
 
 For each FileMatrix obtained using the UrlMatrix class I save the file using the method saveCsv (String csvPath).
+
+# UML Diagram
+
+<img align="center" src="/src/img/ipdl_uml.png">
+
+# Sequence diagram
+
+<img align="center" src="/src/img/sequence1.png">
+<img align="center" src="/src/img/sequence2.png">
+
