@@ -32,6 +32,31 @@ The method getConvertConvert(), Depending onhis type and for each UrlMatrix uses
 
 The Main gets a Set of FileMatrix obtained using setFilesMatrix().
 
+### class  « ConverterToCsv »:
+
+Used by the setFilesMatrix () method through the Converter interface. We use one of two methods that returns a set of FileMatrix .
+A piece of WikipediaMatrix class:"setFilesMatrix (converter.convertFromHtml (urlMatrix.getLink ()))"
+ 
+convertFromHtml
+we get the tables thanks to the url in parameter, if they are relevant (Isrelevant()*) and not imbedded (isNested()**) with another parent element of the HTML page, we start creating a new CSV file called FileMatrix using the convertHtmlTable method. It is composed of a header, a body and a footer. For each part, we use writeInCsv (),to help writing each section of the CSV file.
+
+Priority Cell: 
+A class modeling the so-called "priority cells". These cells are cells are located on more than one row and / or column. This class has rowspan and colspan attributes, which correspond to the numbers of cells and columns on which the cell is "spreads", as well as the row and col attributes that correspond to the row and column number of the cell.
+
+convertFromWikitext
+For a given url this method creates a Mediawikibot (automated tools that can be used to do tedious work or repetitive tasks related to a wiki.) Then check if it is relevant (Isrelevant ()*) and not nested (Isnested()**) with another element parent of the HTML page. Then start creating a new CSV file called "FileMatrix" using the convertHtmlTable method. It consists of a header, a body and a footer and for each part using writeInCsv (), For each part, we use writeInCsv (),to help writing each section of the CSV file.
+
+→ the priorityCell interest is to avoid duplicate data in the CSV file, so instead of repeating the data, when the priorityCell has already been noted, only a comma is written instead of rewriting the data.
+
+* Isrelevant(): For a given array, check if the array has a class wikitable 
+and not class box or nav.
+
+**isNested(): For a given array, check if the array contains another array inside
+
+public class Csv extends FileMatrix{
+Uses the constructor of the super-class "FileMatrix"
+}
+
 ### class « FileMatrix »:  saveCsv
 
 For each FileMatrix obtained using the UrlMatrix class I save the file using the method saveCsv (String csvPath).
