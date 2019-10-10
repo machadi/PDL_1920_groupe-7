@@ -48,10 +48,9 @@ For a given url this method creates a Mediawikibot (automated tools that can be 
 
 → the priorityCell interest is to avoid duplicate data in the CSV file, so instead of repeating the data, when the priorityCell has already been noted, only a comma is written instead of rewriting the data.
 
-* Isrelevant(): For a given array, check if the array has a class wikitable 
-and not class box or nav.
+###### *isRelevant(): For a given array, check if the array has a class wikitable and not class box or nav.
 
-**isNested(): For a given array, check if the array contains another array inside
+###### **isNested(): For a given array, check if the array contains another array inside
 
 public class Csv extends FileMatrix{
 Uses the constructor of the super-class "FileMatrix"
