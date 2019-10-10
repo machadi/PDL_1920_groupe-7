@@ -52,9 +52,8 @@ For a given url this method creates a Mediawikibot (automated tools that can be 
 
 ###### **isNested(): For a given array, check if the array contains another array inside
 
-public class Csv extends FileMatrix{
-Uses the constructor of the super-class "FileMatrix"
-}
+###  class Csv extends FileMatrix
+
 
 ### class « FileMatrix »:  saveCsv
 
