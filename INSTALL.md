@@ -8,20 +8,20 @@
 
 ## Installation procedure
 
-- Clone the project, URL=*https://github.com/manuc352/PDL_1920_groupe-7*;
+- Clone the project, URL=*https://github.com/manuc352/PDL_1920_groupe-7.git*;
 - Install __maven__;
-- In the class wikiMain, change the path line 20 by your personnal path to access of your repertory Input;
+- In the class wikiMain, change the path line 20 by your personal path to access your repertory inputdata;
 - Same thing for the path line 28 with the repertory output
 
-## Running 
+## Before running
 
-- Automatically, the extractor will extract a big quantity of tables which are on a list of URL which are written in the file wikiurls.txt in the repertory inputdata. 
-- If you want to run the extractor on only one URL, you have to replace links in wikiurls.txt by your URL.   
+- If you don't change anything, the extractor will extract tables which are extracted from wikipedia pages which corresponds of the list of URL written in the file *wikiurls.txt* in the repertory *inputdata*. 
+- If you want to run the extractor on only one URL, you have to replace links in *wikiurls.txt* by your URL.   
 
 ## After running 
 
-- The system has created a file for each table in the URL wikipedia. 
-Files which are created thanks to wikitext code will be in the repertory wikitext, and files which are create thanks to HTML code will be in the repertory HTML
+- The system has created a file for each table in each wikipedia page. 
+- These CSV files are registered in directory *output*. CSV files from the *wikitext* extractor are in the directory *wikitext*, and files from html extractor are in the directory *html*.
 
 ## Errors 
 
