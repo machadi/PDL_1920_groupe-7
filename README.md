@@ -40,7 +40,7 @@ In order to attain this goal, there are several areas of concern that Maven atte
 * Allowing transparent migration to new features
 
 you will find more informations to increase your comprehension of the project when you will read thise below files
-[Install.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/INSTALL.md)
+[Install.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/INSTALL.md) and
 [Design.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/DESIGN.md)
 
 ##Functionalities of  the application
