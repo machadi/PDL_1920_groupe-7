@@ -48,7 +48,15 @@ you will find more informations to increase your comprehension of the project wh
 * extraction of csv files through tables from wikipedia pages whose urls are in the wikiurls.txt file of the inputdata directory
 * implementation of some tests to verify a good extraction 
 
+#### Future functionalities 
+* statistics on extracted files and tables not taken into account according to the selection criteria of the tables to be extracted
+* automatic testing of file extraction quality
 
+## Running the tests
+ConvertToCsvTest is in charge of testing the extractor.
+two methods: 
+* convertFromHtml : test if the csv produced are corrects.
+* wikitextVsHtml : Verifies that all relevant tables have been extracted. 
 
 ## Deployment
 run mvn package this Build the project to generate the artefac.
