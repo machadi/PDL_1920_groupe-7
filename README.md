@@ -1,13 +1,14 @@
 # Wikipedia Matrix The Truth
 
-Wikipedia Matrix <<THE TRUTH>> is a table extractor via two ways : HTML and WIKITEXT.
+Wikipedia Matrix THE TRUTH is a table extractor via two ways : HTML and WIKITEXT.
 the purpose of this project is to improve the first version of the project which has 
-been done by the students of last years at ISTIC MASTER 1 (2018-2019)
+been done by the students of Master degree from last year.
 It's goal is to extract as many relevant tables from wikipedia links.
 the output format is csv.
-like any project we have several diffrents version and the purpose of this it's to improve it 
-from version to version over time to make it more powerful and better than the others versions made
-by the students of Master degree from last year.
+like any project we have several differents version and the purpose of this it's to improve it, 
+from version to version over time to make it more powerful and better than the others versions.
+* the current objective is to have a better extractor than the other versions by adding others criteria for selecting the relevant tables to be extracted 
+and setting up automatic tests that will show the quality of the extractor and also its weaknesses.
 
 ## Getting Started
 clone https://github.com/manuc352/PDL_1920_groupe-7 for development and testing purposes
@@ -35,40 +36,30 @@ Maven’s primary goal is to allow a developer to comprehend the complete state 
 In order to attain this goal, there are several areas of concern that Maven attempts to deal with:
 * Making the build process easy
 * Providing a uniform build system and quality project information
-*Providing guidelines for best practices development
+* Providing guidelines for best practices development
 * Allowing transparent migration to new features
 
 you will find more informations to increase your comprehension of the project when you will read thise below files
 [Install.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/INSTALL.md)
 [Design.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/DESIGN.md)
 
-##Fonctionnalities
+##Functionalities of  the application
+##### the functionalities which were implemented by the first group to work on the project
+* extraction of csv files through tables from wikipedia pages whose urls are in the wikiurls.txt file of the inputdata directory
+* implementation of some tests to verify a good extraction 
 
 
-
-
-## Useful Links
-
-
- 
-## Running the tests
-ConvertToCsvTest is in charge of testing the extractor.
-two methods: 
-* convertFromHtml : test if the csv produced are corrects.
-* wikitextVsHtml : Verifies that all relevant tables have been extracted. 
 
 ## Deployment
-run mvn package.
-
+run mvn package this Build the project to generate the artefac.
 
 ## Versioning
-For the versions available, see the [tags on this repository](https://github.com/manuc352/PDL_1920_groupe-7). 
+For the versions available, see the [tags on this repository](https://github.com/manuc352/PDL_1920_groupe-7/releases). 
 
 ## Built With
 * [bliki](http://www.dropwizard.io/1.0.2/docs/) -  java parser library for converting Wikipedia wikitext notation to HTML.
 * [jsoup](https://jsoup.org/) -Java library for working with real-world HTML.
 * [Maven](https://maven.apache.org/) - Dependency Management.
-
 
 ## Authors
 As we have already said it this project has been develop by those students
