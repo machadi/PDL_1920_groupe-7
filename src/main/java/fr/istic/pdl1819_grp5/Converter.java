@@ -18,6 +18,11 @@ public  interface Converter
 	 */
 	
 	public Set<FileMatrix> convertFromHtml(String link) throws IOException;
+
+	/**
+	 * @param link
+	 * @return
+	 **/
 	public Set<FileMatrix> convertFromWikitext(String link) ;
 
 }
