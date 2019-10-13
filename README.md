@@ -11,8 +11,8 @@ Indeed, html extraction provides more tables than wikitext extraction.
 * criteria for selecting relevant tables not refined
 
 Like any project we have several differents version and the purpose of this it's to improve it, 
-from version to version over time to make it more powerful and better than the others versions.
-* the current objective is to have a better extractor than the other versions.
+from version to version over time to make it more powerful and better than the others versions,
+the current objective is to have a better extractor than the other versions.
 
 ## Getting Started
 clone https://github.com/manuc352/PDL_1920_groupe-7 for development and testing purposes
