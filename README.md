@@ -5,10 +5,14 @@ the purpose of this project is to improve the first version of the project which
 been done by the students of Master degree from last year.
 It's goal is to extract as many relevant tables from wikipedia links.
 the output format is csv.
-like any project we have several differents version and the purpose of this it's to improve it, 
+After analysis of the program we have listed thise following problems:
+* difference between the results of the extraction methods 
+Indeed, html extraction provides more tables than wikitext extraction.
+* criteria for selecting relevant tables not refined
+
+Like any project we have several differents version and the purpose of this it's to improve it, 
 from version to version over time to make it more powerful and better than the others versions.
-* the current objective is to have a better extractor than the other versions by adding others criteria for selecting the relevant tables to be extracted 
-and setting up automatic tests that will show the quality of the extractor and also its weaknesses.
+* the current objective is to have a better extractor than the other versions.
 
 ## Getting Started
 clone https://github.com/manuc352/PDL_1920_groupe-7 for development and testing purposes
@@ -43,20 +47,14 @@ you will find more informations to increase your comprehension of the project wh
 [Install.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/INSTALL.md) and
 [Design.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/DESIGN.md)
 
-##Functionalities of  the application
+## Functionalities of  the application
 ##### the functionalities which were implemented by the first group to work on the project
 * extraction of csv files through tables from wikipedia pages whose urls are in the wikiurls.txt file of the inputdata directory
 * implementation of some tests to verify a good extraction 
 
 #### Future functionalities 
 * statistics on extracted files and tables not taken into account according to the selection criteria of the tables to be extracted
-* automatic testing of file extraction quality
-
-## Running the tests
-ConvertToCsvTest is in charge of testing the extractor.
-two methods: 
-* convertFromHtml : test if the csv produced are corrects.
-* wikitextVsHtml : Verifies that all relevant tables have been extracted. 
+* automatic testing of file extraction quality , thise tests will show also the  weaknesses of the extractor.
 
 ## Deployment
 run mvn package this Build the project to generate the artefac.
