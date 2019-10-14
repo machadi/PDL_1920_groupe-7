@@ -48,7 +48,7 @@ you will find more informations to increase your comprehension of the project wh
 [Design.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/DESIGN.md)
 
 ## Functionalities of  the application
-##### the functionalities which were implemented by the first group to work on the project
+#### the functionalities which were implemented by the first group to work on the project
 * extraction of csv files through tables from wikipedia pages whose urls are in the wikiurls.txt file of the inputdata directory
 * implementation of some tests to verify a good extraction 
 
