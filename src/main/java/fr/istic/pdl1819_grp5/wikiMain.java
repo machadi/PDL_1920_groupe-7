@@ -17,7 +17,7 @@ public class wikiMain {
             System.exit(0);
         }*/
 
-        File urlsFile = new File("D:\\PROJET M1\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
+        File urlsFile = new File("C:\\Users\\emman\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
 
 
         if(!urlsFile.exists() && !urlsFile.isDirectory()){
@@ -25,7 +25,7 @@ public class wikiMain {
             System.exit(0);
         }
 
-        File directory = new File("D:\\PROJET M1\\PDL_1920_groupe-7\\output");
+        File directory = new File("C:\\Users\\emman\\IdeaProjects\\PDL_1920_groupe-7\\output");
 
         if(!directory.exists() || !directory.isDirectory()){
             System.err.println("Bad destination path");
@@ -49,6 +49,7 @@ public class wikiMain {
         System.out.println("Extracting via html...");
         Set<UrlMatrix> urlMatrixSet = wiki.getConvertResult();
         //save files
+        int numberFileHtml=0; //Creation of the variable which contains the number of files
         for (UrlMatrix urlMatrix : urlMatrixSet){
             int i=0;
             url=urlMatrix.getLink();
@@ -59,8 +60,9 @@ public class wikiMain {
                 f.saveCsv(htmlDir.getAbsolutePath()+File.separator+csvFileName);
                 i++;
             }
-
+            numberFileHtml+=i; //Number of files = current value of i
         }
+        System.out.println("Extractor HTML created "+numberFileHtml+" files.");//affichage du nombre de tableaux extraits
 
         // Wikitext extraction
         wiki.setUrlsMatrix(getListofUrls(urlsFile));
@@ -68,6 +70,7 @@ public class wikiMain {
         System.out.println("Extracting via wikitext...");
         urlMatrixSet = wiki.getConvertResult();
         //save files
+        int numberFileWiki=0; //Creation of the variable which contains the number of files
         for (UrlMatrix urlMatrix : urlMatrixSet){
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
             int i=0;
@@ -78,8 +81,10 @@ public class wikiMain {
                 f.saveCsv(wikitextDir.getAbsolutePath()+File.separator+csvFileName);
                 i++;
             }
+            numberFileWiki+=i; //Number of files = current value of i
 
         }
+        System.out.println("Extractor Wikitext created "+numberFileWiki+" files.");//affichage du nombre de tableaux extraits
 
     }
 
