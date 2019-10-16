@@ -49,6 +49,8 @@ public class wikiMain {
         System.out.println("Extracting via html...");
         Set<UrlMatrix> urlMatrixSet = wiki.getConvertResult();
         //save files
+        long execHtml = System.currentTimeMillis();//to measure time of execution
+
         int numberFileHtml=0; //Creation of the variable which contains the number of files
         for (UrlMatrix urlMatrix : urlMatrixSet){
             int i=0;
@@ -63,6 +65,7 @@ public class wikiMain {
             numberFileHtml+=i; //Number of files = current value of i
         }
         System.out.println("Extractor HTML created "+numberFileHtml+" files.");//affichage du nombre de tableaux extraits
+        System.out.println("Temps d'exécution = "+(System.currentTimeMillis()-execHtml)+" ms");
 
         // Wikitext extraction
         wiki.setUrlsMatrix(getListofUrls(urlsFile));
@@ -70,6 +73,7 @@ public class wikiMain {
         System.out.println("Extracting via wikitext...");
         urlMatrixSet = wiki.getConvertResult();
         //save files
+        long execWiki = System.currentTimeMillis();//to measure time of execution
         int numberFileWiki=0; //Creation of the variable which contains the number of files
         for (UrlMatrix urlMatrix : urlMatrixSet){
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
@@ -85,6 +89,7 @@ public class wikiMain {
 
         }
         System.out.println("Extractor Wikitext created "+numberFileWiki+" files.");//affichage du nombre de tableaux extraits
+        System.out.println("Temps d'exécution = "+(System.currentTimeMillis()-execWiki)+" ms");
 
     }
 
