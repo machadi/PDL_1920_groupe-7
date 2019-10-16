@@ -24,6 +24,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ *
+ */
 class ConverterToCsvTest {
    static  Set<UrlMatrix> urlMatrixSet = new HashSet<UrlMatrix>();
    static  WikipediaMatrix wikipediaMatrix = new WikipediaMatrix();
@@ -34,6 +37,15 @@ class ConverterToCsvTest {
 
     static  String url;
 
+    /**
+     * convert url given in urlMatrix
+     * check link wikitext
+     * check link html
+     * check number of url
+     * check url connexion
+     * @throws IOException
+     *
+     */
     @Test
     void convertHtmlTable() throws IOException{
 
@@ -92,10 +104,23 @@ class ConverterToCsvTest {
 
 
     }
+
+
+    /**
+     * create filematrix name
+     * @param url
+     * @param n corresponds to the number of tables
+     * @return name filematrix
+     */
     static String mkCSVFileName(String url, int n) {
         return url.trim() + "-" + n + ".csv";
     }
 
+    /**
+     * create for each urlMatrix a number of fileMatrix
+     * @param e corresponds to an extractor type
+     * @param directory outputDirHtml
+     */
     static void parcoursUrl(ExtractType e,String directory ){
         String csvFileName;
         wikipediaMatrix.setExtractType(e);
@@ -121,6 +146,10 @@ class ConverterToCsvTest {
         }
     }
 
+    /**
+     * check if wikitext and html have the same number of tables
+     * @throws IOException
+     */
     @AfterAll
     static void  wikitextVShtml1( ) throws IOException {
 
@@ -129,8 +158,8 @@ class ConverterToCsvTest {
             int html=0, wikitext =0;
            if( (html = nombreOfTable(s, ExtractType.HTML)) != (wikitext=nombreOfTable(s, ExtractType.WIKITEXT))){
 
-             
-              
+
+
                assertTrue(false);
            }
        }
@@ -138,6 +167,12 @@ class ConverterToCsvTest {
 
     }
 
+    /**
+     * count number of array of an extractor
+     * @param title
+     * @param e corresponds to an extractor type
+     * @return number of tables
+     */
     static int  nombreOfTable(String title, ExtractType e){
 
         String[] files = new File(e==ExtractType.HTML?outputDirHtml:outputDirWikitext).list();
@@ -151,8 +186,6 @@ class ConverterToCsvTest {
 
         return nbre;
     }
-
-
 
 
     public static String ReadFile(String file){
@@ -171,6 +204,7 @@ class ConverterToCsvTest {
         }
         return htmltext;
     }
+
     @Test
     static void convertTable() throws IOException {
 
