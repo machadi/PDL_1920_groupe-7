@@ -14,6 +14,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -42,7 +44,7 @@ class ConverterToCsvTest {
      * check link wikitext
      * check link html
      * check number of url
-     * check url connexion
+     * check url connexion (failure,ok and total)
      * @throws IOException
      *
      */
@@ -62,27 +64,46 @@ class ConverterToCsvTest {
             e.printStackTrace();
         }
 
-        int nurl = 0;
+        int nbUrlConnectionOk = 0;
+        int nbUrlConnectionFailure =0;
+        int nbUrlTotal = 0;
+        URL uneURL=null;
         while ((url = br.readLine()) != null) {
             String wurl = BASE_WIKIPEDIA_URL + url;
-            urls.add(url);
-            // TODO: do something with the Wikipedia URL
-            // (ie extract relevant tables for correct URL, with the two extractors)
-            // for exporting to CSV files, we will use mkCSVFileName
-            // example: for https://en.wikipedia.org/wiki/Comparison_of_operating_system_kernels
-            // the *first* extracted table will be exported to a CSV file called
-            // "Comparison_of_operating_system_kernels-1.csv"
-            // directory where CSV files are exported (HTML extractor)
-            urlMatrixSet.add(new UrlMatrix(wurl));
-            // the *second* (if any) will be exported to a CSV file called
-            // "Comparison_of_operating_system_kernels-2.csv"
-            // TODO: the HTML extractor should save CSV files into output/HTML
-            // see outputDirHtml
-            // TODO: the Wikitext extractor should save CSV files into output/wikitext
-            // see outputDirWikitext
-                nurl++;
+            uneURL = new URL(wurl);
+            HttpURLConnection connexion = (HttpURLConnection)uneURL.openConnection();
+            if (connexion.getResponseCode() == HttpURLConnection.HTTP_OK){
+                urls.add(url);
+
+                // TODO: do something with the Wikipedia URL
+                // (ie extract relevant tables for correct URL, with the two extractors)
+                // for exporting to CSV files, we will use mkCSVFileName
+                // example: for https://en.wikipedia.org/wiki/Comparison_of_operating_system_kernels
+                // the *first* extracted table will be exported to a CSV file called
+                // "Comparison_of_operating_system_kernels-1.csv"
+                // directory where CSV files are exported (HTML extractor)
+                urlMatrixSet.add(new UrlMatrix(wurl));
+                // the *second* (if any) will be exported to a CSV file called
+                // "Comparison_of_operating_system_kernels-2.csv"
+                // TODO: the HTML extractor should save CSV files into output/HTML
+                // see outputDirHtml
+                // TODO: the Wikitext extractor should save CSV files into output/wikitext
+                // see outputDirWikitext
+
+
+                nbUrlConnectionOk++;
             }
-        assertEquals(nurl, 336);
+            else{
+                nbUrlConnectionFailure++;
+            }
+
+            }
+
+        nbUrlTotal = nbUrlConnectionOk + nbUrlConnectionFailure;
+        assertEquals(nbUrlConnectionFailure, 24,"connection failure");
+        assertEquals(nbUrlConnectionOk, 312,"connection ok");
+        assertEquals(nbUrlTotal, 336,"connection total");
+
         wikipediaMatrix.setUrlsMatrix(urlMatrixSet);
 
         try {
