@@ -1,6 +1,8 @@
 package fr.istic.pdl1819_grp5;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -110,14 +112,16 @@ public class wikiMain {
         String BASE_WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/";
         String url;
         String wurl;
+        URL uneURL=null;
         while ((url = br.readLine()) != null) {
             wurl=BASE_WIKIPEDIA_URL+url;
-            urlsMatrix.add(new UrlMatrix(wurl));
+            uneURL = new URL(wurl);
+            HttpURLConnection connexion = (HttpURLConnection)uneURL.openConnection();
+            if (connexion.getResponseCode() == HttpURLConnection.HTTP_OK){
+                urlsMatrix.add(new UrlMatrix(wurl));
+            }
         }
-
         return urlsMatrix;
-
-
     }
     private static String mkCSVFileName(String url, int n) {
         return url.trim() + "-" + n + ".csv";
