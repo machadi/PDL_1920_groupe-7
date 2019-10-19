@@ -10,20 +10,15 @@ import org.jsoup.nodes.Element;
 public  interface Converter
 {
 	/**
-
-     * @param
-     *  link
-     * @return
-     * a csv file
+	 * @param link of the page where we get the tables in HTML to convert to CSV
+	 * @throws IOException
 	 */
-	
-	public Set<FileMatrix> convertFromHtml(String link) throws IOException;
+	Set<FileMatrix> convertFromHtml(String link) throws IOException;
 
 	/**
-	 * @param link
-	 * @return
-	 **/
-	public Set<FileMatrix> convertFromWikitext(String link) ;
+	 * @param link of the page where we get the tables in Wikitext to convert to CSV
+	 */
+	Set<FileMatrix> convertFromWikitext(String link) ;
 
 }
 

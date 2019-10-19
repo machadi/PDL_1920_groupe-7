@@ -6,7 +6,11 @@ import java.util.Set;
 
 public class wikiMain {
 
-
+    /**
+     *
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
 
 

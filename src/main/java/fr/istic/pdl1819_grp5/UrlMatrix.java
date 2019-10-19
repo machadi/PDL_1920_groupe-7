@@ -6,7 +6,6 @@ public class UrlMatrix
 {
 
 	private String link;
-
     private Set<FileMatrix> fileMatrixSet;
 
 	public UrlMatrix(String link){

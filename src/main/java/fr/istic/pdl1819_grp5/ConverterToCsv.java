@@ -17,26 +17,37 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-
 /**
- * converter implementation
+ * b>Converter interface</b> implementation
+ * @see Converter
  */
 public class ConverterToCsv implements Converter
 {
+	/**
+	 * Class constructor
+	 */
+	public ConverterToCsv(){
+	}
 
-    /*
-    Cell of html table which have rowspan and colspan attribute
-     */
-
+	/**
+	 * Cells spreads on more than one row/column
+	 * colspan: column length
+	 * rowspan: row length
+	 * row & column: where the cell is
+	 */
     class PriorityCell{
-
-        private  int colspan;
+		private  int colspan;
         private  int rowspan;
-        private final int row; //ligne a laquelle se ttrouve la cellule
+        private final int row;
         private final int column;
 
-
+		/**
+		 *
+		 * @param rowspan length of the cell in row
+		 * @param colspan length of the in column
+		 * @param row	number of where the cell is
+		 * @param column umber of the column where the cell is
+		 */
         public PriorityCell(String rowspan, String colspan, int row, int column) {
 
             try {
@@ -49,27 +60,18 @@ public class ConverterToCsv implements Converter
             }catch (NumberFormatException nException){
                 this.rowspan = -1;
             }
-
-
-
-
             this.row = row;
             this.column = column;
         }
-
-
     }
 
 	/**
-	 * @param table the param
-	 * @return true if table is nested
+	 * Browse from the bottom to the top for a table inside the one in parameter
+	 * mode bottom_up
+	 * @param table
+	 * @return true if table contains another table
 	 */
-    /*
-     */
     public boolean isNested(Element table){
-
-    	//parcours des parents du tableau du bas vers le haut: mode bottom_up
-    	//boolean parent = table.parents().size()
 		boolean hasTableParent = false;
 		Elements parents = table.parents();
 		for (Element parent : parents)
@@ -77,17 +79,14 @@ public class ConverterToCsv implements Converter
 				hasTableParent =true;
 				break;
 			}
-		//parcours des parents du tableau du bas vers le haut: mode bottom_up
 		boolean hasTablechild = table.getElementsByTag("table").size()>1;
-
 		return hasTableParent || hasTablechild;
 	}
 
-
 	/**
-	 *
+	 * Check the table tags looking for "wikitable" tag
 	 * @param table
-	 * @return true if table is relevant
+	 * @return true if "table" has a "wikitable" class
 	 */
 	public boolean isRelevant(Element table) {
 		boolean isRelevant = table.selectFirst("[class*=\"nv-\"]")==null  || table.selectFirst("[class*=\"box\"]")==null
@@ -97,24 +96,29 @@ public class ConverterToCsv implements Converter
 	}
 
 
-
-
     private List<PriorityCell> listOfCells= new ArrayList<PriorityCell>();
 	private static int numberOfcsv;
 	private String separateur=",";
 
+	/**
+	 * class initializer
+	 */
 	static{
 		numberOfcsv = 0;
 	}
 
-	public ConverterToCsv(){
-	}
+	/**
+	 * (parours) each child of the table and if find "colspan" tag,
+	 * implements the counter of the number of column : nbCol
+	 * @param table
+	 * @return nbCol, number of column of table in parameter
+	 */
 	private int NumberOfColumn(Element table){
 		Elements els=table.select("tr").first().children();
 		int nbCol=0;
 		for (Element el: els) {
 			String colspan=el.attr("colspan");
-			if(!colspan.equals("")){
+			if(!colspan.equals("")){//??????
 				nbCol+=Integer.parseInt(colspan);
 			}else{
 				nbCol++;
@@ -122,6 +126,13 @@ public class ConverterToCsv implements Converter
 		}
 		return nbCol;
 	}
+
+	/**
+	 * Check if the row or the column length is spread on more than one colspan or one rowspan
+	 * @param row
+	 * @param column
+	 * @return true if row & column are in a PriorityCell
+	 */
     private boolean hasPriorityCell(int row, int column){
         boolean found=false;
         for (PriorityCell p: listOfCells) {
@@ -136,6 +147,20 @@ public class ConverterToCsv implements Converter
         return found;
     }
 
+	/**
+	 * Create a set <b>csvSet</b> of <b>FileMatrix</b>,
+	 * take all the tables on the page
+	 * check if the tables on the URL are in Wikitext class
+	 * and don't have another table inside them, then convert them in CSV
+	 * then call <b>convertHtmlTable</b> which create a file containing the result and add it to cvsSet
+	 * @param url
+	 * @return csvSet, set of files with all the tables from the URL page write in CSV
+	 * @throws IOException
+	 * @see FileMatrix
+	 * @see #isRelevant(Element)
+	 * @see #isNested(Element)
+	 * @see #convertHtmlTable(Element)
+	 */
 	public Set<FileMatrix> convertFromHtml(String url) throws IOException {
 
 		Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
@@ -147,49 +172,46 @@ public class ConverterToCsv implements Converter
 			for(int i =0; i<tables.size();i++){
 				if(isRelevant(tables.get(i))  &&  !isNested(tables.get(i)) ){
 					csvSet.add(convertHtmlTable(tables.get(i)));
-
 				}
-
 			}
+
 		}catch (UnknownHostException e){
-			//e.printStackTrace();
-
 		}catch (HttpStatusException e){
-			//e.printStackTrace();
 		}
-
-
 		return csvSet;
 	}
 
+	/**
+	 * From a HTML table, count the number of column of the first row,
+	 * Look for the tags composing the table: thead tr, tbody tr and tfoot tr
+	 * and write the counterpart in CSV using the writeInCsv method
+	 * Finally, create a CSV file with the result
+	 * @param htmlTable table write in HTML
+	 * @return a CSV file containing the CSV version of the table in parameter
+	 * @throws IndexOutOfBoundsException
+	 * @see #writeInCsv(Elements, StringBuilder, int)
+	 * @see #NumberOfColumn(Element)
+	 */
 	public FileMatrix convertHtmlTable(Element htmlTable) throws IndexOutOfBoundsException{
 
-		//Nombre de colonne du tableau(La première ligne contient toujours le nombre de colonne)
+		//first line always have the exact number of row
 		final int nbCol=NumberOfColumn(htmlTable);
 
 		StringBuilder csvBuilder = new StringBuilder("");
 
-        //Entete
-
 		Elements trh=htmlTable.select("thead tr");
 		writeInCsv(trh, csvBuilder, nbCol);
 
-
 		listOfCells.clear();
 
-
-		//corps
         	Elements trs = htmlTable.select("tbody tr");
 		writeInCsv(trs, csvBuilder, nbCol);
 
 		listOfCells.clear();
 
-		// pied de table
-
 		Elements trf=htmlTable.select("tfoot tr");
 		writeInCsv(trf, csvBuilder, nbCol);
-
-
+		
 		numberOfcsv++;
 	    Csv csv = new Csv("csv"+numberOfcsv);
 	    csv.setText(csvBuilder.toString());
@@ -197,31 +219,34 @@ public class ConverterToCsv implements Converter
 		return csv;
 	}
 
+	/**
+	 * 
+	 * @param trs
+	 * @param csvBuilder string block that contains the translation of the arrays into CSV language
+	 * @param nbCol number total of column of the table to build
+	 */
 	private void writeInCsv(Elements trs, StringBuilder csvBuilder, int nbCol){
 
 		for (int i =0; i<trs.size();i++) {
-
 			Element tr = trs.get(i);
 			Elements tds = tr.children();
-
 			int index=0;
 
 			for(int j=0;j<nbCol;j++) {
-
+				
 				if(hasPriorityCell(i,j)){
 					csvBuilder.append(separateur);
-
+					
 				}else {
 					if(index>=tds.size()){
 						csvBuilder.append(separateur);
+						
 					}else {
 						String rowSpan = "";
 						String columnSpan= "";
-
 						rowSpan=tds.get(index).attr("rowspan");
 						columnSpan=tds.get(index).attr("colspan");
-
-
+						
 						if(!rowSpan.equals("") || !columnSpan.equalsIgnoreCase("")){
 							PriorityCell p= new PriorityCell(rowSpan,columnSpan,i,j);
 							listOfCells.add(p);
@@ -234,16 +259,23 @@ public class ConverterToCsv implements Converter
 						csvBuilder.append(index==0?textAjout:separateur+textAjout);
 						index++;
 					}
-
 				}
-
-
 			}
-
 			csvBuilder.append("\n");
 		}
 	}
 
+	/**
+	 *  From a Wikitext table, use a MediaWikiBot........
+	 *  if the table don't contain another table and is of the wikitext type
+	 *  convert the table in CSV using convertHtmlTable method
+	 *  write the result in CSV file and add it to set named cvsSet
+	 * @param url page where Wikitext tables are
+	 * @return csvSet, set of CSV file
+	 * @see #isNested(Element) 
+	 * @see #isRelevant(Element)
+	 * @see #convertHtmlTable(Element)
+	 */
 	public Set<FileMatrix> convertFromWikitext(String url) {
 		Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
 		try {
@@ -260,22 +292,13 @@ public class ConverterToCsv implements Converter
 
 					if(!isNested(tables.get(i)) && isRelevant(tables.get(i))){
 						csvSet.add(convertHtmlTable(tables.get(i)));
-
 					}
 				}
 			}catch (Exception e){
-
 			}
-
-
 		}catch (Exception e){
-			//e.printStackTrace();
 		}
 		return csvSet;
-
-
 	}
-
-
 }
 
