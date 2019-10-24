@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class wikiMain {
@@ -68,11 +69,12 @@ public class wikiMain {
         }
         System.out.println("Extractor HTML created "+numberFileHtml+" files.");//affichage du nombre de tableaux extraits
         System.out.println("Temps d'exécution = "+(System.currentTimeMillis()-execHtml)+" ms");
+        System.out.println("Number of relevant tables = "+wiki.getStats().get("nbRelev")+"\n"+"Number of not relevant tables = "+wiki.getStats().get("nbNotRelev"));
 
         // Wikitext extraction
         wiki.setUrlsMatrix(getListofUrls(urlsFile));
         wiki.setExtractType(ExtractType.WIKITEXT);
-        System.out.println("Extracting via wikitext...");
+        System.out.println("\n"+"Extracting via wikitext...");
         urlMatrixSet = wiki.getConvertResult();
         //save files
         long execWiki = System.currentTimeMillis();//to measure time of execution
@@ -92,6 +94,7 @@ public class wikiMain {
         }
         System.out.println("Extractor Wikitext created "+numberFileWiki+" files.");//affichage du nombre de tableaux extraits
         System.out.println("Temps d'exécution = "+(System.currentTimeMillis()-execWiki)+" ms");
+        System.out.println("Number of relevant tables = "+wiki.getStats().get("wikiRelev")+"\n"+"Number of not relevant tables = "+wiki.getStats().get("wikiNotRelev"));
 
     }
 

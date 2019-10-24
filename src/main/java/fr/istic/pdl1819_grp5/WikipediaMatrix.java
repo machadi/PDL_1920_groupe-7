@@ -1,7 +1,10 @@
 package fr.istic.pdl1819_grp5;
 
 
+
+
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -50,6 +53,10 @@ public class WikipediaMatrix
 
 	public void setExtractType(ExtractType extractType) {
 		this.extractType = extractType;
+	}
+
+	public HashMap<String, Integer> getStats(){
+		return converter.getRelev();
 	}
 }
 

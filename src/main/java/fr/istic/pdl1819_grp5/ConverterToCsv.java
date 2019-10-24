@@ -1,7 +1,6 @@
 package fr.istic.pdl1819_grp5;
 
 
-import info.bliki.api.Connector;
 import info.bliki.wiki.model.WikiModel;
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
@@ -13,10 +12,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -102,12 +98,30 @@ public class ConverterToCsv implements Converter
     private List<PriorityCell> listOfCells= new ArrayList<PriorityCell>();
 	private static int numberOfcsv;
 	private String separateur=",";
+	private int nbRelev;
+	private int nbNotRelev;
+	private int wikiRelev;
+	private int wikiNotRelev;
 
 	static{
 		numberOfcsv = 0;
 	}
 
 	public ConverterToCsv(){
+		this.nbRelev=0;
+		this.nbNotRelev=0;
+		this.wikiRelev=0;
+		this.wikiNotRelev=0;
+	}
+
+	public HashMap<String, Integer> getRelev(){
+		HashMap<String, Integer> hm=new HashMap<>();
+		hm.put("nbRelev", nbRelev);
+		hm.put("nbNotRelev", nbNotRelev);
+		hm.put("wikiRelev", wikiRelev);
+		hm.put("wikiNotRelev", wikiNotRelev);
+		return hm;
+
 	}
 	private int NumberOfColumn(Element table){
 		Elements els=table.select("tr").first().children();
@@ -147,8 +161,10 @@ public class ConverterToCsv implements Converter
 			for(int i =0; i<tables.size();i++){
 				if(isRelevant(tables.get(i))  &&  !isNested(tables.get(i)) ){
 					csvSet.add(convertHtmlTable(tables.get(i)));
+					nbRelev++;
 
 				}
+				else nbNotRelev++;
 
 			}
 		}catch (UnknownHostException e){
@@ -260,8 +276,10 @@ public class ConverterToCsv implements Converter
 
 					if(!isNested(tables.get(i)) && isRelevant(tables.get(i))){
 						csvSet.add(convertHtmlTable(tables.get(i)));
+						wikiRelev++;
 
 					}
+					else wikiNotRelev++;
 				}
 			}catch (Exception e){
 
