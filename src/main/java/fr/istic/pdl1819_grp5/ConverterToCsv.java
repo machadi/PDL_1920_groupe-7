@@ -1,6 +1,7 @@
 package fr.istic.pdl1819_grp5;
 
 
+import info.bliki.api.Connector;
 import info.bliki.wiki.model.WikiModel;
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
@@ -13,15 +14,25 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
  * converter implementation
  */
-public class ConverterToCsv implements Converter
-{
+public class ConverterToCsv implements Converter {
 
-    /*
+	public static  Logger logger=Logger.getLogger("ConverterToCsv.class");
+
+
+
+	 //faire une fonction pour desactiver les loggers
+
+
+
+	/*
     Cell of html table which have rowspan and colspan attribute
      */
 
@@ -29,11 +40,13 @@ public class ConverterToCsv implements Converter
 
         private  int colspan;
         private  int rowspan;
-        private final int row; //ligne a laquelle se ttrouve la cellule
+        private final int row; //ligne a laquelle se trouve la cellule
         private final int column;
 
 
         public PriorityCell(String rowspan, String colspan, int row, int column) {
+
+
 
             try {
                 this.colspan = Integer.parseInt(colspan);
@@ -60,9 +73,11 @@ public class ConverterToCsv implements Converter
 	 * @param table the param
 	 * @return true if table is nested
 	 */
-    /*
-     */
+
     public boolean isNested(Element table){
+
+
+		logger.entering(ConverterToCsv.class.getName(),"isNested", table);
 
     	//parcours des parents du tableau du bas vers le haut: mode bottom_up
     	//boolean parent = table.parents().size()
@@ -76,6 +91,8 @@ public class ConverterToCsv implements Converter
 		//parcours des parents du tableau du bas vers le haut: mode bottom_up
 		boolean hasTablechild = table.getElementsByTag("table").size()>1;
 
+			logger.exiting(ConverterToCsv.class.getName(),"isNested",hasTablechild||hasTableParent);
+
 		return hasTableParent || hasTablechild;
 	}
 
@@ -86,8 +103,10 @@ public class ConverterToCsv implements Converter
 	 * @return true if table is relevant
 	 */
 	public boolean isRelevant(Element table) {
+		logger.entering(ConverterToCsv.class.getName(),"isRelevent",table);
 		boolean isRelevant = table.selectFirst("[class*=\"nv-\"]")==null  || table.selectFirst("[class*=\"box\"]")==null
 				|| !table.className().contains("box") || !table.className().contains("nv-");
+		logger.exiting(ConverterToCsv.class.getName(),"isRelevent",table.className().contains("wikitable")&& isRelevant);
 
 		return table.className().contains("wikitable") && isRelevant;
 	}
@@ -98,32 +117,16 @@ public class ConverterToCsv implements Converter
     private List<PriorityCell> listOfCells= new ArrayList<PriorityCell>();
 	private static int numberOfcsv;
 	private String separateur=",";
-	private int nbRelev;
-	private int nbNotRelev;
-	private int wikiRelev;
-	private int wikiNotRelev;
 
 	static{
 		numberOfcsv = 0;
 	}
 
-	public ConverterToCsv(){
-		this.nbRelev=0;
-		this.nbNotRelev=0;
-		this.wikiRelev=0;
-		this.wikiNotRelev=0;
-	}
-
-	public HashMap<String, Integer> getRelev(){
-		HashMap<String, Integer> hm=new HashMap<>();
-		hm.put("nbRelev", nbRelev);
-		hm.put("nbNotRelev", nbNotRelev);
-		hm.put("wikiRelev", wikiRelev);
-		hm.put("wikiNotRelev", wikiNotRelev);
-		return hm;
-
+	public ConverterToCsv() throws IOException {
 	}
 	private int NumberOfColumn(Element table){
+		logger.entering(ConverterToCsv.class.getName(),"NumberOfColumn",table);
+
 		Elements els=table.select("tr").first().children();
 		int nbCol=0;
 		for (Element el: els) {
@@ -134,9 +137,11 @@ public class ConverterToCsv implements Converter
 				nbCol++;
 			}
 		}
+		logger.exiting(ConverterToCsv.class.getName(),"NumberOfColumn",nbCol);
 		return nbCol;
 	}
     private boolean hasPriorityCell(int row, int column){
+        logger.entering(ConverterToCsv.class.getName(),"hasPriorityCell",new Object[]{row,column});
         boolean found=false;
         for (PriorityCell p: listOfCells) {
             if(p.row==row && ((column<=p.column+p.colspan-1) || p.colspan==0) ){
@@ -147,11 +152,14 @@ public class ConverterToCsv implements Converter
                 break;
             }
         }
+
+        logger.exiting(ConverterToCsv.class.getName(),"hasPriorityCell",found);
         return found;
     }
 
 	public Set<FileMatrix> convertFromHtml(String url) throws IOException {
 
+		logger.entering(ConverterToCsv.class.getName(),"convertFromHtml",url);
 		Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
 
 		try {
@@ -161,24 +169,26 @@ public class ConverterToCsv implements Converter
 			for(int i =0; i<tables.size();i++){
 				if(isRelevant(tables.get(i))  &&  !isNested(tables.get(i)) ){
 					csvSet.add(convertHtmlTable(tables.get(i)));
-					nbRelev++;
 
 				}
-				else nbNotRelev++;
 
 			}
 		}catch (UnknownHostException e){
-			//e.printStackTrace();
+			logger.log(Level.SEVERE," the IP address of a host could not be determined ");
+
 
 		}catch (HttpStatusException e){
+			logger.log(Level.SEVERE," HTTP request resulted in a not OK HTTP response");
 			//e.printStackTrace();
 		}
 
-
+		logger.exiting(ConverterToCsv.class.getName(),"convertFromHtml",csvSet);
 		return csvSet;
 	}
 
 	public FileMatrix convertHtmlTable(Element htmlTable) throws IndexOutOfBoundsException{
+
+		logger.entering(ConverterToCsv.class.getName(),"convertHtmlTable",htmlTable);
 
 		//Nombre de colonne du tableau(La première ligne contient toujours le nombre de colonne)
 		final int nbCol=NumberOfColumn(htmlTable);
@@ -209,11 +219,14 @@ public class ConverterToCsv implements Converter
 		numberOfcsv++;
 	    Csv csv = new Csv("csv"+numberOfcsv);
 	    csv.setText(csvBuilder.toString());
+	    logger.exiting(ConverterToCsv.class.getName(),"convertHtmlTable",csv);
 
 		return csv;
 	}
 
 	private void writeInCsv(Elements trs, StringBuilder csvBuilder, int nbCol){
+
+		logger.entering(ConverterToCsv.class.getName(),"writeInCsv",new Object[]{trs,csvBuilder,nbCol});
 
 		for (int i =0; i<trs.size();i++) {
 
@@ -258,9 +271,11 @@ public class ConverterToCsv implements Converter
 
 			csvBuilder.append("\n");
 		}
+		logger.exiting(ConverterToCsv.class.getName(),"writeInCsv");
 	}
 
 	public Set<FileMatrix> convertFromWikitext(String url) {
+		logger.entering(ConverterToCsv.class.getName(),"convertFromWikitext",url);
 		Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
 		try {
 
@@ -276,23 +291,28 @@ public class ConverterToCsv implements Converter
 
 					if(!isNested(tables.get(i)) && isRelevant(tables.get(i))){
 						csvSet.add(convertHtmlTable(tables.get(i)));
-						wikiRelev++;
 
 					}
-					else wikiNotRelev++;
 				}
 			}catch (Exception e){
+				logger.log(Level.SEVERE,"error during the creation of csv file ");
 
 			}
 
 
 		}catch (Exception e){
-			//e.printStackTrace();
+			logger.log(Level.SEVERE,"page wikipedia not find ");
+
 		}
 		return csvSet;
 
 
 	}
+
+    @Override
+    public HashMap getRelev() {
+        return null;
+    }
 
 
 }
