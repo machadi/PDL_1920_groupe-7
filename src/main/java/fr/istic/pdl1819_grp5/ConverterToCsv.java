@@ -1,7 +1,6 @@
 package fr.istic.pdl1819_grp5;
 
 
-import info.bliki.api.Connector;
 import info.bliki.wiki.model.WikiModel;
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
@@ -14,8 +13,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.*;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -117,12 +114,30 @@ public class ConverterToCsv implements Converter {
     private List<PriorityCell> listOfCells= new ArrayList<PriorityCell>();
 	private static int numberOfcsv;
 	private String separateur=",";
+	private int nbRelev;
+	private int nbNotRelev;
+	private int wikiRelev;
+	private int wikiNotRelev;
 
 	static{
 		numberOfcsv = 0;
 	}
 
-	public ConverterToCsv() throws IOException {
+	public ConverterToCsv(){
+		this.nbRelev=0;
+		this.nbNotRelev=0;
+		this.wikiRelev=0;
+		this.wikiNotRelev=0;
+	}
+
+	public HashMap<String, Integer> getRelev(){
+		HashMap<String, Integer> hm=new HashMap<String, Integer>();
+		hm.put("nbRelev", nbRelev);
+		hm.put("nbNotRelev", nbNotRelev);
+		hm.put("wikiRelev", wikiRelev);
+		hm.put("wikiNotRelev", wikiNotRelev);
+		return hm;
+
 	}
 	private int NumberOfColumn(Element table){
 		logger.entering(ConverterToCsv.class.getName(),"NumberOfColumn",table);
@@ -152,14 +167,11 @@ public class ConverterToCsv implements Converter {
                 break;
             }
         }
-
-        logger.exiting(ConverterToCsv.class.getName(),"hasPriorityCell",found);
         return found;
     }
 
 	public Set<FileMatrix> convertFromHtml(String url) throws IOException {
 
-		logger.entering(ConverterToCsv.class.getName(),"convertFromHtml",url);
 		Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
 
 		try {
@@ -169,26 +181,24 @@ public class ConverterToCsv implements Converter {
 			for(int i =0; i<tables.size();i++){
 				if(isRelevant(tables.get(i))  &&  !isNested(tables.get(i)) ){
 					csvSet.add(convertHtmlTable(tables.get(i)));
+					nbRelev++;
 
 				}
+				else nbNotRelev++;
 
 			}
 		}catch (UnknownHostException e){
-			logger.log(Level.SEVERE," the IP address of a host could not be determined ");
-
+			//e.printStackTrace();
 
 		}catch (HttpStatusException e){
-			logger.log(Level.SEVERE," HTTP request resulted in a not OK HTTP response");
 			//e.printStackTrace();
 		}
 
-		logger.exiting(ConverterToCsv.class.getName(),"convertFromHtml",csvSet);
+
 		return csvSet;
 	}
 
 	public FileMatrix convertHtmlTable(Element htmlTable) throws IndexOutOfBoundsException{
-
-		logger.entering(ConverterToCsv.class.getName(),"convertHtmlTable",htmlTable);
 
 		//Nombre de colonne du tableau(La première ligne contient toujours le nombre de colonne)
 		final int nbCol=NumberOfColumn(htmlTable);
@@ -219,14 +229,11 @@ public class ConverterToCsv implements Converter {
 		numberOfcsv++;
 	    Csv csv = new Csv("csv"+numberOfcsv);
 	    csv.setText(csvBuilder.toString());
-	    logger.exiting(ConverterToCsv.class.getName(),"convertHtmlTable",csv);
 
 		return csv;
 	}
 
 	private void writeInCsv(Elements trs, StringBuilder csvBuilder, int nbCol){
-
-		logger.entering(ConverterToCsv.class.getName(),"writeInCsv",new Object[]{trs,csvBuilder,nbCol});
 
 		for (int i =0; i<trs.size();i++) {
 
@@ -271,49 +278,54 @@ public class ConverterToCsv implements Converter {
 
 			csvBuilder.append("\n");
 		}
-		logger.exiting(ConverterToCsv.class.getName(),"writeInCsv");
 	}
 
 	public Set<FileMatrix> convertFromWikitext(String url) {
-		logger.entering(ConverterToCsv.class.getName(),"convertFromWikitext",url);
 		Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
 		try {
 
-			MediaWikiBot wikiBot = new MediaWikiBot(url.substring(0,url.lastIndexOf("iki/"))+"/");
-			Article article= wikiBot.getArticle(url.substring(url.lastIndexOf("/")+1,url.length()));
+            MediaWikiBot wikiBot = new MediaWikiBot(url.substring(0,url.lastIndexOf("iki/"))+"/");
+            Article article= wikiBot.getArticle(url.substring(url.lastIndexOf("/")+1,url.length()));
 
-			Document doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
+            Document doc;
 
-			Elements tables = doc.getElementsByTag("table");
+            if(article.getText().contains("REDIRECT")){
+                if(article.getText().contains("Comparison")){
+                    url = "https://en.wikipedia.org/wiki/" +article.getText().substring(article.getText().lastIndexOf("Comparison"),article.getText().lastIndexOf("]]"));
+                }else{
+                    url = "https://en.wikipedia.org/wiki/" +article.getText().substring(article.getText().lastIndexOf("List"),article.getText().lastIndexOf("]]"));
+                }
+                wikiBot = new MediaWikiBot(url.substring(0,url.lastIndexOf("iki/"))+"/");
+                article= wikiBot.getArticle(url.substring(url.lastIndexOf("/")+1,url.length()));
+                doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
 
-			try {
-				for(int i =0; i<tables.size();i++){
-
-					if(!isNested(tables.get(i)) && isRelevant(tables.get(i))){
-						csvSet.add(convertHtmlTable(tables.get(i)));
-
-					}
-				}
-			}catch (Exception e){
-				logger.log(Level.SEVERE,"error during the creation of csv file ");
-
-			}
-
-
-		}catch (Exception e){
-			logger.log(Level.SEVERE,"page wikipedia not find ");
-
-		}
-		return csvSet;
+            }
+            else{
+                doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
+            }
 
 
-	}
+            Elements tables = doc.getElementsByTag("table");
 
-    @Override
-    public HashMap getRelev() {
-        return null;
+            try {
+                for(int i =0; i<tables.size();i++){
+
+                    if(isRelevant(tables.get(i))){
+                        csvSet.add(convertHtmlTable(tables.get(i)));
+                        wikiRelev++;
+
+                    }
+                    else wikiNotRelev++;
+                }
+            }catch (Exception e){
+
+            }
+
+
+        }catch (Exception e){
+            //e.printStackTrace();
+        }
+        return csvSet;
     }
-
-
 }
 

@@ -1,10 +1,11 @@
 package fr.istic.pdl1819_grp5;
 
-import java.awt.datatransfer.FlavorEvent;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.acl.LastOwnerException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.FileHandler;
@@ -51,7 +52,7 @@ public class wikiMain {
             System.exit(0);
         }*/
 
-        File urlsFile = new File("D:\\PROJET M1\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
+        File urlsFile = new File("C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
 
 
         if(!urlsFile.exists() && !urlsFile.isDirectory()){
@@ -59,7 +60,7 @@ public class wikiMain {
             System.exit(0);
         }
 
-        File directory = new File("D:\\PROJET M1\\PDL_1920_groupe-7\\output");
+        File directory = new File("C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\output");
 
         if(!directory.exists() || !directory.isDirectory()){
             logger.log(Level.INFO,"bad destination path");
