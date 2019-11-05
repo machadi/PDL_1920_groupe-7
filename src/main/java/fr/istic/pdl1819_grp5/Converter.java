@@ -10,8 +10,8 @@ import org.jsoup.nodes.Element;
 public  interface Converter
 {
 	/**
-	 * @param link of the page where we get the tables in HTML to convert to CSV
-	 * @throws IOException
+	 * @param link of the page where to get the tables in HTML to convert to CSV
+	 * @throws IOException can caused by the implementation in class ConverterToCSV
 	 */
 	Set<FileMatrix> convertFromHtml(String link) throws IOException;
 

@@ -23,7 +23,7 @@ public class wikiMain {
             System.exit(0);
         }*/
 
-        File urlsFile = new File("C:\\Users\\emman\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
+        File urlsFile = new File("C:\\Users\\Noussi\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
 
 
         if(!urlsFile.exists() && !urlsFile.isDirectory()){
@@ -31,7 +31,7 @@ public class wikiMain {
             System.exit(0);
         }
 
-        File directory = new File("C:\\Users\\emman\\IdeaProjects\\PDL_1920_groupe-7\\output");
+        File directory = new File("C:\\Users\\Noussi\\IdeaProjects\\PDL_1920_groupe-7\\output");
 
         if(!directory.exists() || !directory.isDirectory()){
             System.err.println("Bad destination path");
