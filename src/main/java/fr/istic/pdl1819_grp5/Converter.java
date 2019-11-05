@@ -2,9 +2,8 @@ package fr.istic.pdl1819_grp5;
 
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Set;
-
-import org.jsoup.nodes.Element;
 
 
 public  interface Converter
@@ -17,8 +16,8 @@ public  interface Converter
 
 	/**
 	 * @param link of the page where we get the tables in Wikitext to convert to CSV
-	 */
-	Set<FileMatrix> convertFromWikitext(String link) ;
-
+	 **/
+	public Set<FileMatrix> convertFromWikitext(String link) ;
+	public HashMap getRelev();
 }
 

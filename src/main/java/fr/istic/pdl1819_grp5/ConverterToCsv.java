@@ -1,7 +1,6 @@
 package fr.istic.pdl1819_grp5;
 
 
-import info.bliki.api.Connector;
 import info.bliki.wiki.model.WikiModel;
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
@@ -10,31 +9,30 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-/**
- * b>Converter interface</b> implementation
- * @see Converter
- */
-public class ConverterToCsv implements Converter
-{
-	/**
-	 * Class constructor
-	 */
-	public ConverterToCsv(){
-	}
+import java.util.*;
+import java.util.logging.Logger;
 
-	/**
-	 * Cells spreads on more than one row/column
-	 * colspan: column length
-	 * rowspan: row length
-	 * row & column: where the cell is
+
+
+
+	 /**
+	 * b>Converter interface</b> implementation
+	 * @see Converter
 	 */
+public class ConverterToCsv implements Converter {
+
+	public static  Logger logger=Logger.getLogger("ConverterToCsv.class");
+	 //faire une fonction pour desactiver les loggers
+
+		 /**
+		  * *Cells spreads on more than one row/column
+		  * colspan: column length
+		  * rowspan: row length
+		  * row & column: where the cell begin
+		  */
+
     class PriorityCell{
 		private  int colspan;
         private  int rowspan;
@@ -42,7 +40,6 @@ public class ConverterToCsv implements Converter
         private final int column;
 
 		/**
-		 *
 		 * @param rowspan length of the cell in row
 		 * @param colspan length of the in column
 		 * @param row	number of where the cell is
@@ -72,6 +69,8 @@ public class ConverterToCsv implements Converter
 	 * @return true if table contains another table
 	 */
     public boolean isNested(Element table){
+
+		logger.entering(ConverterToCsv.class.getName(),"isNested", table);
 		boolean hasTableParent = false;
 		Elements parents = table.parents();
 		for (Element parent : parents)
@@ -80,6 +79,7 @@ public class ConverterToCsv implements Converter
 				break;
 			}
 		boolean hasTablechild = table.getElementsByTag("table").size()>1;
+			logger.exiting(ConverterToCsv.class.getName(),"isNested",hasTablechild||hasTableParent);
 		return hasTableParent || hasTablechild;
 	}
 
@@ -89,8 +89,10 @@ public class ConverterToCsv implements Converter
 	 * @return true if "table" has a "wikitable" class
 	 */
 	public boolean isRelevant(Element table) {
+		logger.entering(ConverterToCsv.class.getName(),"isRelevent",table);
 		boolean isRelevant = table.selectFirst("[class*=\"nv-\"]")==null  || table.selectFirst("[class*=\"box\"]")==null
 				|| !table.className().contains("box") || !table.className().contains("nv-");
+		logger.exiting(ConverterToCsv.class.getName(),"isRelevent",table.className().contains("wikitable")&& isRelevant);
 
 		return table.className().contains("wikitable") && isRelevant;
 	}
@@ -99,6 +101,10 @@ public class ConverterToCsv implements Converter
     private List<PriorityCell> listOfCells= new ArrayList<PriorityCell>();
 	private static int numberOfcsv;
 	private String separateur=",";
+	private int nbRelev;
+	private int nbNotRelev;
+	private int wikiRelev;
+	private int wikiNotRelev;
 
 	/**
 	 * class initializer
@@ -107,13 +113,35 @@ public class ConverterToCsv implements Converter
 		numberOfcsv = 0;
 	}
 
-	/**
-	 * (parours) each child of the table and if find "colspan" tag,
-	 * implements the counter of the number of column : nbCol
-	 * @param table
-	 * @return nbCol, number of column of table in parameter
-	 */
+
+
+
+	public ConverterToCsv(){
+		this.nbRelev=0;
+		this.nbNotRelev=0;
+		this.wikiRelev=0;
+		this.wikiNotRelev=0;
+	}
+
+	public HashMap<String, Integer> getRelev(){
+		HashMap<String, Integer> hm=new HashMap<String, Integer>();
+		hm.put("nbRelev", nbRelev);
+		hm.put("nbNotRelev", nbNotRelev);
+		hm.put("wikiRelev", wikiRelev);
+		hm.put("wikiNotRelev", wikiNotRelev);
+		return hm;
+
+	}
+
+		/**
+		 * Browse for each child of the table and if find "colspan" tag,
+		 * implements the counter of the number of column : nbCol
+		 * @param table
+		 * @return nbCol, number of column of table in parameter
+		 */
 	private int NumberOfColumn(Element table){
+		logger.entering(ConverterToCsv.class.getName(),"NumberOfColumn",table);
+
 		Elements els=table.select("tr").first().children();
 		int nbCol=0;
 		for (Element el: els) {
@@ -124,6 +152,7 @@ public class ConverterToCsv implements Converter
 				nbCol++;
 			}
 		}
+		logger.exiting(ConverterToCsv.class.getName(),"NumberOfColumn",nbCol);
 		return nbCol;
 	}
 
@@ -134,6 +163,7 @@ public class ConverterToCsv implements Converter
 	 * @return true if row & column are in a PriorityCell
 	 */
     private boolean hasPriorityCell(int row, int column){
+        logger.entering(ConverterToCsv.class.getName(),"hasPriorityCell",new Object[]{row,column});
         boolean found=false;
         for (PriorityCell p: listOfCells) {
             if(p.row==row && ((column<=p.column+p.colspan-1) || p.colspan==0) ){
@@ -172,10 +202,16 @@ public class ConverterToCsv implements Converter
 			for(int i =0; i<tables.size();i++){
 				if(isRelevant(tables.get(i))  &&  !isNested(tables.get(i)) ){
 					csvSet.add(convertHtmlTable(tables.get(i)));
+					nbRelev++;
 				}
-			}
 
-		}catch (UnknownHostException e){
+				else{
+					nbNotRelev++;
+				}
+
+				}
+
+
 		}catch (HttpStatusException e){
 		}
 		return csvSet;
@@ -183,6 +219,7 @@ public class ConverterToCsv implements Converter
 
 	/**
 	 * From a HTML table, count the number of column of the first row,
+	 * first line always have the exact number of row
 	 * Look for the tags composing the table: thead tr, tbody tr and tfoot tr
 	 * and write the counterpart in CSV using the writeInCsv method
 	 * Finally, create a CSV file with the result
@@ -194,7 +231,6 @@ public class ConverterToCsv implements Converter
 	 */
 	public FileMatrix convertHtmlTable(Element htmlTable) throws IndexOutOfBoundsException{
 
-		//first line always have the exact number of row
 		final int nbCol=NumberOfColumn(htmlTable);
 
 		StringBuilder csvBuilder = new StringBuilder("");
@@ -266,10 +302,7 @@ public class ConverterToCsv implements Converter
 	}
 
 	/**
-	 *  From a Wikitext table, use a MediaWikiBot........
-	 *  if the table don't contain another table and is of the wikitext type
-	 *  convert the table in CSV using convertHtmlTable method
-	 *  write the result in CSV file and add it to set named cvsSet
+	 * kkkkkkkkkkkkkkkkkkkk
 	 * @param url page where Wikitext tables are
 	 * @return csvSet, set of CSV file
 	 * @see #isNested(Element) 
@@ -280,25 +313,49 @@ public class ConverterToCsv implements Converter
 		Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
 		try {
 
-			MediaWikiBot wikiBot = new MediaWikiBot(url.substring(0,url.lastIndexOf("iki/"))+"/");
-			Article article= wikiBot.getArticle(url.substring(url.lastIndexOf("/")+1,url.length()));
+            MediaWikiBot wikiBot = new MediaWikiBot(url.substring(0,url.lastIndexOf("iki/"))+"/");
+            Article article= wikiBot.getArticle(url.substring(url.lastIndexOf("/")+1,url.length()));
 
-			Document doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
+            Document doc;
 
-			Elements tables = doc.getElementsByTag("table");
+            if(article.getText().contains("REDIRECT")){
+                if(article.getText().contains("Comparison")){
+                    url = "https://en.wikipedia.org/wiki/" +article.getText().substring(article.getText().lastIndexOf("Comparison"),article.getText().lastIndexOf("]]"));
+                }else{
+                    url = "https://en.wikipedia.org/wiki/" +article.getText().substring(article.getText().lastIndexOf("List"),article.getText().lastIndexOf("]]"));
+                }
+                wikiBot = new MediaWikiBot(url.substring(0,url.lastIndexOf("iki/"))+"/");
+                article= wikiBot.getArticle(url.substring(url.lastIndexOf("/")+1,url.length()));
+                doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
 
-			try {
-				for(int i =0; i<tables.size();i++){
 
-					if(!isNested(tables.get(i)) && isRelevant(tables.get(i))){
-						csvSet.add(convertHtmlTable(tables.get(i)));
-					}
-				}
-			}catch (Exception e){
-			}
-		}catch (Exception e){
-		}
-		return csvSet;
-	}
+            }
+            else{
+                doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
+            }
+
+
+            Elements tables = doc.getElementsByTag("table");
+
+            try {
+                for(int i =0; i<tables.size();i++){
+
+                    if(isRelevant(tables.get(i))){
+                        csvSet.add(convertHtmlTable(tables.get(i)));
+                        wikiRelev++;
+
+                    }
+                    else wikiNotRelev++;
+                }
+            }catch (Exception e){
+
+            }
+
+
+        }catch (Exception e){
+            //e.printStackTrace();
+        }
+        return csvSet;
+    }
 }
 

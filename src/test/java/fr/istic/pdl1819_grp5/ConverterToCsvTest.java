@@ -1,16 +1,10 @@
 package fr.istic.pdl1819_grp5;
 
-import info.bliki.wiki.model.WikiModel;
-import net.sourceforge.jwbf.core.contentRep.Article;
-import net.sourceforge.jwbf.core.contentRep.SimpleArticle;
-import net.sourceforge.jwbf.mediawiki.actions.editing.GetRevision;
-import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -21,9 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static fr.istic.pdl1819_grp5.ConverterToCsvTest.nombreOfTable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -159,6 +151,7 @@ class ConverterToCsvTest {
                 String url=urlMatrix.getLink();
                 csvFileName=mkCSVFileName(url.substring(url.lastIndexOf("/")+1,url.length()),i);
                 try {
+                    assertTrue(!fileMatrix.getText().isEmpty());
                     fileMatrix.saveCsv(directory+csvFileName);
                 } catch (IOException e1) {
                     e1.printStackTrace();

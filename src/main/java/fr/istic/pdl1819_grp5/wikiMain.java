@@ -1,19 +1,49 @@
 package fr.istic.pdl1819_grp5;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class wikiMain {
 
     /**
-     *
+     * mise en place des loggers
      * @param args
      * @throws IOException
      */
+
+    private static Logger logger= Logger.getLogger("wikiMain.class");
+
+    public static void  loggerstart() {
+        try {
+            logger.setLevel(Level.ALL);
+            logger.log(Level.INFO, "EXTRACTIONG OF TABLES FROM WIKIPEDIA PAGES");
+            FileHandler fichier= new FileHandler("LoggerFile.xml");
+            logger.addHandler(fichier);
+        } catch (IOException e) {
+            logger.log(Level.INFO,"logger did not load");
+        }
+
+
+
+    }
+
     public static void main(String[] args) throws IOException {
+
+        loggerstart();
+
+
+
+        //echanges du logger
+
 
 
         /*if(args.length<2){
@@ -23,18 +53,20 @@ public class wikiMain {
             System.exit(0);
         }*/
 
+
         File urlsFile = new File("C:\\Users\\Noussi\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
 
 
         if(!urlsFile.exists() && !urlsFile.isDirectory()){
-            System.err.println("input file not found");
+            logger.log(Level.INFO,"input file note found");
             System.exit(0);
         }
 
         File directory = new File("C:\\Users\\Noussi\\IdeaProjects\\PDL_1920_groupe-7\\output");
 
+
         if(!directory.exists() || !directory.isDirectory()){
-            System.err.println("Bad destination path");
+            logger.log(Level.INFO,"bad destination path");
             System.exit(0);
         }
 
@@ -52,8 +84,12 @@ public class wikiMain {
         // Html extraction
         wiki.setUrlsMatrix(getListofUrls(urlsFile));
         wiki.setExtractType(ExtractType.HTML);
-        System.out.println("Extracting via html...");
+        logger.log(Level.INFO,"Extracting via html...");
+        //System.out.println("Extracting via html...");
         Set<UrlMatrix> urlMatrixSet = wiki.getConvertResult();
+
+
+
         //save files
         long execHtml = System.currentTimeMillis();//to measure time of execution
 
@@ -64,6 +100,7 @@ public class wikiMain {
 
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
             for (FileMatrix f : fileMatrices){
+                //extraction des tableaux de type wikitext en format csv
                 csvFileName=mkCSVFileName(url.substring(url.lastIndexOf("/")+1,url.length()),i);
                 f.saveCsv(htmlDir.getAbsolutePath()+File.separator+csvFileName);
                 i++;
@@ -76,7 +113,8 @@ public class wikiMain {
         // Wikitext extraction
         wiki.setUrlsMatrix(getListofUrls(urlsFile));
         wiki.setExtractType(ExtractType.WIKITEXT);
-        System.out.println("Extracting via wikitext...");
+        logger.log(Level.INFO,"Extracting via wikitext...");
+        //System.out.println("Extracting via wikitext...");
         urlMatrixSet = wiki.getConvertResult();
         //save files
         long execWiki = System.currentTimeMillis();//to measure time of execution
@@ -87,6 +125,7 @@ public class wikiMain {
             url=urlMatrix.getLink();
 
             for (FileMatrix f : fileMatrices){
+                //extraction des tableaux de type wikitext en format csv
                 csvFileName=mkCSVFileName(url.substring(url.lastIndexOf("/")+1,url.length()),i);
                 f.saveCsv(wikitextDir.getAbsolutePath()+File.separator+csvFileName);
                 i++;
@@ -100,28 +139,36 @@ public class wikiMain {
     }
 
 
-    private static Set<UrlMatrix> getListofUrls(File inputFile) throws IOException {
-        Set<UrlMatrix> urlsMatrix = new HashSet<UrlMatrix>();
-
-        BufferedReader br = null;
+    private static Set<UrlMatrix> getListofUrls(File inputFile) {
+        logger.entering(wikiMain.class.getName(),"getListofUrls",inputFile);
         try {
-            br = new BufferedReader(new FileReader(inputFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        String BASE_WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/";
-        String url;
-        String wurl;
-        URL uneURL=null;
-        while ((url = br.readLine()) != null) {
-            wurl=BASE_WIKIPEDIA_URL+url;
-            uneURL = new URL(wurl);
-            HttpURLConnection connexion = (HttpURLConnection)uneURL.openConnection();
-            if (connexion.getResponseCode() == HttpURLConnection.HTTP_OK){
-                urlsMatrix.add(new UrlMatrix(wurl));
+            Set<UrlMatrix> urlsMatrix = new HashSet<UrlMatrix>();
+
+               BufferedReader br = null;
+               br = new BufferedReader(new FileReader(inputFile));
+            String BASE_WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/";
+            String url;
+            String wurl;
+            URL uneURL = null;
+            while ((url = br.readLine()) != null) {
+                wurl = BASE_WIKIPEDIA_URL + url;
+                uneURL = new URL(wurl);
+                HttpURLConnection connexion = (HttpURLConnection) uneURL.openConnection();
+                if (connexion.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    urlsMatrix.add(new UrlMatrix(wurl));
+                }
             }
+            logger.exiting(wikiMain.class.getName(),"getListofUrls",urlsMatrix);
+            return urlsMatrix;
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE,"ERR_INTERNET_DISCONNECTED");
+            return null;
+
+
         }
-        return urlsMatrix;
+
+
     }
     private static String mkCSVFileName(String url, int n) {
         return url.trim() + "-" + n + ".csv";
