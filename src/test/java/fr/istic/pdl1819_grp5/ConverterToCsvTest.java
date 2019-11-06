@@ -21,9 +21,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  *
  */
-class ConverterToCsvTest {
+class ConverterToCsvTest  {
    static  Set<UrlMatrix> urlMatrixSet = new HashSet<UrlMatrix>();
-   static  WikipediaMatrix wikipediaMatrix = new WikipediaMatrix();
+   static  WikipediaMatrix wikipediaMatrix;
+
+    static {
+        try {
+            wikipediaMatrix = new WikipediaMatrix();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     static String outputDirHtml = "output" + File.separator + "html" + File.separator;
     static String outputDirWikitext = "output" + File.separator + "wikitext" + File.separator;
     static File file = new File("inputdata" + File.separator + "wikiurls.txt");
