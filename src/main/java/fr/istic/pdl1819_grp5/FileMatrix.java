@@ -47,6 +47,9 @@ public class FileMatrix {
         this.text = text;
     }
 
+    public void append(String text){
+    	this.text+=text;
+	}
 	/**
 	 * Creates a CSV file at the location specified in parameter,
 	 * write the result inside

@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.FileHandler;
@@ -54,7 +56,7 @@ public class wikiMain {
         }*/
 
 
-        File urlsFile = new File("C:\\Users\\Noussi\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
+        File urlsFile = new File("C:\\Users\\emman\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
 
 
         if(!urlsFile.exists() && !urlsFile.isDirectory()){
@@ -62,7 +64,7 @@ public class wikiMain {
             System.exit(0);
         }
 
-        File directory = new File("C:\\Users\\Noussi\\IdeaProjects\\PDL_1920_groupe-7\\output");
+        File directory = new File("C:\\Users\\emman\\IdeaProjects\\PDL_1920_groupe-7\\output");
 
 
         if(!directory.exists() || !directory.isDirectory()){
@@ -92,11 +94,15 @@ public class wikiMain {
 
         //save files
         long execHtml = System.currentTimeMillis();//to measure time of execution
+        ArrayList<Integer>extractedHTML=new ArrayList<Integer>();
+        ArrayList<String>urls=new ArrayList<String>();
 
         int numberFileHtml=0; //Creation of the variable which contains the number of files
         for (UrlMatrix urlMatrix : urlMatrixSet){
             int i=0;
             url=urlMatrix.getLink();
+            urls.add(url);
+            System.out.println(url);
 
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
             for (FileMatrix f : fileMatrices){
@@ -105,12 +111,15 @@ public class wikiMain {
                 f.saveCsv(htmlDir.getAbsolutePath()+File.separator+csvFileName);
                 i++;
             }
+            extractedHTML.add(i);
             numberFileHtml+=i; //Number of files = current value of i
         }
         System.out.println("Extractor HTML created "+numberFileHtml+" files.");//affichage du nombre de tableaux extraits
         System.out.println("Temps d'exécution = "+(System.currentTimeMillis()-execHtml)+" ms");
 
         // Wikitext extraction
+        ArrayList<String>urlsWikitext=new ArrayList<String>();
+        ArrayList<Integer>extractedWikitext=new ArrayList<Integer>();
         wiki.setUrlsMatrix(getListofUrls(urlsFile));
         wiki.setExtractType(ExtractType.WIKITEXT);
         logger.log(Level.INFO,"Extracting via wikitext...");
@@ -123,6 +132,8 @@ public class wikiMain {
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
             int i=0;
             url=urlMatrix.getLink();
+            System.out.println(url);
+            urlsWikitext.add(url);
 
             for (FileMatrix f : fileMatrices){
                 //extraction des tableaux de type wikitext en format csv
@@ -130,15 +141,36 @@ public class wikiMain {
                 f.saveCsv(wikitextDir.getAbsolutePath()+File.separator+csvFileName);
                 i++;
             }
+            extractedWikitext.add(i);
             numberFileWiki+=i; //Number of files = current value of i
 
         }
         System.out.println("Extractor Wikitext created "+numberFileWiki+" files.");//affichage du nombre de tableaux extraits
         System.out.println("Temps d'exécution = "+(System.currentTimeMillis()-execWiki)+" ms");
 
+        saveStats(urls, extractedHTML, extractedWikitext, urlsWikitext);
     }
 
 
+    private static void saveStats(ArrayList<String>urls,ArrayList<Integer>extractedHTML, ArrayList<Integer>extractedWikitext, ArrayList<String>urlsWikitext){
+        FileMatrix fm=new FileMatrix("stats.csv");
+        fm.setText("URL,Tables_extracted_with_Html,Tables_extracted_with_Wikitext"+"\n");
+        ArrayList<Integer>result=new ArrayList<Integer>();
+        for(int i=0; i<urls.size();i++){
+            String currentUrl=urls.get(i);
+            int index=urlsWikitext.indexOf(currentUrl);
+            result.add(extractedWikitext.get(index));
+        }
+        for(int i=0; i<urls.size();i++){
+            fm.append(urls.get(i)+","+extractedHTML.get(i)+","+result.get(i)+"\n");
+        }
+
+        try {
+            fm.saveCsv("C:\\Users\\emman\\Desktop\\stats.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private static Set<UrlMatrix> getListofUrls(File inputFile) {
         logger.entering(wikiMain.class.getName(),"getListofUrls",inputFile);
         try {
