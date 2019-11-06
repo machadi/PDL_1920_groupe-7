@@ -102,7 +102,7 @@ public class wikiMain {
             int i=0;
             url=urlMatrix.getLink();
             urls.add(url);
-            System.out.println(url);
+            //System.out.println(url);
 
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
             for (FileMatrix f : fileMatrices){
@@ -132,7 +132,7 @@ public class wikiMain {
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
             int i=0;
             url=urlMatrix.getLink();
-            System.out.println(url);
+            //System.out.println(url);
             urlsWikitext.add(url);
 
             for (FileMatrix f : fileMatrices){
