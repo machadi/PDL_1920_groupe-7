@@ -44,5 +44,9 @@ public class FileMatrix {
 		return csv;
 
 	}
+
+    public void append(String s) {
+		this.text+=text;
+    }
 }
 

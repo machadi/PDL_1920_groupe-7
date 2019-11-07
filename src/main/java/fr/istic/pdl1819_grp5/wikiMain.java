@@ -1,18 +1,14 @@
 package fr.istic.pdl1819_grp5;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.awt.datatransfer.FlavorEvent;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.UnknownHostException;
-import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.FileHandler;
@@ -61,6 +57,8 @@ public class wikiMain {
 
 
         File urlsFile = new File("D:\\PROJET M1\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
+
+
         if (!urlsFile.exists() && !urlsFile.isDirectory()) {
             logger.log(Level.INFO, "input file note found");
             System.exit(0);
@@ -68,11 +66,12 @@ public class wikiMain {
 
         File directory = new File("D:\\PROJET M1\\PDL_1920_groupe-7\\output");
 
+
         if (!directory.exists() || !directory.isDirectory()) {
             logger.log(Level.INFO, "bad destination path");
             System.exit(0);
         }
-        //calling of fountable fonction
+        //calling of fountable function
         foundtable();
 
         File htmlDir = new File(directory.getAbsoluteFile() + "" + File.separator + "html");
@@ -94,11 +93,15 @@ public class wikiMain {
 
         //save files
         long execHtml = System.currentTimeMillis();//to measure time of execution
+        ArrayList<Integer> extractedHTML = new ArrayList<Integer>();
+        ArrayList<String> urls = new ArrayList<String>();
 
         int numberFileHtml = 0; //Creation of the variable which contains the number of files
         for (UrlMatrix urlMatrix : urlMatrixSet) {
             int i = 0;
             url = urlMatrix.getLink();
+            urls.add(url);
+            //System.out.println(url);
 
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
             for (FileMatrix f : fileMatrices) {
@@ -107,12 +110,15 @@ public class wikiMain {
                 f.saveCsv(htmlDir.getAbsolutePath() + File.separator + csvFileName);
                 i++;
             }
+            extractedHTML.add(i);
             numberFileHtml += i; //Number of files = current value of i
         }
         System.out.println("Extractor HTML created " + numberFileHtml + " files.");//affichage du nombre de tableaux extraits
         System.out.println("Temps d'exécution = " + (System.currentTimeMillis() - execHtml) + " ms");
 
         // Wikitext extraction
+        ArrayList<String> urlsWikitext = new ArrayList<String>();
+        ArrayList<Integer> extractedWikitext = new ArrayList<Integer>();
         wiki.setUrlsMatrix(getListofUrls(urlsFile));
         wiki.setExtractType(ExtractType.WIKITEXT);
         logger.log(Level.INFO, "Extracting via wikitext...");
@@ -125,6 +131,8 @@ public class wikiMain {
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
             int i = 0;
             url = urlMatrix.getLink();
+            //System.out.println(url);
+            urlsWikitext.add(url);
 
             for (FileMatrix f : fileMatrices) {
                 //extraction des tableaux de type wikitext en format csv
@@ -132,14 +140,36 @@ public class wikiMain {
                 f.saveCsv(wikitextDir.getAbsolutePath() + File.separator + csvFileName);
                 i++;
             }
+            extractedWikitext.add(i);
             numberFileWiki += i; //Number of files = current value of i
 
         }
         System.out.println("Extractor Wikitext created " + numberFileWiki + " files.");//affichage du nombre de tableaux extraits
         System.out.println("Temps d'exécution = " + (System.currentTimeMillis() - execWiki) + " ms");
 
+        saveStats(urls, extractedHTML, extractedWikitext, urlsWikitext);
     }
 
+
+    private static void saveStats(ArrayList<String> urls, ArrayList<Integer> extractedHTML, ArrayList<Integer> extractedWikitext, ArrayList<String> urlsWikitext) {
+        FileMatrix fm = new FileMatrix("stats.csv");
+        fm.setText("URL,Tables_extracted_with_Html,Tables_extracted_with_Wikitext" + "\n");
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        for (int i = 0; i < urls.size(); i++) {
+            String currentUrl = urls.get(i);
+            int index = urlsWikitext.indexOf(currentUrl);
+            result.add(extractedWikitext.get(index));
+        }
+        for (int i = 0; i < urls.size(); i++) {
+            fm.append(urls.get(i) + "," + extractedHTML.get(i) + "," + result.get(i) + "\n");
+        }
+
+        try {
+            fm.saveCsv("D:\\PROJET M1\\PDL_1920_groupe-7\\output\\statsExtractor.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static Set<UrlMatrix> getListofUrls(File inputFile) {
         logger.entering(wikiMain.class.getName(), "getListofUrls", inputFile);
@@ -173,13 +203,8 @@ public class wikiMain {
 
     }
 
-    private static String mkCSVFileName(String url, int n) {
-        return url.trim() + "-" + n + ".csv";
-    }
 
-
-//find tables by criteria
-
+    //function which find tables by criteria
     public static void foundtable() throws IOException {
 
         logger.log(Level.INFO, "entering of the function which find tables by criteria");
@@ -234,26 +259,24 @@ public class wikiMain {
             String scomptlinks = Integer.toString(comptlinks);
             String scomptother = Integer.toString(comptother);
 
-            String urlmodif="";
-            if(url.getLink().contains(",")){
+            String urlmodif = "";
+            if (url.getLink().contains(",")) {
 
 
-                for(int i=0;i<url.getLink().length();i++){
+                for (int i = 0; i < url.getLink().length(); i++) {
 
-                    if (url.getLink().charAt(i)!= ',') {
-                        urlmodif +=url.getLink().charAt(i);
+                    if (url.getLink().charAt(i) != ',') {
+                        urlmodif += url.getLink().charAt(i);
 
                     }
                 }
-                wikitablestat.write(urlmodif+ separator + scomptbox + separator + scomptnav + separator + scomptlinks + separator + scomptother);
+                wikitablestat.write(urlmodif + separator + scomptbox + separator + scomptnav + separator + scomptlinks + separator + scomptother);
                 wikitablestat.write("\n");
-            }else {
-                wikitablestat.write(url.getLink()+ separator + scomptbox + separator + scomptnav + separator + scomptlinks + separator + scomptother);
+            } else {
+                wikitablestat.write(url.getLink() + separator + scomptbox + separator + scomptnav + separator + scomptlinks + separator + scomptother);
                 wikitablestat.write("\n");
 
-             }
-
-
+            }
 
 
             comptbox = 0;
@@ -269,5 +292,7 @@ public class wikiMain {
     }
 
 
+    private static String mkCSVFileName(String url, int n) {
+        return url.trim() + "-" + n + ".csv";
+    }
 }
-
