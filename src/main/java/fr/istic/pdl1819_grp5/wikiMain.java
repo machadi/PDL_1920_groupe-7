@@ -8,7 +8,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.FileHandler;
@@ -56,7 +55,7 @@ public class wikiMain {
         }*/
 
 
-        File urlsFile = new File("D:\\PROJET M1\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
+        File urlsFile = new File("C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
 
 
         if (!urlsFile.exists() && !urlsFile.isDirectory()) {
@@ -64,7 +63,7 @@ public class wikiMain {
             System.exit(0);
         }
 
-        File directory = new File("D:\\PROJET M1\\PDL_1920_groupe-7\\output");
+        File directory = new File("C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\output");
 
 
         if (!directory.exists() || !directory.isDirectory()) {
@@ -161,11 +160,12 @@ public class wikiMain {
             result.add(extractedWikitext.get(index));
         }
         for (int i = 0; i < urls.size(); i++) {
-            fm.append(urls.get(i) + "," + extractedHTML.get(i) + "," + result.get(i) + "\n");
+            fm.
+                    append(urls.get(i) + "," + extractedHTML.get(i) + "," + result.get(i) + "\n");
         }
 
         try {
-            fm.saveCsv("D:\\PROJET M1\\PDL_1920_groupe-7\\output\\statsExtractor.csv");
+            fm.saveCsv("C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\output\\statsExtractor.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -209,9 +209,9 @@ public class wikiMain {
 
         logger.log(Level.INFO, "entering of the function which find tables by criteria");
         logger.log(Level.INFO, "Loading..........");
-        File urlsFile = new File("D:\\PROJET M1\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
+        File urlsFile = new File("C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
 
-        FileWriter wikitablestat = new FileWriter("D:\\PROJET M1\\PDL_1920_groupe-7\\output\\Wkitable_stat.csv");
+        FileWriter wikitablestat = new FileWriter("C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\output\\Wkitable_stat.csv");
 
 
         Set<UrlMatrix> liturls = getListofUrls(urlsFile);
