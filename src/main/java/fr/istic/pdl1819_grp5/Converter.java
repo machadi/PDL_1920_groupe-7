@@ -9,21 +9,15 @@ import java.util.Set;
 public  interface Converter
 {
 	/**
-
-     * @param
-     *  link
-     * @return
-     * a csv file
+	 * @param link of the page where to get the tables in HTML to convert to CSV
+	 * @throws IOException can caused by the implementation in class ConverterToCSV
 	 */
-	
-	public Set<FileMatrix> convertFromHtml(String link) throws IOException;
+	Set<FileMatrix> convertFromHtml(String link) throws IOException;
 
 	/**
-	 * @param link
-	 * @return
+	 * @param link of the page where we get the tables in Wikitext to convert to CSV
 	 **/
 	public Set<FileMatrix> convertFromWikitext(String link) ;
 	public HashMap getRelev();
-
 }
 

@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *
+ */
 public class WikipediaMatrix
 {
 
@@ -18,7 +21,7 @@ public class WikipediaMatrix
 
 	private ExtractType extractType;
 
-	public WikipediaMatrix(){
+	public WikipediaMatrix() throws IOException {
 
 		this.urlMatrixSet = new HashSet<UrlMatrix>();
 		converter = new ConverterToCsv();
