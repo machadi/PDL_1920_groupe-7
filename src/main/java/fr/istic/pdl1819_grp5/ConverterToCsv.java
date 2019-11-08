@@ -33,7 +33,7 @@ public class ConverterToCsv implements Converter {
     Cell of html table which have rowspan and colspan attribute
      */
 
-    class PriorityCell{
+    static class PriorityCell{
 
         private  int colspan;
         private  int rowspan;
@@ -99,7 +99,7 @@ public class ConverterToCsv implements Converter {
 	 * @param table
 	 * @return true if table is relevant
 	 */
-	public boolean isRelevant(Element table) {
+	public static boolean isRelevant(Element table) {
 		logger.entering(ConverterToCsv.class.getName(),"isRelevent",table);
 		boolean isRelevant = table.selectFirst("[class*=\"nv-\"]")==null  || table.selectFirst("[class*=\"box\"]")==null
 				|| !table.className().contains("box") || !table.className().contains("nv-");
@@ -111,9 +111,9 @@ public class ConverterToCsv implements Converter {
 
 
 
-    private List<PriorityCell> listOfCells= new ArrayList<PriorityCell>();
+    private static List<PriorityCell> listOfCells= new ArrayList<PriorityCell>();
 	private static int numberOfcsv;
-	private String separateur=",";
+	private static String separateur=",";
 	private int nbRelev;
 	private int nbNotRelev;
 	private int wikiRelev;
@@ -139,7 +139,7 @@ public class ConverterToCsv implements Converter {
 		return hm;
 
 	}
-	private int NumberOfColumn(Element table){
+	private static int NumberOfColumn(Element table){
 		logger.entering(ConverterToCsv.class.getName(),"NumberOfColumn",table);
 
 		Elements els=table.select("tr").first().children();
@@ -155,7 +155,7 @@ public class ConverterToCsv implements Converter {
 		logger.exiting(ConverterToCsv.class.getName(),"NumberOfColumn",nbCol);
 		return nbCol;
 	}
-    private boolean hasPriorityCell(int row, int column){
+    private static boolean hasPriorityCell(int row, int column){
         logger.entering(ConverterToCsv.class.getName(),"hasPriorityCell",new Object[]{row,column});
         boolean found=false;
         for (PriorityCell p: listOfCells) {
@@ -198,7 +198,7 @@ public class ConverterToCsv implements Converter {
 		return csvSet;
 	}
 
-	public FileMatrix convertHtmlTable(Element htmlTable) throws IndexOutOfBoundsException{
+	public static FileMatrix convertHtmlTable(Element htmlTable) throws IndexOutOfBoundsException{
 
 		//Nombre de colonne du tableau(La première ligne contient toujours le nombre de colonne)
 		final int nbCol=NumberOfColumn(htmlTable);
@@ -233,7 +233,7 @@ public class ConverterToCsv implements Converter {
 		return csv;
 	}
 
-	private void writeInCsv(Elements trs, StringBuilder csvBuilder, int nbCol){
+	private static void writeInCsv(Elements trs, StringBuilder csvBuilder, int nbCol){
 
 		for (int i =0; i<trs.size();i++) {
 
@@ -289,21 +289,23 @@ public class ConverterToCsv implements Converter {
 
             Document doc;
 
-            if(article.getText().contains("REDIRECT")){
-                if(article.getText().contains("Comparison")){
-                    url = "https://en.wikipedia.org/wiki/" +article.getText().substring(article.getText().lastIndexOf("Comparison"),article.getText().lastIndexOf("]]"));
-                }else{
-                    url = "https://en.wikipedia.org/wiki/" +article.getText().substring(article.getText().lastIndexOf("List"),article.getText().lastIndexOf("]]"));
-                }
-                wikiBot = new MediaWikiBot(url.substring(0,url.lastIndexOf("iki/"))+"/");
-                article= wikiBot.getArticle(url.substring(url.lastIndexOf("/")+1,url.length()));
-                doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
+			//check redirection
+			if (article.getText().contains("REDIRECT")) {
 
-            }
-            else{
-                doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
-            }
+				if(article.getText().lastIndexOf("#") !=0 ){
+					url = "https://en.wikipedia.org/wiki/" + article.getText().substring(article.getText().lastIndexOf("[")+1, article.getText().lastIndexOf("#"));
+				}
+				else {
+					url = "https://en.wikipedia.org/wiki/" + article.getText().substring(article.getText().lastIndexOf("[")+1, article.getText().lastIndexOf("]]"));
+				}
 
+				wikiBot = new MediaWikiBot(url.substring(0, url.lastIndexOf("iki/")) + "/");
+				article = wikiBot.getArticle(url.substring(url.lastIndexOf("/") + 1, url.length()));
+				doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
+			}
+			else {
+				doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
+			}
 
             Elements tables = doc.getElementsByTag("table");
 

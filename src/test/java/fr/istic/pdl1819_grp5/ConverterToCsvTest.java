@@ -1,9 +1,13 @@
 package fr.istic.pdl1819_grp5;
 
+import info.bliki.wiki.model.WikiModel;
+import net.sourceforge.jwbf.core.contentRep.Article;
+import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
@@ -31,22 +34,27 @@ class ConverterToCsvTest {
 
     static  String url;
 
+
     /**
      * convert url given in urlMatrix
      * check link wikitext
      * check link html
+     * @throws IOException
+     */
+    @Test
+    void checkOutput() {
+        assertTrue(new File(outputDirHtml).isDirectory());
+        assertTrue(new File(outputDirWikitext).isDirectory());
+    }
+
+
+    /**
      * check number of url
      * check url connexion (failure,ok and total)
      * @throws IOException
-     *
      */
     @Test
-    void convertHtmlTable() throws IOException{
-
-
-        assertTrue(new File(outputDirHtml).isDirectory());
-
-        assertTrue(new File(outputDirWikitext).isDirectory());
+    void Init() throws IOException{
         String BASE_WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/";
 
         BufferedReader br = null;
@@ -89,7 +97,7 @@ class ConverterToCsvTest {
                 nbUrlConnectionFailure++;
             }
 
-            }
+        }
 
         nbUrlTotal = nbUrlConnectionOk + nbUrlConnectionFailure;
         assertEquals(nbUrlConnectionFailure, 24,"connection failure");
@@ -106,7 +114,9 @@ class ConverterToCsvTest {
 
        // parcoursUrl(ExtractType.HTML,outputDirHtml);
 
-        parcoursUrl(ExtractType.WIKITEXT,outputDirWikitext);
+
+
+
 
 
 
@@ -120,6 +130,116 @@ class ConverterToCsvTest {
 
 
     /**
+     * create for each urlMatrix a number of fileMatrix
+     * check if exist filematrix empty
+     * check if consitent number link active with test init
+     * check the consitent between total number link redirection and link rediction with link not taken into account by redirection
+     * check if there is any link which are not taken into account by redirection
+     *
+     *
+     * @throws IOException
+     */
+    @Test
+     void parcoursFileMatrixWikitext() throws IOException {
+        Init();
+        Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
+        int nbNotRedirection = 0;
+        int nbRedirectionTotal = 0;
+        int nbRedirectionCheck = 0;
+        int nbRedirectionNotCheck = 0;
+        int percentOnRedirection = 0;
+
+        String csvFileName;
+        int nbFileEmpty=0;
+        wikipediaMatrix.setExtractType(ExtractType.WIKITEXT);
+
+
+        //method getConvertResult in WikipediaMatrix
+        for (UrlMatrix urlMatrix : urlMatrixSet) {
+            //method convertFromWikitext
+            String url = urlMatrix.getLink();
+
+            MediaWikiBot wikiBot = new MediaWikiBot(url.substring(0, url.lastIndexOf("iki/")) + "/");
+            Article article = wikiBot.getArticle(url.substring(url.lastIndexOf("/") + 1, url.length()));
+
+            Document doc;
+
+            //check redirection
+            if (article.getText().contains("REDIRECT")) {
+                nbRedirectionTotal++;
+
+                if(article.getText().lastIndexOf("#") !=0 ){
+                    url = "https://en.wikipedia.org/wiki/" + article.getText().substring(article.getText().lastIndexOf("[")+1, article.getText().lastIndexOf("#"));
+                    nbRedirectionCheck++;
+                }
+                else {
+                    url = "https://en.wikipedia.org/wiki/" + article.getText().substring(article.getText().lastIndexOf("[")+1, article.getText().lastIndexOf("]]"));
+                    nbRedirectionCheck++;
+                }
+
+
+                wikiBot = new MediaWikiBot(url.substring(0, url.lastIndexOf("iki/")) + "/");
+                article = wikiBot.getArticle(url.substring(url.lastIndexOf("/") + 1, url.length()));
+                doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
+
+                // allow to check if the wikibot is not empty and can to be convert in divers tables
+                if (doc.getAllElements().toString().compareTo("<html>\n" + " <head></head>\n" + " <body></body>\n" + "</html>\n" + "<html>\n" + " <head></head>\n" + " <body></body>\n" + "</html>\n" + "<head></head>\n" + "<body></body>")==1) {
+                    nbRedirectionNotCheck++;
+                }
+
+
+            } else {
+                nbNotRedirection++;
+                doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
+            }
+
+
+            Elements tables = doc.getElementsByTag("table");
+
+            try {
+                for (int i = 0; i < tables.size(); i++) {
+
+                    if (ConverterToCsv.isRelevant(tables.get(i))) {
+                        csvSet.add(ConverterToCsv.convertHtmlTable(tables.get(i)));
+
+
+                    }
+                }
+            } catch (Exception e) {
+
+            }
+
+            urlMatrix.setFilesMatrix(csvSet);
+        }
+
+
+        //save files
+        for (UrlMatrix urlMatrix : urlMatrixSet){
+
+            Set<FileMatrix> fileMatrixSet = urlMatrix.getFileMatrix();
+            int i=0;
+            for (FileMatrix fileMatrix : fileMatrixSet){
+                i++;
+                String url=urlMatrix.getLink();
+                csvFileName=mkCSVFileName(url.substring(url.lastIndexOf("/")+1,url.length()),i);
+                try {
+                    if(fileMatrix.getText().isEmpty()){
+                        nbFileEmpty ++;
+                    }
+                    fileMatrix.saveCsv(outputDirWikitext+csvFileName);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+
+        assertEquals(0,nbFileEmpty,"fileMatrix empty");
+        assertEquals(312,nbNotRedirection+nbRedirectionTotal,"number link active");
+        assertEquals(nbRedirectionTotal,nbRedirectionNotCheck+nbRedirectionCheck,"check total number of link redirection");
+        assertEquals(0,nbRedirectionNotCheck,"fileMatrix not check redirection");
+    }
+
+    /**
      * create filematrix name
      * @param url
      * @param n corresponds to the number of tables
@@ -129,36 +249,6 @@ class ConverterToCsvTest {
         return url.trim() + "-" + n + ".csv";
     }
 
-    /**
-     * create for each urlMatrix a number of fileMatrix
-     * @param e corresponds to an extractor type
-     * @param directory outputDirHtml
-     */
-    static void parcoursUrl(ExtractType e,String directory ){
-        String csvFileName;
-        wikipediaMatrix.setExtractType(e);
-        try {
-            urlMatrixSet = wikipediaMatrix.getConvertResult();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-
-        for (UrlMatrix urlMatrix : urlMatrixSet){
-            Set<FileMatrix> fileMatrixSet = urlMatrix.getFileMatrix();
-            int i=0;
-            for (FileMatrix fileMatrix : fileMatrixSet){
-                i++;
-                String url=urlMatrix.getLink();
-                csvFileName=mkCSVFileName(url.substring(url.lastIndexOf("/")+1,url.length()),i);
-                try {
-                    assertTrue(!fileMatrix.getText().isEmpty());
-                    fileMatrix.saveCsv(directory+csvFileName);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        }
-    }
 
     /**
      * check if wikitext and html have the same number of tables
@@ -171,9 +261,6 @@ class ConverterToCsvTest {
        for(String s : urls){
             int html=0, wikitext =0;
            if( (html = nombreOfTable(s, ExtractType.HTML)) != (wikitext=nombreOfTable(s, ExtractType.WIKITEXT))){
-
-
-
                assertTrue(false);
            }
        }
@@ -249,6 +336,5 @@ class ConverterToCsvTest {
         fileMatrix=c4.convertHtmlTable(table);
         assertTrue(FileUtils.contentEquals(new File("src/test/thead_tfoot/csv.csv"),fileMatrix.saveCsv("src/test/thead_tfoot/"+fileMatrix.getName()+".csv")));
     }
-
 
 }
