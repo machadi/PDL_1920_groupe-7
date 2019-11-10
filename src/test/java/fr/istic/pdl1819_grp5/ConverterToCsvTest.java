@@ -14,10 +14,7 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -325,7 +322,68 @@ class ConverterToCsvTest  {
         }
         return htmltext;
     }
+///////////////////////////////////
+    @Test
+public void  wikitextcomparetoShtml( ) throws IOException {
+        int nbretabwikihtmlsimilaires=0;
 
+    File repertoire = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\html");
+        File repertoirewi = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\wikitext");
+
+        File[] files=repertoire.listFiles();
+        File[] fileswi=repertoirewi.listFiles();
+
+    for(int i = 0; i <= files.length ; i++){
+    FileInputStream fileHTML = new FileInputStream((files[i]));
+    FileInputStream fileWikitext = new FileInputStream(fileswi[i]);
+    Scanner scHTML=new Scanner(fileHTML);
+    Scanner scWikitext=new Scanner(fileWikitext);
+    boolean equals = true;
+    while (scHTML.hasNext()&&scWikitext.hasNext()){
+        if(!scHTML.nextLine().equals(scWikitext.nextLine())){
+            equals=false;
+        }
+    }
+    System.out.println(equals);
+        if(equals) nbretabwikihtmlsimilaires++;
+
+        assertTrue(equals);
+
+    }
+
+
+
+
+}
+/////////////////////////////////
+@Test
+public void  wikitextcomparetoShtml( ) throws IOException {
+    int nbretabwikihtmlsimilaires=0;
+
+    File repertoire = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\html");
+    File repertoirewi = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\wikitext");
+
+    File[] files=repertoire.listFiles();
+    File[] fileswi=repertoirewi.listFiles();
+
+    for(int i = 0; i <= files.length ; i++){
+        FileInputStream fileHTML = new FileInputStream((files[i]));
+        FileInputStream fileWikitext = new FileInputStream(fileswi[i]);
+        Scanner scHTML=new Scanner(fileHTML);
+        Scanner scWikitext=new Scanner(fileWikitext);
+        boolean equals = true;
+        while (scHTML.hasNext()&&scWikitext.hasNext()){
+            if(!scHTML.nextLine().equals(scWikitext.nextLine())){
+                equals=false;
+            }
+        }
+        System.out.println(equals);
+        if(equals) nbretabwikihtmlsimilaires++;
+
+        assertTrue(equals);
+
+    }
+/////////////////////////////////
     @Test
     static void convertTable() throws IOException {
 
