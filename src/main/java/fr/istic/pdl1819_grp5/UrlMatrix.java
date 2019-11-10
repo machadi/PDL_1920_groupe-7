@@ -24,8 +24,9 @@ public class UrlMatrix
 		fileMatrixSet.add(fileMatrix);
 	}
 
-	public void setFilesMatrix(Set<FileMatrix> fileMatrixSet) {
+	public UrlMatrix setFilesMatrix(Set<FileMatrix> fileMatrixSet) {
 		this.fileMatrixSet = fileMatrixSet;
+		return null;
 	}
 }
 

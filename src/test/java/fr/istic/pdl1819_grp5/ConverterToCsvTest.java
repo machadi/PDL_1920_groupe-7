@@ -19,7 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
@@ -150,13 +151,11 @@ class ConverterToCsvTest  {
      */
     @Test
      void parcoursFileMatrixWikitext() throws IOException {
-        Init();
         Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
         int nbNotRedirection = 0;
         int nbRedirectionTotal = 0;
         int nbRedirectionCheck = 0;
         int nbRedirectionNotCheck = 0;
-        int percentOnRedirection = 0;
 
         String csvFileName;
         int nbFileEmpty=0;
@@ -177,12 +176,11 @@ class ConverterToCsvTest  {
             if (article.getText().contains("REDIRECT")) {
                 nbRedirectionTotal++;
 
-                if(article.getText().lastIndexOf("#") !=0 ){
-                    url = "https://en.wikipedia.org/wiki/" + article.getText().substring(article.getText().lastIndexOf("[")+1, article.getText().lastIndexOf("#"));
+                if (article.getText().lastIndexOf("#") != 0) {
+                    url = "https://en.wikipedia.org/wiki/" + article.getText().substring(article.getText().lastIndexOf("[") + 1, article.getText().lastIndexOf("#"));
                     nbRedirectionCheck++;
-                }
-                else {
-                    url = "https://en.wikipedia.org/wiki/" + article.getText().substring(article.getText().lastIndexOf("[")+1, article.getText().lastIndexOf("]]"));
+                } else {
+                    url = "https://en.wikipedia.org/wiki/" + article.getText().substring(article.getText().lastIndexOf("[") + 1, article.getText().lastIndexOf("]]"));
                     nbRedirectionCheck++;
                 }
 
@@ -192,7 +190,7 @@ class ConverterToCsvTest  {
                 doc = Jsoup.parse(WikiModel.toHtml(article.getText()));
 
                 // allow to check if the wikibot is not empty and can to be convert in divers tables
-                if (doc.getAllElements().toString().compareTo("<html>\n" + " <head></head>\n" + " <body></body>\n" + "</html>\n" + "<html>\n" + " <head></head>\n" + " <body></body>\n" + "</html>\n" + "<head></head>\n" + "<body></body>")==1) {
+                if (doc.getAllElements().toString().compareTo("<html>\n" + " <head></head>\n" + " <body></body>\n" + "</html>\n" + "<html>\n" + " <head></head>\n" + " <body></body>\n" + "</html>\n" + "<head></head>\n" + "<body></body>") == 1) {
                     nbRedirectionNotCheck++;
                 }
 
@@ -211,36 +209,30 @@ class ConverterToCsvTest  {
                     if (ConverterToCsv.isRelevant(tables.get(i))) {
                         csvSet.add(ConverterToCsv.convertHtmlTable(tables.get(i)));
 
+                        //save file
+                        url = urlMatrix.getLink();
+                        csvFileName = mkCSVFileName(url.substring(url.lastIndexOf("/") + 1, url.length()), i);
+                        try {
+                            if (ConverterToCsv.convertHtmlTable(tables.get(i)).getText().isEmpty()) {
+                                nbFileEmpty++;
+                            }
+                            ConverterToCsv.convertHtmlTable(tables.get(i)).saveCsv(outputDirWikitext + csvFileName);
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+
 
                     }
                 }
             } catch (Exception e) {
 
             }
+            //return urlMatrix
+           urlMatrix.setFilesMatrix(csvSet);
 
-            urlMatrix.setFilesMatrix(csvSet);
         }
 
 
-        //save files
-        for (UrlMatrix urlMatrix : urlMatrixSet){
-
-            Set<FileMatrix> fileMatrixSet = urlMatrix.getFileMatrix();
-            int i=0;
-            for (FileMatrix fileMatrix : fileMatrixSet){
-                i++;
-                String url=urlMatrix.getLink();
-                csvFileName=mkCSVFileName(url.substring(url.lastIndexOf("/")+1,url.length()),i);
-                try {
-                    if(fileMatrix.getText().isEmpty()){
-                        nbFileEmpty ++;
-                    }
-                    fileMatrix.saveCsv(outputDirWikitext+csvFileName);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        }
 
         assertEquals(0,nbFileEmpty,"fileMatrix empty");
         assertEquals(312,nbNotRedirection+nbRedirectionTotal,"number link active");
@@ -260,22 +252,40 @@ class ConverterToCsvTest  {
 
 
     /**
-     * check if wikitext and html have the same number of tables
+     * check if consitent number link active with test init
+     * check if on set of files, they have the same number of files between wikitext and HTML
+     * check if wikitext and html on the same file,they have the same number of tables
      * @throws IOException
      */
     @AfterAll
-    static void  wikitextVShtml1( ) throws IOException {
+    static void  wikitextVShtml1( ){
 
+        int html=0, wikitext =0;
+        int cptHtml=0, cptWikitext=0;
+        int numberTablesNotEquals=0;
+        int numberTablesEquals=0;
 
        for(String s : urls){
-            int html=0, wikitext =0;
+
            if( (html = nombreOfTable(s, ExtractType.HTML)) != (wikitext=nombreOfTable(s, ExtractType.WIKITEXT))){
-               assertTrue(false);
+               numberTablesNotEquals++;
            }
+           else{
+               numberTablesEquals++;
+           }
+
+           cptHtml=cptHtml+html;
+           cptWikitext=cptWikitext+wikitext;
        }
 
+        assertEquals(312,numberTablesNotEquals + numberTablesEquals,"check if consitent number link active with test init");
 
+        if(cptHtml != cptWikitext){
+            assertTrue(false,"check if on set of files, they have the same number of files between wikitext and HTML");
+        }
+        assertEquals(0,numberTablesNotEquals,"return number of urlMatrix in wikitext and HTML wich are not same number tables");
     }
+
 
     /**
      * count number of array of an extractor
@@ -290,10 +300,11 @@ class ConverterToCsvTest  {
         int nbre = 0;
 
         for (String s : files){
-            if(s.contains(title))
+            s=s.substring(0,s.lastIndexOf("-"));
+
+            if(s.compareTo(title)==0)
                 nbre++;
         }
-
         return nbre;
     }
 
