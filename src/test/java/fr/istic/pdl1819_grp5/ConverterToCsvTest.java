@@ -329,7 +329,7 @@ class ConverterToCsvTest {
         File[] files = repertoire.listFiles();
         File[] fileswi = repertoirewi.listFiles();
         for (int i = 0; i <= files.length; i++) {
-            for (int j = 0; j <= fileswi.length; j++){
+
             FileInputStream fileHTML = new FileInputStream((files[i]));
             FileInputStream fileWikitext = new FileInputStream(fileswi[i]);
             Scanner scHTML = new Scanner(fileHTML);
@@ -338,7 +338,7 @@ class ConverterToCsvTest {
                 if (scHTML.nextLine().equals(scWikitext.nextLine())) {
                     equals = true;
                 }
-            }  }}
+            }  }
             if (equals = true) {
                 System.out.println(equals);
                 nbretabwikihtmlsimilaires++;
