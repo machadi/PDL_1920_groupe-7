@@ -15,6 +15,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
+import java.io.FileInputStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,9 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  *
  */
-class ConverterToCsvTest  {
-   static  Set<UrlMatrix> urlMatrixSet = new HashSet<UrlMatrix>();
-   static  WikipediaMatrix wikipediaMatrix;
+class ConverterToCsvTest {
+    static Set<UrlMatrix> urlMatrixSet = new HashSet<UrlMatrix>();
+    static WikipediaMatrix wikipediaMatrix;
 
     static {
         try {
@@ -39,13 +40,14 @@ class ConverterToCsvTest  {
     static File file = new File("inputdata" + File.separator + "wikiurls.txt");
     static List<String> urls = new ArrayList<String>();
 
-    static  String url;
+    static String url;
 
 
     /**
      * convert url given in urlMatrix
      * check link wikitext
      * check link html
+     *
      * @throws IOException
      */
     @Test
@@ -58,10 +60,11 @@ class ConverterToCsvTest  {
     /**
      * check number of url
      * check url connexion (failure,ok and total)
+     *
      * @throws IOException
      */
     @Test
-    void Init() throws IOException{
+    void Init() throws IOException {
         String BASE_WIKIPEDIA_URL = "https://en.wikipedia.org/wiki/";
 
         BufferedReader br = null;
@@ -72,14 +75,14 @@ class ConverterToCsvTest  {
         }
 
         int nbUrlConnectionOk = 0;
-        int nbUrlConnectionFailure =0;
+        int nbUrlConnectionFailure = 0;
         int nbUrlTotal = 0;
-        URL uneURL=null;
+        URL uneURL = null;
         while ((url = br.readLine()) != null) {
             String wurl = BASE_WIKIPEDIA_URL + url;
             uneURL = new URL(wurl);
-            HttpURLConnection connexion = (HttpURLConnection)uneURL.openConnection();
-            if (connexion.getResponseCode() == HttpURLConnection.HTTP_OK){
+            HttpURLConnection connexion = (HttpURLConnection) uneURL.openConnection();
+            if (connexion.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 urls.add(url);
 
                 // TODO: do something with the Wikipedia URL
@@ -99,17 +102,16 @@ class ConverterToCsvTest  {
 
 
                 nbUrlConnectionOk++;
-            }
-            else{
+            } else {
                 nbUrlConnectionFailure++;
             }
 
         }
 
         nbUrlTotal = nbUrlConnectionOk + nbUrlConnectionFailure;
-        assertEquals(nbUrlConnectionFailure, 24,"connection failure");
-        assertEquals(nbUrlConnectionOk, 312,"connection ok");
-        assertEquals(nbUrlTotal, 336,"connection total");
+        assertEquals(nbUrlConnectionFailure, 24, "connection failure");
+        assertEquals(nbUrlConnectionOk, 312, "connection ok");
+        assertEquals(nbUrlTotal, 336, "connection total");
 
         wikipediaMatrix.setUrlsMatrix(urlMatrixSet);
 
@@ -119,12 +121,7 @@ class ConverterToCsvTest  {
             e.printStackTrace();
         }
 
-       // parcoursUrl(ExtractType.HTML,outputDirHtml);
-
-
-
-
-
+        // parcoursUrl(ExtractType.HTML,outputDirHtml);
 
 
         // directory where CSV files are exported (Wikitext extractor)
@@ -143,11 +140,10 @@ class ConverterToCsvTest  {
      * check the consitent between total number link redirection and link rediction with link not taken into account by redirection
      * check if there is any link which are not taken into account by redirection
      *
-     *
      * @throws IOException
      */
     @Test
-     void parcoursFileMatrixWikitext() throws IOException {
+    void parcoursFileMatrixWikitext() throws IOException {
         Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
         int nbNotRedirection = 0;
         int nbRedirectionTotal = 0;
@@ -155,7 +151,7 @@ class ConverterToCsvTest  {
         int nbRedirectionNotCheck = 0;
 
         String csvFileName;
-        int nbFileEmpty=0;
+        int nbFileEmpty = 0;
         wikipediaMatrix.setExtractType(ExtractType.WIKITEXT);
 
 
@@ -225,22 +221,22 @@ class ConverterToCsvTest  {
 
             }
             //return urlMatrix
-           urlMatrix.setFilesMatrix(csvSet);
+            urlMatrix.setFilesMatrix(csvSet);
 
         }
 
 
-
-        assertEquals(0,nbFileEmpty,"fileMatrix empty");
-        assertEquals(312,nbNotRedirection+nbRedirectionTotal,"number link active");
-        assertEquals(nbRedirectionTotal,nbRedirectionNotCheck+nbRedirectionCheck,"check total number of link redirection");
-        assertEquals(0,nbRedirectionNotCheck,"fileMatrix not check redirection");
+        assertEquals(0, nbFileEmpty, "fileMatrix empty");
+        assertEquals(312, nbNotRedirection + nbRedirectionTotal, "number link active");
+        assertEquals(nbRedirectionTotal, nbRedirectionNotCheck + nbRedirectionCheck, "check total number of link redirection");
+        assertEquals(0, nbRedirectionNotCheck, "fileMatrix not check redirection");
     }
 
     /**
      * create filematrix name
+     *
      * @param url
-     * @param n corresponds to the number of tables
+     * @param n   corresponds to the number of tables
      * @return name filematrix
      */
     static String mkCSVFileName(String url, int n) {
@@ -252,167 +248,139 @@ class ConverterToCsvTest  {
      * check if consitent number link active with test init
      * check if on set of files, they have the same number of files between wikitext and HTML
      * check if wikitext and html on the same file,they have the same number of tables
+     *
      * @throws IOException
      */
     @AfterAll
-    static void  wikitextVShtml1( ){
+    static void wikitextVShtml1() {
 
-        int html=0, wikitext =0;
-        int cptHtml=0, cptWikitext=0;
-        int numberTablesNotEquals=0;
-        int numberTablesEquals=0;
+        int html = 0, wikitext = 0;
+        int cptHtml = 0, cptWikitext = 0;
+        int numberTablesNotEquals = 0;
+        int numberTablesEquals = 0;
 
-       for(String s : urls){
+        for (String s : urls) {
 
-           if( (html = nombreOfTable(s, ExtractType.HTML)) != (wikitext=nombreOfTable(s, ExtractType.WIKITEXT))){
-               numberTablesNotEquals++;
-           }
-           else{
-               numberTablesEquals++;
-           }
+            if ((html = nombreOfTable(s, ExtractType.HTML)) != (wikitext = nombreOfTable(s, ExtractType.WIKITEXT))) {
+                numberTablesNotEquals++;
+            } else {
+                numberTablesEquals++;
+            }
 
-           cptHtml=cptHtml+html;
-           cptWikitext=cptWikitext+wikitext;
-       }
-
-        assertEquals(312,numberTablesNotEquals + numberTablesEquals,"check if consitent number link active with test init");
-
-        if(cptHtml != cptWikitext){
-            assertTrue(false,"check if on set of files, they have the same number of files between wikitext and HTML");
+            cptHtml = cptHtml + html;
+            cptWikitext = cptWikitext + wikitext;
         }
-        assertEquals(0,numberTablesNotEquals,"return number of urlMatrix in wikitext and HTML wich are not same number tables");
+
+        assertEquals(312, numberTablesNotEquals + numberTablesEquals, "check if consitent number link active with test init");
+
+        if (cptHtml != cptWikitext) {
+            assertTrue(false, "check if on set of files, they have the same number of files between wikitext and HTML");
+        }
+        assertEquals(0, numberTablesNotEquals, "return number of urlMatrix in wikitext and HTML wich are not same number tables");
     }
 
 
     /**
      * count number of array of an extractor
+     *
      * @param title
-     * @param e corresponds to an extractor type
+     * @param e     corresponds to an extractor type
      * @return number of tables
      */
-    static int  nombreOfTable(String title, ExtractType e){
+    static int nombreOfTable(String title, ExtractType e) {
 
-        String[] files = new File(e==ExtractType.HTML?outputDirHtml:outputDirWikitext).list();
+        String[] files = new File(e == ExtractType.HTML ? outputDirHtml : outputDirWikitext).list();
 
         int nbre = 0;
 
-        for (String s : files){
-            s=s.substring(0,s.lastIndexOf("-"));
+        for (String s : files) {
+            s = s.substring(0, s.lastIndexOf("-"));
 
-            if(s.compareTo(title)==0)
+            if (s.compareTo(title) == 0)
                 nbre++;
         }
         return nbre;
     }
 
 
-    public static String ReadFile(String file){
-        String htmltext="";
-        try{
+    public static String ReadFile(String file) {
+        String htmltext = "";
+        try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(file)));
-            String  line=bufferedReader.readLine();
-            while (line!=null){
-                htmltext+=(line+"\n");
-                line=bufferedReader.readLine();
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                htmltext += (line + "\n");
+                line = bufferedReader.readLine();
             }
-        }catch (FileNotFoundException e){
-            System.err.printf("Le fichier n'a pas été trouvé."+ file.toString());
+        } catch (FileNotFoundException e) {
+            System.err.printf("Le fichier n'a pas été trouvé." + file.toString());
         } catch (IOException e) {
-            System.err.printf("Impossible de trouver le fichier."+ file.toString());
+            System.err.printf("Impossible de trouver le fichier." + file.toString());
         }
         return htmltext;
     }
-///////////////////////////////////
+    ///////////////////////////////////
     @Test
-public void  wikitextcomparetoShtml( ) throws IOException {
-        int nbretabwikihtmlsimilaires=0;
-
-    File repertoire = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\html");
+    public void wikitextcomparetoShtml() throws IOException  {
+        int nbretabwikihtmlsimilaires = 0;
+        boolean equals = false;
+        File repertoire = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\html");
         File repertoirewi = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\wikitext");
-
-        File[] files=repertoire.listFiles();
-        File[] fileswi=repertoirewi.listFiles();
-
-    for(int i = 0; i <= files.length ; i++){
-    FileInputStream fileHTML = new FileInputStream((files[i]));
-    FileInputStream fileWikitext = new FileInputStream(fileswi[i]);
-    Scanner scHTML=new Scanner(fileHTML);
-    Scanner scWikitext=new Scanner(fileWikitext);
-    boolean equals = true;
-    while (scHTML.hasNext()&&scWikitext.hasNext()){
-        if(!scHTML.nextLine().equals(scWikitext.nextLine())){
-            equals=false;
-        }
-    }
-    System.out.println(equals);
-        if(equals) nbretabwikihtmlsimilaires++;
-
-        assertTrue(equals);
-
-    }
-
-
-
-
-}
-/////////////////////////////////
-@Test
-public void  wikitextcomparetoShtml( ) throws IOException {
-    int nbretabwikihtmlsimilaires=0;
-
-    File repertoire = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\html");
-    File repertoirewi = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\wikitext");
-
-    File[] files=repertoire.listFiles();
-    File[] fileswi=repertoirewi.listFiles();
-
-    for(int i = 0; i <= files.length ; i++){
-        FileInputStream fileHTML = new FileInputStream((files[i]));
-        FileInputStream fileWikitext = new FileInputStream(fileswi[i]);
-        Scanner scHTML=new Scanner(fileHTML);
-        Scanner scWikitext=new Scanner(fileWikitext);
-        boolean equals = true;
-        while (scHTML.hasNext()&&scWikitext.hasNext()){
-            if(!scHTML.nextLine().equals(scWikitext.nextLine())){
-                equals=false;
+        File[] files = repertoire.listFiles();
+        File[] fileswi = repertoirewi.listFiles();
+        for (int i = 0; i <= files.length; i++) {
+            for (int j = 0; j <= fileswi.length; j++){
+            FileInputStream fileHTML = new FileInputStream((files[i]));
+            FileInputStream fileWikitext = new FileInputStream(fileswi[i]);
+            Scanner scHTML = new Scanner(fileHTML);
+            Scanner scWikitext = new Scanner(fileWikitext);
+            while (scHTML.hasNext() && scWikitext.hasNext()) {
+                if (scHTML.nextLine().equals(scWikitext.nextLine())) {
+                    equals = true;
+                }
+            }  }}
+            if (equals = true) {
+                System.out.println(equals);
+                nbretabwikihtmlsimilaires++;
+                System.out.println(nbretabwikihtmlsimilaires);
             }
-        }
-        System.out.println(equals);
-        if(equals) nbretabwikihtmlsimilaires++;
-
-        assertTrue(equals);
+               //assertTrue(equals);
 
     }
-/////////////////////////////////
-    @Test
-    static void convertTable() throws IOException {
-
-        ConverterToCsv c=new ConverterToCsv();
-        Document doc= Jsoup.parse(ReadFile("src/test/1 rowspan/html"));
-        Element table = doc.getElementsByTag("table").first();
-        FileMatrix fileMatrix=c.convertHtmlTable(table);
-        assertTrue(FileUtils.contentEquals(new File("src/test/1 rowspan/csv.csv"),fileMatrix.saveCsv("src/test/1 rowspan/"+fileMatrix.getName()+".csv")));
-
-
-        doc= Jsoup.parse(ReadFile("src/test/2 simple/html"));
-        table = doc.getElementsByTag("table").first();
-        ConverterToCsv c2=new ConverterToCsv();
-        fileMatrix=c2.convertHtmlTable(table);
-        assertTrue(FileUtils.contentEquals(new File("src/test/2 simple/csv.csv"),fileMatrix.saveCsv("src/test/2 simple/"+fileMatrix.getName()+".csv")));
-
-
-        doc= Jsoup.parse(ReadFile("src/test/3 rowspan/html"));
-        table = doc.getElementsByTag("table").first();
-        ConverterToCsv c3=new ConverterToCsv();
-        fileMatrix=c3.convertHtmlTable(table);
-        assertTrue(FileUtils.contentEquals(new File("src/test/3 rowspan/csv.csv"),fileMatrix.saveCsv("src/test/3 rowspan/"+fileMatrix.getName()+".csv")));
-
-
-        doc= Jsoup.parse(ReadFile("src/test/thead_tfoot/html"));
-        table = doc.getElementsByTag("table").first();
-        ConverterToCsv c4=new ConverterToCsv();
-        fileMatrix=c4.convertHtmlTable(table);
-        assertTrue(FileUtils.contentEquals(new File("src/test/thead_tfoot/csv.csv"),fileMatrix.saveCsv("src/test/thead_tfoot/"+fileMatrix.getName()+".csv")));
-    }
-
 }
+
+
+
+/////////////////////////////////
+    //@Test
+    //static void convertTable() throws IOException {
+
+    //  ConverterToCsv c=new ConverterToCsv();
+    //Document doc= Jsoup.parse(ReadFile("src/test/1 rowspan/html"));
+    //Element table = doc.getElementsByTag("table").first();
+    //FileMatrix fileMatrix=c.convertHtmlTable(table);
+    //assertTrue(FileUtils.contentEquals(new File("src/test/1 rowspan/csv.csv"),fileMatrix.saveCsv("src/test/1 rowspan/"+fileMatrix.getName()+".csv")));
+
+
+    //doc= Jsoup.parse(ReadFile("src/test/2 simple/html"));
+    //table = doc.getElementsByTag("table").first();
+    //ConverterToCsv c2=new ConverterToCsv();
+    //fileMatrix=c2.convertHtmlTable(table);
+    //assertTrue(FileUtils.contentEquals(new File("src/test/2 simple/csv.csv"),fileMatrix.saveCsv("src/test/2 simple/"+fileMatrix.getName()+".csv")));
+
+
+    //doc= Jsoup.parse(ReadFile("src/test/3 rowspan/html"));
+    //table = doc.getElementsByTag("table").first();
+    //ConverterToCsv c3=new ConverterToCsv();
+    //fileMatrix=c3.convertHtmlTable(table);
+    //assertTrue(FileUtils.contentEquals(new File("src/test/3 rowspan/csv.csv"),fileMatrix.saveCsv("src/test/3 rowspan/"+fileMatrix.getName()+".csv")));
+
+
+    //doc= Jsoup.parse(ReadFile("src/test/thead_tfoot/html"));
+    //table = doc.getElementsByTag("table").first();
+    //ConverterToCsv c4=new ConverterToCsv();
+    //fileMatrix=c4.convertHtmlTable(table);
+    //assertTrue(FileUtils.contentEquals(new File("src/test/thead_tfoot/csv.csv"),fileMatrix.saveCsv("src/test/thead_tfoot/"+fileMatrix.getName()+".csv")));
+    //}
+
+//}
