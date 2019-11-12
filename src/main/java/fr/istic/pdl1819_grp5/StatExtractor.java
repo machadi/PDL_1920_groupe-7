@@ -113,6 +113,8 @@ public class StatExtractor {
         }
         for (int i = 0; i < urls.size(); i++) {
             fm.append(urls.get(i) + "," + extractedHTML.get(i) + "," + result.get(i) + "\n");
+            sommehtml+=extractedHTML.get(i);
+            sommewikitext+=result.get(i);
         }
         fm.append("Total,"+sommehtml+","+sommewikitext);
         //ajouter une ligne total, total1, total2
