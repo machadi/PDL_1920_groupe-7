@@ -46,7 +46,7 @@ public class FileMatrix {
 	}
 
     public void append(String s) {
-		this.text+=text;
+		this.text+=s;
     }
 }
 
