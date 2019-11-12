@@ -14,10 +14,7 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -344,6 +341,49 @@ class ConverterToCsvTest  {
             System.err.printf("Impossible de trouver le fichier."+ file.toString());
         }
         return htmltext;
+    }
+
+
+    /**
+     * calculate the number of identical wiki and html arrays
+     *check if the set of html files is equal to the set of wiki files
+     * check if the set of html files is equal to the number of similar tables
+     * check if the set of wiki files is equal to the number of similar tables
+     */
+    @Test
+    public void wikitextcomparetoShtml() throws IOException  {
+        int nbretabwikihtmlsimilaires = 0;
+        boolean equals = false;
+        File repertoire = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\html");
+        File repertoirewi = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\wikitext");
+        FileInputStream fileHTML = null;
+        FileInputStream fileWikitext = null;
+        Scanner scHTML = null;
+        Scanner scWikitext = null;
+        File[] files;
+        files = repertoire.listFiles();
+        File[] fileswi = repertoirewi.listFiles();
+        assert files != null;
+        assert fileswi != null;
+        for (int i = 0; i < files.length && i < fileswi.length; i++) {
+            fileHTML = new FileInputStream((files[i]));
+            fileWikitext = new FileInputStream(fileswi[i]);
+            scHTML = new Scanner(fileHTML);
+            scWikitext = new Scanner(fileWikitext);
+            while (scHTML.hasNext() && scWikitext.hasNext()) {
+                if (scHTML.nextLine().equals(scWikitext.nextLine())) {
+                    //equals = true;
+                    nbretabwikihtmlsimilaires++;
+                } }  }
+        if (equals = true) {
+            System.out.println("The result of comparing two tables is:"+equals);
+
+            System.out.println("The number of similar tables is:"+nbretabwikihtmlsimilaires);
+        }
+
+        assertEquals(files,fileswi,"We check if the set of html files is equal to the set of wiki files");
+        assertEquals(files,nbretabwikihtmlsimilaires,"We check if the set of html files is equal to the number of similar tables");
+        assertEquals(fileswi,nbretabwikihtmlsimilaires,"We check if the set of wiki files is equal to the number of similar tables");
     }
 
     @Test
