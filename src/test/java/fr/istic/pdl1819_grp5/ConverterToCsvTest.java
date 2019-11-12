@@ -28,6 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ConverterToCsvTest  {
    static  Set<UrlMatrix> urlMatrixSet = new HashSet<UrlMatrix>();
    static  WikipediaMatrix wikipediaMatrix;
+   static  String filename="D:\\PROJET M1\\PDL_1920_groupe-7\\output\\Wkitable_stat.csv";
+   static  StatExtractor setextractor =new StatExtractor();
 
     static {
         try {
@@ -238,6 +240,24 @@ class ConverterToCsvTest  {
         assertEquals(312,nbNotRedirection+nbRedirectionTotal,"number link active");
         assertEquals(nbRedirectionTotal,nbRedirectionNotCheck+nbRedirectionCheck,"check total number of link redirection");
         assertEquals(0,nbRedirectionNotCheck,"fileMatrix not check redirection");
+    }
+
+
+    @Test
+    public void statTest() throws IOException {
+        File statfile=new  File(filename);
+        int count = 0;
+
+        FileInputStream fis = new FileInputStream(filename);
+        BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+        while ((br.readLine())!=null)
+        {
+
+                count++;
+        }
+        assertTrue(statfile.exists());
+        assertEquals(314,count,"le fichier est bien remplie");
+
     }
 
     /**
