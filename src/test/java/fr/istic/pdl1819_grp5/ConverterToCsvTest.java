@@ -320,67 +320,77 @@ class ConverterToCsvTest {
         return htmltext;
     }
     ///////////////////////////////////
+    /**
+     * calculate the number of identical wiki and html arrays
+     *check if the set of html files is equal to the set of wiki files
+     * check if the set of html files is equal to the number of similar tables
+     * check if the set of wiki files is equal to the number of similar tables
+     */
     @Test
     public void wikitextcomparetoShtml() throws IOException  {
         int nbretabwikihtmlsimilaires = 0;
         boolean equals = false;
         File repertoire = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\html");
         File repertoirewi = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe7\\output\\wikitext");
-        File[] files = repertoire.listFiles();
+        FileInputStream fileHTML = null;
+        FileInputStream fileWikitext = null;
+        Scanner scHTML = null;
+        Scanner scWikitext = null;
+        File[] files;
+        files = repertoire.listFiles();
         File[] fileswi = repertoirewi.listFiles();
-        for (int i = 0; i <= files.length; i++) {
-
-            FileInputStream fileHTML = new FileInputStream((files[i]));
-            FileInputStream fileWikitext = new FileInputStream(fileswi[i]);
-            Scanner scHTML = new Scanner(fileHTML);
-            Scanner scWikitext = new Scanner(fileWikitext);
+        assert files != null;
+        assert fileswi != null;
+        for (int i = 0; i < files.length && i < fileswi.length; i++) {
+             fileHTML = new FileInputStream((files[i]));
+             fileWikitext = new FileInputStream(fileswi[i]);
+             scHTML = new Scanner(fileHTML);
+             scWikitext = new Scanner(fileWikitext);
             while (scHTML.hasNext() && scWikitext.hasNext()) {
                 if (scHTML.nextLine().equals(scWikitext.nextLine())) {
-                    equals = true;
-                }
-            }  }
-            if (equals = true) {
-                System.out.println(equals);
-                nbretabwikihtmlsimilaires++;
-                System.out.println(nbretabwikihtmlsimilaires);
-            }
-               //assertTrue(equals);
+                    //equals = true;
+                    nbretabwikihtmlsimilaires++;
+                } }  }
+        if (equals = true) {
+            System.out.println("The result of comparing two tables is:"+equals);
 
+            System.out.println("The number of similar tables is:"+nbretabwikihtmlsimilaires);
+        }
+
+        assertEquals(files,fileswi,"We check if the set of html files is equal to the set of wiki files");
+        assertEquals(files,nbretabwikihtmlsimilaires,"We check if the set of html files is equal to the number of similar tables");
+        assertEquals(fileswi,nbretabwikihtmlsimilaires,"We check if the set of wiki files is equal to the number of similar tables");
     }
-}
-
-
-
 /////////////////////////////////
-    //@Test
-    //static void convertTable() throws IOException {
+    @Test
+    static void convertTable() throws IOException {
 
-    //  ConverterToCsv c=new ConverterToCsv();
-    //Document doc= Jsoup.parse(ReadFile("src/test/1 rowspan/html"));
-    //Element table = doc.getElementsByTag("table").first();
-    //FileMatrix fileMatrix=c.convertHtmlTable(table);
-    //assertTrue(FileUtils.contentEquals(new File("src/test/1 rowspan/csv.csv"),fileMatrix.saveCsv("src/test/1 rowspan/"+fileMatrix.getName()+".csv")));
-
-
-    //doc= Jsoup.parse(ReadFile("src/test/2 simple/html"));
-    //table = doc.getElementsByTag("table").first();
-    //ConverterToCsv c2=new ConverterToCsv();
-    //fileMatrix=c2.convertHtmlTable(table);
-    //assertTrue(FileUtils.contentEquals(new File("src/test/2 simple/csv.csv"),fileMatrix.saveCsv("src/test/2 simple/"+fileMatrix.getName()+".csv")));
+      ConverterToCsv c=new ConverterToCsv();
+    Document doc= Jsoup.parse(ReadFile("src/test/1 rowspan/html"));
+    Element table = doc.getElementsByTag("table").first();
+    FileMatrix fileMatrix=c.convertHtmlTable(table);
+    assertTrue(FileUtils.contentEquals(new File("src/test/1 rowspan/csv.csv"),fileMatrix.saveCsv("src/test/1 rowspan/"+fileMatrix.getName()+".csv")));
 
 
-    //doc= Jsoup.parse(ReadFile("src/test/3 rowspan/html"));
-    //table = doc.getElementsByTag("table").first();
-    //ConverterToCsv c3=new ConverterToCsv();
-    //fileMatrix=c3.convertHtmlTable(table);
-    //assertTrue(FileUtils.contentEquals(new File("src/test/3 rowspan/csv.csv"),fileMatrix.saveCsv("src/test/3 rowspan/"+fileMatrix.getName()+".csv")));
+    doc= Jsoup.parse(ReadFile("src/test/2 simple/html"));
+    table = doc.getElementsByTag("table").first();
+    ConverterToCsv c2=new ConverterToCsv();
+    fileMatrix=c2.convertHtmlTable(table);
+    assertTrue(FileUtils.contentEquals(new File("src/test/2 simple/csv.csv"),fileMatrix.saveCsv("src/test/2 simple/"+fileMatrix.getName()+".csv")));
 
 
-    //doc= Jsoup.parse(ReadFile("src/test/thead_tfoot/html"));
-    //table = doc.getElementsByTag("table").first();
-    //ConverterToCsv c4=new ConverterToCsv();
-    //fileMatrix=c4.convertHtmlTable(table);
-    //assertTrue(FileUtils.contentEquals(new File("src/test/thead_tfoot/csv.csv"),fileMatrix.saveCsv("src/test/thead_tfoot/"+fileMatrix.getName()+".csv")));
-    //}
+    doc= Jsoup.parse(ReadFile("src/test/3 rowspan/html"));
+    table = doc.getElementsByTag("table").first();
+    ConverterToCsv c3=new ConverterToCsv();
+    fileMatrix=c3.convertHtmlTable(table);
+    assertTrue(FileUtils.contentEquals(new File("src/test/3 rowspan/csv.csv"),fileMatrix.saveCsv("src/test/3 rowspan/"+fileMatrix.getName()+".csv")));
 
-//}
+
+    doc= Jsoup.parse(ReadFile("src/test/thead_tfoot/html"));
+    table = doc.getElementsByTag("table").first();
+    ConverterToCsv c4=new ConverterToCsv();
+    fileMatrix=c4.convertHtmlTable(table);
+    assertTrue(FileUtils.contentEquals(new File("src/test/thead_tfoot/csv.csv"),fileMatrix.saveCsv("src/test/thead_tfoot/"+fileMatrix.getName()+".csv")));
+    }
+
+}
