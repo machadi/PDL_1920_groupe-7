@@ -100,29 +100,32 @@ public class StatExtractor {
 
     }
    //pour chaque url connaitre le nombre de tableau extrait de part et d'autres et mettre dans un fichier csv
-    public  FileMatrix statafterextracting(ArrayList<String> urls, ArrayList<Integer> extractedHTML, ArrayList<Integer> extractedWikitext, ArrayList<String> urlsWikitext){
+    public  FileMatrix statafterextracting(ArrayList<String> urls, ArrayList<Integer> extractedHTML, ArrayList<Integer> extractedWikitext, ArrayList<String> urlsWikitext) {
         FileMatrix fm = new FileMatrix("C:\\Users\\emman\\IdeaProjects\\PDL_1920_groupe-7\\output\\statsExtractor.csv");
         fm.setText("URL,Tables_extracted_with_Html,Tables_extracted_with_Wikitext" + "\n");
         ArrayList<Integer> result = new ArrayList<Integer>();
-        int sommehtml=0;
-        int sommewikitext=0;
+        int sommehtml = 0;
+        int sommewikitext = 0;
         //rangement de la liste des urls de wikitext de sorte a avoir la meme liste
         for (int i = 0; i < urls.size(); i++) {
             int index = urlsWikitext.indexOf(urls.get(i));
             result.add(extractedWikitext.get(index));
         }
         for (int i = 0; i < urls.size(); i++) {
+            if (urls.get(i).contains(",")) {
+                String urlmodif = "";
+                for (int j = 0; j < urls.get(i).length(); j++) {
+                    if (urls.get(i).charAt(j) != ',') {
+                        urlmodif += urls.get(i).charAt(j);
+                    }
+                }
+                urls.set(i, urlmodif);
+            }
             fm.append(urls.get(i) + "," + extractedHTML.get(i) + "," + result.get(i) + "\n");
-            sommehtml+=extractedHTML.get(i);
-            sommewikitext+=result.get(i);
+            sommehtml += extractedHTML.get(i);
+            sommewikitext += result.get(i);
         }
-        fm.append("Total,"+sommehtml+","+sommewikitext);
-        //ajouter une ligne total, total1, total2
-
-        return  fm;
-
-
+        fm.append("Total," + sommehtml + "," + sommewikitext);
+        return fm;
     }
-
-
 }
