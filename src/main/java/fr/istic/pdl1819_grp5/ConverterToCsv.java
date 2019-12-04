@@ -289,6 +289,9 @@ public class ConverterToCsv implements Converter {
 						}
 
 						String textAjout = tds.get(index).text();
+						if(textAjout.contains("{{")){
+						    textAjout = fonctionTest(textAjout);
+                        }
 						if (textAjout.contains(separateur)){
 							textAjout="\""+tds.get(index).text()+"\"";
 						}
@@ -300,6 +303,24 @@ public class ConverterToCsv implements Converter {
 			csvBuilder.append("\n");
 		}
 	}
+
+         public static String fonctionTest(String s){
+             String result ="";
+             boolean warning = false;
+             for(int i = 0; i<s.length(); i++){
+                 if(s.charAt(i) == '{' && s.charAt(i+1)=='{'){
+                     warning = true;
+                 }
+
+                 else if(s.charAt(i) == '|'){
+                     warning = false;
+                 }
+                 else if(!warning && s.charAt(i)!='}'){
+                     result += s.charAt(i);
+                 }
+             }
+             return result;
+         }
 
 	/**
 	 * @param url page where Wikitext tables are
