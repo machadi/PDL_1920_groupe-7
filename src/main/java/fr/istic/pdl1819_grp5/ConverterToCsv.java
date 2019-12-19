@@ -290,7 +290,7 @@ public class ConverterToCsv implements Converter {
 
 						String textAjout = tds.get(index).text();
 						if(textAjout.contains("{{")){
-						    textAjout = fonctionTest(textAjout);
+						    textAjout = withoutTags(textAjout);
                         }
 						if (textAjout.contains(separateur)){
 							textAjout="\""+tds.get(index).text()+"\"";
@@ -304,7 +304,12 @@ public class ConverterToCsv implements Converter {
 		}
 	}
 
-         public static String fonctionTest(String s){
+		 /**
+		  *
+		  * @param s
+		  * @return String s without wikitext tags
+		  */
+         public static String withoutTags(String s){
              String result ="";
              boolean warning = false;
              for(int i = 0; i<s.length(); i++){
