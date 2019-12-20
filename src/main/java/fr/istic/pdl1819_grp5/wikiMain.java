@@ -66,7 +66,7 @@ public class wikiMain {
             System.exit(0);
         }
 
-        File directory = new File("output\\wikitext");
+        File directory = new File("output");
 
 
         if (!directory.exists() || !directory.isDirectory()) {
@@ -85,7 +85,7 @@ public class wikiMain {
 
 
         //stat before extraction
-        FileWriter wikitablestat = new FileWriter("output\\wikitext\\Wkitable_stat.csv");
+        FileWriter wikitablestat = new FileWriter("output\\Wkitable_stat.csv");
         logger.log(Level.INFO, "entering of the function which find tables by criteria");
         logger.log(Level.INFO, "Loading..........");
 
