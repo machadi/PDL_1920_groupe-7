@@ -211,14 +211,14 @@ class ConverterToCsvTest {
                         //save file
                         url = urlMatrix.getLink();
                         csvFileName = mkCSVFileName(url.substring(url.lastIndexOf("/") + 1, url.length()), i);
-                        try {
+                       /* try {*/
                             if (ConverterToCsv.convertHtmlTable(tables.get(i)).getText().isEmpty()) {
                                 nbFileEmpty++;
                             }
-                            ConverterToCsv.convertHtmlTable(tables.get(i)).saveCsv(outputDirWikitext + csvFileName);
-                        } catch (IOException e1) {
+                            //ConverterToCsv.convertHtmlTable(tables.get(i)).saveCsv(outputDirWikitext + csvFileName);
+                    /*    } catch (IOException e1) {
                             e1.printStackTrace();
-                        }
+                        }*/
 
 
                     }
