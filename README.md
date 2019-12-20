@@ -68,7 +68,7 @@ For the versions available, see the [tags on this repository](https://github.com
 * [Maven](https://maven.apache.org/) - Dependency Management.
 
 ## Authors
-As we have already said it this project has been develop by those students
+As we have already said it this project has been developed by those students
 * Jocelin DEGNI
 * Yann ATTOUBE
 * Anderson KONAN

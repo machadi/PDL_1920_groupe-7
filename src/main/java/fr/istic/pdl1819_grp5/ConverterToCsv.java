@@ -289,11 +289,12 @@ public class ConverterToCsv implements Converter {
 						}
 
 						String textAjout = tds.get(index).text();
-						if(textAjout.contains("{{")){
-						    textAjout = withoutTags(textAjout);
-                        }
+
 						if (textAjout.contains(separateur)){
 							textAjout="\""+tds.get(index).text()+"\"";
+						}
+						if(textAjout.contains("{{")){
+							textAjout = withoutTags(textAjout);
 						}
 						csvBuilder.append(index==0?textAjout:separateur+textAjout);
 						index++;
@@ -310,20 +311,66 @@ public class ConverterToCsv implements Converter {
 		  * @return String s without wikitext tags
 		  */
          public static String withoutTags(String s){
-             String result ="";
-             boolean warning = false;
-             for(int i = 0; i<s.length(); i++){
-                 if(s.charAt(i) == '{' && s.charAt(i+1)=='{'){
-                     warning = true;
-                 }
+			 String result ="";
+			 boolean warning = false;
+         	if(s.contains("font")){
+				int cpt =0;
+				for(int i = 0; i<s.length(); i++){
+					if(s.charAt(i) == '{' ){
+						warning = true;
+					}
+					else if(warning){
+						if(s.charAt(i)=='|'){
+							cpt = cpt+1;
+						}
+						else if(cpt==2){
+							warning = false;
+							result += s.charAt(i);
+							cpt =0;
+						}
+					}
+					else if(!warning && s.charAt(i)!='}'){
+						result += s.charAt(i);
+					}
+				}
+			}
 
-                 else if(s.charAt(i) == '|'){
-                     warning = false;
-                 }
-                 else if(!warning && s.charAt(i)!='}'){
-                     result += s.charAt(i);
-                 }
-             }
+
+         	else{
+				//boolean warning = false;
+				for(int i = 0; i<s.length(); i++){
+					if(s.charAt(i) == '{' && s.charAt(i+1)=='{'){
+						warning = true;
+					}
+
+					else if(s.charAt(i) == '|'){
+						warning = false;
+					}
+					else if(!warning && s.charAt(i)!='}'){
+						result += s.charAt(i);
+					}
+				}
+				if(result == ""){
+					Map<String, Locale> localeMap;
+					String codeCountry = s.substring(2,5);
+
+					String[] countries = Locale.getISOCountries();
+					localeMap = new HashMap<String, Locale>(countries.length);
+
+					for (String country : countries) {
+						Locale locale = new Locale("", country);
+						localeMap.put(locale.getISO3Country().toUpperCase(), locale);
+					}
+
+					if( localeMap.containsKey(codeCountry) ){
+						String countryCode = localeMap.get(codeCountry).getCountry();
+						Locale localeCountry = new Locale("", countryCode);
+						result = localeCountry.getDisplayCountry(Locale.ENGLISH);
+
+					}
+				}
+			}
+
              return result;
          }
 

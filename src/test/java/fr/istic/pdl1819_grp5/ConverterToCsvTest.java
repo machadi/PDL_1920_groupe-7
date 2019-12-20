@@ -1,11 +1,9 @@
 package fr.istic.pdl1819_grp5;
 
 import info.bliki.wiki.model.WikiModel;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.AsmConstants;
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
@@ -15,7 +13,6 @@ import org.jsoup.select.Elements;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.bind.annotation.XmlType;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -212,14 +209,14 @@ class ConverterToCsvTest {
                         //save file
                         url = urlMatrix.getLink();
                         csvFileName = mkCSVFileName(url.substring(url.lastIndexOf("/") + 1, url.length()), i);
-                        try {
+                       /* try {*/
                             if (ConverterToCsv.convertHtmlTable(tables.get(i)).getText().isEmpty()) {
                                 nbFileEmpty++;
                             }
-                            ConverterToCsv.convertHtmlTable(tables.get(i)).saveCsv(outputDirWikitext + csvFileName);
-                        } catch (IOException e1) {
+                            //ConverterToCsv.convertHtmlTable(tables.get(i)).saveCsv(outputDirWikitext + csvFileName);
+                    /*    } catch (IOException e1) {
                             e1.printStackTrace();
-                        }
+                        }*/
 
 
                     }
