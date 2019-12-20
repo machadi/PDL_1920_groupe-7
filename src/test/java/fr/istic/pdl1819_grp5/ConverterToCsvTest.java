@@ -495,7 +495,7 @@ class ConverterToCsvTest {
      * @throws IOException
      */
     @Test
-    public void wikitextcomparetoVeriteTerrain1() throws IOException {
+    public void VeriteTerrain1() throws IOException {
         File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_between_Esperanto_and_Interlingua-2.csv");
         File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_between_Esperanto_and_Interlingua-2 test.csv");
         BufferedReader br1 = new BufferedReader(new FileReader(file1));
@@ -506,7 +506,7 @@ class ConverterToCsvTest {
             assertTrue(st1.equals(st2),"the two files should be equals");
     }
     @Test
-    public void wikitextcomparetoVeriteTerrain2() throws IOException {
+    public void VeriteTerrain2() throws IOException {
         File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_of_ADC_software-8.csv");
         File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_of_ADC_software-8 test.csv");
         BufferedReader br1 = new BufferedReader(new FileReader(file1));
@@ -517,7 +517,7 @@ class ConverterToCsvTest {
             assertTrue(st1.equals(st2),"the two files should be equals");
     }
     @Test
-    public void wikitextcomparetoVeriteTerrain3() throws IOException {
+    public void VeriteTerrain3() throws IOException {
         File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_between_Esperanto_and_Ido-1.csv");
         File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_between_Esperanto_and_Ido-1 test.csv");
         BufferedReader br1 = new BufferedReader(new FileReader(file1));
@@ -528,7 +528,7 @@ class ConverterToCsvTest {
             assertTrue(st1.equals(st2),"the two files should be equals");
     }
     @Test
-    public void wikitextcomparetoVeriteTerrain4() throws IOException {
+    public void VeriteTerrain4() throws IOException {
         File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_between_Esperanto_and_Ido-2.csv");
         File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_between_Esperanto_and_Ido-2 test.csv");
         BufferedReader br1 = new BufferedReader(new FileReader(file1));
@@ -539,7 +539,7 @@ class ConverterToCsvTest {
             assertTrue(st1.equals(st2),"the two files should be equals");
     }
     @Test
-    public void wikitextcomparetoVeriteTerrain5() throws IOException {
+    public void VeriteTerrain5() throws IOException {
         File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_between_Esperanto_and_Ido-3.csv");
         File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_between_Esperanto_and_Ido-3 test.csv");
         BufferedReader br1 = new BufferedReader(new FileReader(file1));
@@ -550,7 +550,7 @@ class ConverterToCsvTest {
             assertTrue(st1.equals(st2),"the two files should be equals");
     }
     @Test
-    public void wikitextcomparetoVeriteTerrain6() throws IOException {
+    public void VeriteTerrain6() throws IOException {
         File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_of_3D_computer_graphics_software-2.csv");
         File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_of_3D_computer_graphics_software-2 test.csv");
         BufferedReader br1 = new BufferedReader(new FileReader(file1));
