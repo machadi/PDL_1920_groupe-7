@@ -58,7 +58,7 @@ public class wikiMain {
         }*/
 
 
-        File urlsFile = new File("output\\wikitext");
+        File urlsFile = new File("inputdata\\wikiurls.txt");
 
 
         if (!urlsFile.exists() && !urlsFile.isDirectory()) {

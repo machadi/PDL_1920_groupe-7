@@ -1,11 +1,9 @@
 package fr.istic.pdl1819_grp5;
 
 import info.bliki.wiki.model.WikiModel;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.AsmConstants;
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
@@ -15,7 +13,6 @@ import org.jsoup.select.Elements;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.bind.annotation.XmlType;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
