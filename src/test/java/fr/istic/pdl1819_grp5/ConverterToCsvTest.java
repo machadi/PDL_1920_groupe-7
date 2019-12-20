@@ -494,7 +494,72 @@ class ConverterToCsvTest {
      *
      * @throws IOException
      */
-
+    @Test
+    public void wikitextcomparetoVeriteTerrain1() throws IOException {
+        File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_between_Esperanto_and_Interlingua-2.csv");
+        File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_between_Esperanto_and_Interlingua-2 test.csv");
+        BufferedReader br1 = new BufferedReader(new FileReader(file1));
+        BufferedReader br2 = new BufferedReader(new FileReader(file2));
+        String st1;
+        String st2;
+        while(((st1 = br1.readLine()) != null) && ((st2 = br2.readLine()) != null))
+            assertTrue(st1.equals(st2),"the two files should be equals");
+    }
+    @Test
+    public void wikitextcomparetoVeriteTerrain2() throws IOException {
+        File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_of_ADC_software-8.csv");
+        File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_of_ADC_software-8 test.csv");
+        BufferedReader br1 = new BufferedReader(new FileReader(file1));
+        BufferedReader br2 = new BufferedReader(new FileReader(file2));
+        String st1;
+        String st2;
+        while(((st1 = br1.readLine()) != null) && ((st2 = br2.readLine()) != null))
+            assertTrue(st1.equals(st2),"the two files should be equals");
+    }
+    @Test
+    public void wikitextcomparetoVeriteTerrain3() throws IOException {
+        File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_between_Esperanto_and_Ido-1.csv");
+        File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_between_Esperanto_and_Ido-1 test.csv");
+        BufferedReader br1 = new BufferedReader(new FileReader(file1));
+        BufferedReader br2 = new BufferedReader(new FileReader(file2));
+        String st1;
+        String st2;
+        while(((st1 = br1.readLine()) != null) && ((st2 = br2.readLine()) != null))
+            assertTrue(st1.equals(st2),"the two files should be equals");
+    }
+    @Test
+    public void wikitextcomparetoVeriteTerrain4() throws IOException {
+        File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_between_Esperanto_and_Ido-2.csv");
+        File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_between_Esperanto_and_Ido-2 test.csv");
+        BufferedReader br1 = new BufferedReader(new FileReader(file1));
+        BufferedReader br2 = new BufferedReader(new FileReader(file2));
+        String st1;
+        String st2;
+        while(((st1 = br1.readLine()) != null) && ((st2 = br2.readLine()) != null))
+            assertTrue(st1.equals(st2),"the two files should be equals");
+    }
+    @Test
+    public void wikitextcomparetoVeriteTerrain5() throws IOException {
+        File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_between_Esperanto_and_Ido-3.csv");
+        File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_between_Esperanto_and_Ido-3 test.csv");
+        BufferedReader br1 = new BufferedReader(new FileReader(file1));
+        BufferedReader br2 = new BufferedReader(new FileReader(file2));
+        String st1;
+        String st2;
+        while(((st1 = br1.readLine()) != null) && ((st2 = br2.readLine()) != null))
+            assertTrue(st1.equals(st2),"the two files should be equals");
+    }
+    @Test
+    public void wikitextcomparetoVeriteTerrain6() throws IOException {
+        File file1 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\\\Comparison_of_3D_computer_graphics_software-2.csv");
+        File file2 = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\verite\\\\Comparison_of_3D_computer_graphics_software-2 test.csv");
+        BufferedReader br1 = new BufferedReader(new FileReader(file1));
+        BufferedReader br2 = new BufferedReader(new FileReader(file2));
+        String st1;
+        String st2;
+        while(((st1 = br1.readLine()) != null) && ((st2 = br2.readLine()) != null))
+            assertTrue(st1.equals(st2),"the two files should be equals");
+    }
     @Test
     static void convertTable() throws IOException {
 
@@ -525,5 +590,6 @@ class ConverterToCsvTest {
         fileMatrix = c4.convertHtmlTable(table);
         assertTrue(FileUtils.contentEquals(new File("src/test/thead_tfoot/csv.csv"), fileMatrix.saveCsv("src/test/thead_tfoot/" + fileMatrix.getName() + ".csv")));
     }
+
 
 }
