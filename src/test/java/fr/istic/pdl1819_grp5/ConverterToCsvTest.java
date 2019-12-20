@@ -4,7 +4,6 @@ import info.bliki.wiki.model.WikiModel;
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
@@ -14,7 +13,6 @@ import org.jsoup.select.Elements;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.bind.annotation.XmlType;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -28,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ConverterToCsvTest {
     static Set<UrlMatrix> urlMatrixSet = new HashSet<UrlMatrix>();
     static WikipediaMatrix wikipediaMatrix;
-    static String filename = "C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\output\\Wkitable_stat.csv";
+    static String filename = "output\\Wkitable_stat.csv";
 
 
     static StatExtractor setextractor = new StatExtractor();
@@ -244,30 +242,6 @@ class ConverterToCsvTest {
         File statfile = new File(filename);
         int count = 0;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         FileInputStream fis = new FileInputStream(filename);
         BufferedReader br = new BufferedReader(new InputStreamReader(fis));
         while ((br.readLine()) != null) {
@@ -333,10 +307,14 @@ class ConverterToCsvTest {
     @Test
     public void differencebetcsv() throws FileNotFoundException {
 
-        Reader csvfilefromftml = new FileReader("C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\output\\html\\Comparison_between_U.S._states_and_countries_by_GDP_(PPP)-0.csv");
-        Reader csvfilefromwiki = new FileReader("C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\output\\wikitext\\Comparison_between_U.S._states_and_countries_by_GDP_(PPP)-0.csv");
+        Reader csvfilefromftml = new FileReader("src\\test\\CsvFromExtractor\\Comparison_(grammar)-0html.csv");
+        Reader csvfilefromwiki = new FileReader("src\\test\\CsvFromExtractor\\Comparison_(grammar)-1wikitext.csv");
         Boolean test = true;
         int compteurline = 0, compteurchek = 0;
+        String valeur = "";
+        String valeur2 = "";
+
+
         try {
 
             Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.parse(csvfilefromftml);
@@ -344,18 +322,20 @@ class ConverterToCsvTest {
 
             Iterator<CSVRecord> it1 = record1.iterator();
             Iterator<CSVRecord> it2 = record2.iterator();
+            valeur = it1.next().get(2);
+            valeur2 = it2.next().get(2);
+
 
             while (it1.hasNext() && it2.hasNext()) {
-
-                if (!it1.next().equals(it2.next())) {
-                    test = false;
-
-                }
                 compteurline++;
-            }
-            compteurline = compteurchek;
 
-            while (it1.hasNext() || it2.hasNext()) {
+                if (!it1.next().get(1).equalsIgnoreCase(it2.next().get(1))) {
+                    test = false;
+                }
+            }
+            compteurchek = compteurline;
+
+            if (it1.hasNext() || it2.hasNext()) {
                 compteurchek += 1;
             }
 
@@ -364,8 +344,10 @@ class ConverterToCsvTest {
             e.printStackTrace();
         }
 
+
         assertEquals(compteurline, compteurchek, "check if both csv files have the same numbre of lines");
-        assertTrue(test, "check if each csv file from each extractor are same");
+        assertEquals(valeur, valeur2, "first colonne");
+        assertTrue(test, "same value iside the table");
     }
 
 
@@ -466,8 +448,8 @@ class ConverterToCsvTest {
      */
     @Test
     public void wikitextcomparetoShtml() throws IOException {
-        File repertoireHtml = new File("C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\output\\html");
-        File repertoireWikitext = new File("C:\\Users\\ocean\\IdeaProjects\\PDL_1920_groupe-7\\output\\wikitext");
+        File repertoireHtml = new File("output\\html");
+        File repertoireWikitext = new File("output\\wikitext");
 
 
         File[] filesHtml = repertoireHtml.listFiles();
@@ -502,11 +484,16 @@ class ConverterToCsvTest {
             }
         }
 
-      //  assertEquals(filesHtml, filesWikitext, "We check if the set of html files is equal to the set of wiki files");
+        //  assertEquals(filesHtml, filesWikitext, "We check if the set of html files is equal to the set of wiki files");
         assertEquals(filesHtml.length, nbretabwikihtmlsimilaires, "We check if the set of html files is equal to the number of similar tables");
         assertEquals(filesWikitext.length, nbretabwikihtmlsimilaires, "We check if the set of wiki files is equal to the number of similar tables");
     }
 
+    /**
+     * test de verité terrain
+     *
+     * @throws IOException
+     */
 
     @Test
     static void convertTable() throws IOException {

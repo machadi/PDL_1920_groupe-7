@@ -41,6 +41,9 @@ public class wikiMain {
     public static void main(String[] args) throws IOException {
 
         loggerstart();
+        WikipediaMatrix wiki = new WikipediaMatrix();
+        StatExtractor stat = new StatExtractor();
+        Set<UrlMatrix> urlMatrixSet;
 
 
         //echanges du logger
@@ -55,7 +58,7 @@ public class wikiMain {
         }*/
 
 
-        File urlsFile = new File("C:\\Users\\emman\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
+        File urlsFile = new File("inputdata\\wikiurls.txt");
 
 
         if (!urlsFile.exists() && !urlsFile.isDirectory()) {
@@ -63,7 +66,7 @@ public class wikiMain {
             System.exit(0);
         }
 
-        File directory = new File("C:\\Users\\emman\\IdeaProjects\\PDL_1920_groupe-7\\output");
+        File directory = new File("output\\wikitext");
 
 
         if (!directory.exists() || !directory.isDirectory()) {
@@ -79,11 +82,10 @@ public class wikiMain {
         htmlDir.mkdir();
         wikitextDir.mkdir();
 
-        WikipediaMatrix wiki = new WikipediaMatrix();
-        StatExtractor stat = new StatExtractor();
+
 
         //stat before extraction
-        FileWriter wikitablestat = new FileWriter("C:\\Users\\emman\\IdeaProjects\\PDL_1920_groupe-7\\output\\Wkitable_stat.csv");
+        FileWriter wikitablestat = new FileWriter("output\\wikitext\\Wkitable_stat.csv");
         logger.log(Level.INFO, "entering of the function which find tables by criteria");
         logger.log(Level.INFO, "Loading..........");
 
@@ -95,7 +97,8 @@ public class wikiMain {
         wiki.setExtractType(ExtractType.HTML);
         logger.log(Level.INFO, "Extracting via html...");
         //System.out.println("Extracting via html...");
-        Set<UrlMatrix> urlMatrixSet = wiki.getConvertResult();
+
+         urlMatrixSet = wiki.getConvertResult();
 
 
         //save files
@@ -159,7 +162,7 @@ public class wikiMain {
 
         //sauvegarde du fichier statistiques apres extraction
         try {
-            fm.saveCsv("C:\\Users\\emman\\IdeaProjects\\PDL_1920_groupe-7\\output\\statsExtractor.csv");
+            fm.saveCsv("output\\statsExtractor.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }

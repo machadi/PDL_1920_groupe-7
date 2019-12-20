@@ -24,7 +24,7 @@ public class WikipediaMatrix
 	public WikipediaMatrix() throws IOException {
 
 		this.urlMatrixSet = new HashSet<UrlMatrix>();
-		converter = new ConverterToCsv();
+		this.converter = new ConverterToCsv();
 		this.extractType =  ExtractType.HTML; // Default extraction
 
 	}
