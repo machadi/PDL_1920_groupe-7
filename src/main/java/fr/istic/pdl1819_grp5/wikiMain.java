@@ -41,9 +41,6 @@ public class wikiMain {
     public static void main(String[] args) throws IOException {
 
         loggerstart();
-        WikipediaMatrix wiki = new WikipediaMatrix();
-        StatExtractor stat = new StatExtractor();
-        Set<UrlMatrix> urlMatrixSet;
 
 
         //echanges du logger
@@ -58,7 +55,7 @@ public class wikiMain {
         }*/
 
 
-        File urlsFile = new File("output\\wikitext");
+        File urlsFile = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
 
 
         if (!urlsFile.exists() && !urlsFile.isDirectory()) {
@@ -66,7 +63,7 @@ public class wikiMain {
             System.exit(0);
         }
 
-        File directory = new File("output\\wikitext");
+        File directory = new File("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output");
 
 
         if (!directory.exists() || !directory.isDirectory()) {
@@ -82,10 +79,11 @@ public class wikiMain {
         htmlDir.mkdir();
         wikitextDir.mkdir();
 
-
+        WikipediaMatrix wiki = new WikipediaMatrix();
+        StatExtractor stat = new StatExtractor();
 
         //stat before extraction
-        FileWriter wikitablestat = new FileWriter("output\\wikitext\\Wkitable_stat.csv");
+        FileWriter wikitablestat = new FileWriter("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\Wkitable_stat.csv");
         logger.log(Level.INFO, "entering of the function which find tables by criteria");
         logger.log(Level.INFO, "Loading..........");
 
@@ -97,8 +95,7 @@ public class wikiMain {
         wiki.setExtractType(ExtractType.HTML);
         logger.log(Level.INFO, "Extracting via html...");
         //System.out.println("Extracting via html...");
-
-         urlMatrixSet = wiki.getConvertResult();
+        Set<UrlMatrix> urlMatrixSet = wiki.getConvertResult();
 
 
         //save files
@@ -112,11 +109,12 @@ public class wikiMain {
             url = urlMatrix.getLink();
             urls.add(url);
             //System.out.println(url);
-
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
             for (FileMatrix f : fileMatrices) {
                 //extraction des tableaux de type html au format csv
                 csvFileName = mkCSVFileName(url.substring(url.lastIndexOf("/") + 1, url.length()), i);
+                //KARIMA MODIFICATION
+                System.setProperty( "f.encoding", "DBCS" );
                 f.saveCsv(htmlDir.getAbsolutePath() + File.separator + csvFileName);
                 i++;
             }
@@ -162,7 +160,7 @@ public class wikiMain {
 
         //sauvegarde du fichier statistiques apres extraction
         try {
-            fm.saveCsv("output\\statsExtractor.csv");
+            fm.saveCsv("C:\\Users\\ASUS\\IdeaProjects\\PDL_1920_groupe-7\\output\\statsExtractor.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
