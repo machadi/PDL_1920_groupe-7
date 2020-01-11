@@ -5,7 +5,7 @@ the purpose of this project is to improve the first version of the project which
 been done by the students of Master degree from last year.
 It's goal is to extract as many relevant tables from wikipedia links.
 the output format is csv.
-After analysis of the program we have listed thise following problems:
+After analysis of the program we have listed the following problems:
 * difference between the results of the extraction methods 
 Indeed, html extraction provides more tables than wikitext extraction.
 * criteria for selecting relevant tables not refined
@@ -29,7 +29,7 @@ you can run the project for testing and extracting csv files from wikipedia page
 available in the directory inputdat--> wikiurls.txt.
 
 ### For Developpers
-After having those prerequisites above you should add thise below
+After having those prerequisites above you should add these below
 * [jsoup](https://jsoup.org) is a Java library for working with real-world HTML. 
 It provides a very convenient API for extracting and manipulating data, 
 using the best of DOM, CSS, and jquery-like methods.
@@ -43,7 +43,7 @@ In order to attain this goal, there are several areas of concern that Maven atte
 * Providing guidelines for best practices development
 * Allowing transparent migration to new features
 
-you will find more informations to increase your comprehension of the project when you will read thise below files
+you will find more informations to increase your comprehension of the project when you will read the below files
 [Install.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/INSTALL.md) and
 [Design.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/DESIGN.md)
 
@@ -54,7 +54,7 @@ you will find more informations to increase your comprehension of the project wh
 
 #### Future functionalities 
 * statistics on extracted files and tables not taken into account according to the selection criteria of the tables to be extracted
-* automatic testing of file extraction quality , thise tests will show also the  weaknesses of the extractor.
+* automatic testing of file extraction quality , these tests will show also the  weaknesses of the extractor.
 
 ## Deployment
 run mvn package this Build the project to generate the artefac.
