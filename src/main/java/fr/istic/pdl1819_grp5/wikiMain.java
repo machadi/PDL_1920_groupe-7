@@ -89,7 +89,7 @@ public class wikiMain {
         logger.log(Level.INFO, "entering of the function which find tables by criteria");
         logger.log(Level.INFO, "Loading..........");
 
-        //stat.statbeforeExtraction(urlsFile, wikitablestat);
+        stat.statbeforeExtraction(urlsFile, wikitablestat);
         logger.log(Level.INFO, "end of searching table by criteria");
 
         // Html extraction
