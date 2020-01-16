@@ -11,6 +11,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -27,6 +28,7 @@ class ConverterToCsvTest {
     static Set<UrlMatrix> urlMatrixSet = new HashSet<UrlMatrix>();
     static WikipediaMatrix wikipediaMatrix;
     static String filename = "output\\Wkitable_stat.csv";
+    static wikiMain wikiMain = new wikiMain();
 
 
     static StatExtractor setextractor = new StatExtractor();
@@ -60,7 +62,14 @@ class ConverterToCsvTest {
         assertTrue(new File(outputDirWikitext).isDirectory());
     }
 
+    @Test
+    public  void extractor() throws IOException {
+        boolean test= false;
+        wikiMain.extracteurenmarche();
+        test=true;
+        Assertions.assertTrue(test,"the extraction of tables has been done ");
 
+    }
     /**
      * check number of url
      * check url connexion (failure,ok and total)
@@ -639,6 +648,9 @@ class ConverterToCsvTest {
         fileMatrix = c4.convertHtmlTable(table);
         assertTrue(FileUtils.contentEquals(new File("src/test/thead_tfoot/csv.csv"), fileMatrix.saveCsv("src/test/thead_tfoot/" + fileMatrix.getName() + ".csv")));
     }
+
+
+
 
 
 }

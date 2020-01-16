@@ -38,24 +38,12 @@ public class wikiMain {
 
     }
 
-    public static void main(String[] args) throws IOException {
+    public  void extracteurenmarche() throws  IOException{
 
         loggerstart();
         WikipediaMatrix wiki = new WikipediaMatrix();
         StatExtractor stat = new StatExtractor();
         Set<UrlMatrix> urlMatrixSet;
-
-
-        //echanges du logger
-
-
-
-        /*if(args.length<2){
-            System.err.println("Usage : wiki -<inputFile> -<OuputDirectory>\n" +
-                    "-inputFile : list of wikipedia's article title \n" +
-                    "-ouputDirectory : destination directory\n");
-            System.exit(0);
-        }*/
 
 
         File urlsFile = new File("inputdata\\wikiurls.txt");
@@ -98,7 +86,7 @@ public class wikiMain {
         logger.log(Level.INFO, "Extracting via html...");
         //System.out.println("Extracting via html...");
 
-         urlMatrixSet = wiki.getConvertResult();
+        urlMatrixSet = wiki.getConvertResult();
 
 
         //save files
@@ -200,9 +188,15 @@ public class wikiMain {
 
 
     }
-
-
     private static String mkCSVFileName(String url, int n) {
         return url.trim() + "-" + n + ".csv";
+    }
+
+
+    public static void main(String[] args) throws IOException {
+        wikiMain wikimain= new wikiMain();
+        wikimain.extracteurenmarche();
+
+
     }
 }
