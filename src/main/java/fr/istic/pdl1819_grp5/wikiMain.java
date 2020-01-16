@@ -190,6 +190,7 @@ public class wikiMain {
             logger.exiting(wikiMain.class.getName(), "getListofUrls", urlsMatrix);
             return urlsMatrix;
 
+
         } catch (Exception e) {
             logger.log(Level.SEVERE, "ERR_INTERNET_DISCONNECTED");
             return null;
