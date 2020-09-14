@@ -81,3 +81,9 @@ now it's our turn to improve their work
 * Oceane THELISMA
 * Noussi AMAL
 * Karima GRAMI
+
+Les prochains à améliorer ce code sont
+
+* Issa Sanogo
+* Franck Kouamelan
+* Anwouar
