@@ -46,7 +46,7 @@ public class wikiMain {
         Set<UrlMatrix> urlMatrixSet;
 
 
-        File urlsFile = new File("inputdata\\wikiurls.txt");
+        File urlsFile = new File("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
 
 
         if (!urlsFile.exists() && !urlsFile.isDirectory()) {
@@ -54,7 +54,7 @@ public class wikiMain {
             System.exit(0);
         }
 
-        File directory = new File("output");
+        File directory = new File("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\output");
 
 
         if (!directory.exists() || !directory.isDirectory()) {
@@ -73,7 +73,9 @@ public class wikiMain {
 
 
         //stat before extraction
-        FileWriter wikitablestat = new FileWriter("output\\Wkitable_stat.csv");
+       // FileWriter wikitablestat = new FileWriter("output\\Wkitable_stat.csv");
+        FileWriter wikitablestat = new FileWriter("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\output\\Wkitable_stat.csv");
+
         logger.log(Level.INFO, "entering of the function which find tables by criteria");
         logger.log(Level.INFO, "Loading..........");
 
@@ -150,7 +152,9 @@ public class wikiMain {
 
         //sauvegarde du fichier statistiques apres extraction
         try {
-            fm.saveCsv("output\\statsExtractor.csv");
+           // fm.saveCsv("output\\statsExtractor.csv");
+            fm.saveCsv("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\output\\statsExtractor.csv");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
