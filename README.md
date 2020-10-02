@@ -34,8 +34,7 @@ After having those prerequisites above you should add these below
 It provides a very convenient API for extracting and manipulating data, 
 using the best of DOM, CSS, and jquery-like methods.
 * [bliki](http://www.dropwizard.io/1.0.2/docs/) -  java parser library for converting Wikipedia wikitext notation to HTML.
-* [Maven](https://maven.apache.org/) 
-- Apache maven is a software project management and comprehension tool
+* [Apache Maven](https://maven.apache.org/)  is a software project management and comprehension tool
 Maven’s primary goal is to allow a developer to comprehend the complete state of a development effort in the shortest period of time. 
 In order to attain this goal, there are several areas of concern that Maven attempts to deal with:
 * Making the build process easy
