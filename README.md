@@ -82,8 +82,9 @@ now it's our turn to improve their work
 * Noussi AMAL
 * Karima GRAMI
 
-Les prochains à améliorer ce code sont
+The next students to improve this project are :
 
 * Issa Sanogo
 * Franck Kouamelan
 * Anwar Machadi
+* Stephane Kanga
