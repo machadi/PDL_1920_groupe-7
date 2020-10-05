@@ -460,7 +460,6 @@ class ConverterToCsvTest {
         File repertoireHtml = new File("output\\html");
         File repertoireWikitext = new File("output\\wikitext");
 
-
         File[] filesHtml = repertoireHtml.listFiles();
         File[] filesWikitext = repertoireWikitext.listFiles();
 
@@ -468,9 +467,7 @@ class ConverterToCsvTest {
         FileInputStream fileInputStreamWikitext = null;
         Scanner scHTML = null;
         Scanner scWikitext = null;
-
         int nbretabwikihtmlsimilaires = 0;
-
 
         for (int i = 0; i < filesHtml.length; i++) {
             for (int y = 0; y < filesWikitext.length; y++) {
@@ -481,21 +478,23 @@ class ConverterToCsvTest {
                     scWikitext = new Scanner(fileInputStreamWikitext);
                     Boolean similary = true;
                     while (scHTML.hasNext() && scWikitext.hasNext()) {
+                        System.out.println(scHTML.nextLine()+" --- "+ scWikitext.nextLine());
                         if (!scHTML.nextLine().equals(scWikitext.nextLine())) {
                             similary = false;
                         }
                     }
-
                     if (similary) {
                         nbretabwikihtmlsimilaires++;
                     }
                 }
             }
+            System.out.println("html "+ filesHtml[i].getName());
         }
 
-        //  assertEquals(filesHtml, filesWikitext, "We check if the set of html files is equal to the set of wiki files");
+        System.out.println(nbretabwikihtmlsimilaires);
+        assertEquals(filesHtml.length, filesWikitext.length, "We check if the set of html files is equal to the set of wiki files");
         assertEquals(filesHtml.length, nbretabwikihtmlsimilaires, "We check if the set of html files is equal to the number of similar tables");
-        assertEquals(filesWikitext.length, nbretabwikihtmlsimilaires, "We check if the set of wiki files is equal to the number of similar tables");
+        //assertEquals(filesWikitext.length, nbretabwikihtmlsimilaires, "We check if the set of wiki files is equal to the number of similar tables");
     }
 
     /**
@@ -584,7 +583,8 @@ class ConverterToCsvTest {
 
         Iterator<CSVRecord> it1 = record1.iterator();
         Iterator<CSVRecord> it2 = record2.iterator();
-
+        System.out.println(it1);
+        System.out.println(it1);
         while (it1.hasNext() && it2.hasNext()) {
             CSVRecord firstelemnt = it1.next();
             CSVRecord secondelement = it2.next();

@@ -44,9 +44,16 @@ public class wikiMain {
         WikipediaMatrix wiki = new WikipediaMatrix();
         StatExtractor stat = new StatExtractor();
         Set<UrlMatrix> urlMatrixSet;
+        String system = System.getProperties().getProperty("os.name");
+        String sep;
+        if (system.contains("indows")){
+            sep = "\\";
+        }
+        else {
+            sep = "//";
+        }
 
-
-        File urlsFile = new File("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
+        File urlsFile = new File("inputdata" + sep + "wikiurls.txt");
 
 
         if (!urlsFile.exists() && !urlsFile.isDirectory()) {
@@ -54,7 +61,7 @@ public class wikiMain {
             System.exit(0);
         }
 
-        File directory = new File("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\output");
+        File directory = new File("output");
 
 
         if (!directory.exists() || !directory.isDirectory()) {
@@ -74,7 +81,7 @@ public class wikiMain {
 
         //stat before extraction
        // FileWriter wikitablestat = new FileWriter("output\\Wkitable_stat.csv");
-        FileWriter wikitablestat = new FileWriter("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\output\\Wkitable_stat.csv");
+        FileWriter wikitablestat = new FileWriter("output" + sep + "Wkitable_stat.csv");
 
         logger.log(Level.INFO, "entering of the function which find tables by criteria");
         logger.log(Level.INFO, "Loading..........");
@@ -153,7 +160,7 @@ public class wikiMain {
         //sauvegarde du fichier statistiques apres extraction
         try {
            // fm.saveCsv("output\\statsExtractor.csv");
-            fm.saveCsv("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\output\\statsExtractor.csv");
+            fm.saveCsv("output" + sep + "statsExtractor.csv");
 
         } catch (IOException e) {
             e.printStackTrace();
