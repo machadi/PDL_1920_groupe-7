@@ -17,9 +17,10 @@ After analysis of the program we have listed the following problems:
 Indeed, html extraction provides more tables than wikitext extraction.
 * criteria for selecting relevant tables not refined
 
-Like any project we have several differents version and the purpose of this it's to improve it, 
-from version to version over time to make it more powerful and better than the others versions,
-the current objective is to have a better extractor than the other versions.
+Like any project, we have several different versions and the purpose will be to take the last version of 
+the completed project, to list his insufficiency and to improve it in terms of documentation, code and tests
+to make it more powerful and better than later versions.
+The final goal is to have a better extractor.
 
 ## Getting Started
 * Fork from the project repository file available on the link: https://github.com/machadi/PDL_2021_groupe-9
