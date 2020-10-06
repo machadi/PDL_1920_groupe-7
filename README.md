@@ -14,8 +14,17 @@ Like any project we have several differents version and the purpose of this it's
 from version to version over time to make it more powerful and better than the others versions,
 the current objective is to have a better extractor than the other versions.
 
+## Context of the project
+This "Polyglot Wikipedia Matrix Extractor" project which has been assigned to us is part of the 
+of the PDL module. Our task will be to complete it through the study and understanding of the 
+existing project. This will require the use of practical tools such as (git, github, Maven, JUnit, etc.),
+mastery of implementation technologies (Java and its ecosystem, CSV, JSON, JUnit, Web API, etc.) and 
+ integration of software development techniques learned in class.
+
+
 ## Getting Started
-clone https://github.com/manuc352/PDL_1920_groupe-7 for development and testing purposes
+* Fork from the project repository file available on the link: https://github.com/machadi/PDL_2021_groupe-9
+* Clone the project from the same link for local development and testing purposes.
 
 ## Prerequisites
 #### For Users
@@ -29,7 +38,7 @@ you can run the project for testing and extracting csv files from wikipedia page
 available in the directory inputdat--> wikiurls.txt.
 
 ### For Developpers
-After having those prerequisites above you should add these below
+After having those prerequisites above you should add these below: 
 * [jsoup](https://jsoup.org) is a Java library for working with real-world HTML. 
 It provides a very convenient API for extracting and manipulating data, 
 using the best of DOM, CSS, and jquery-like methods.
@@ -41,6 +50,7 @@ In order to attain this goal, there are several areas of concern that Maven atte
 * Providing a uniform build system and quality project information
 * Providing guidelines for best practices development
 * Allowing transparent migration to new features
+* Add [junit5] (https://junit.org/junit5/) or another recent version for tests implementations.
 
 you will find more informations to increase your comprehension of the project when you will read the below files
 [Install.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/INSTALL.md) and
@@ -73,7 +83,7 @@ As we have already said it this project has been developed by those students
 * Anderson KONAN
 * Kiko DAGNOGO
 
-now it's our turn to improve their work 
+now it's our turn to improve their work  
 
 * Emmanuel CHAUVEL 
 * Narcisse KOUADIO
