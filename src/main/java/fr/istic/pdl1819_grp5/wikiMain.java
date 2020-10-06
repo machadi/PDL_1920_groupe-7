@@ -70,12 +70,12 @@ public class wikiMain {
         }
 
 
-        File htmlDir = new File(directory.getAbsoluteFile() + "" + File.separator + "html");
-        File wikitextDir = new File(directory.getAbsoluteFile() + "" + File.separator + "wikitext");
+        //File htmlDir = new File(directory.getAbsoluteFile() + "" + File.separator + "html");
+        //File wikitextDir = new File(directory.getAbsoluteFile() + "" + File.separator + "wikitext");
         String url;
         String csvFileName;
-        htmlDir.mkdir();
-        wikitextDir.mkdir();
+        //htmlDir.mkdir();
+        //wikitextDir.mkdir();
 
 
 
@@ -108,12 +108,14 @@ public class wikiMain {
             int i = 0;
             url = urlMatrix.getLink();
             urls.add(url);
-            //System.out.println(url);
-
+            String subOutput = url.substring(url.lastIndexOf("/")).substring(1);
+            File htmlDir = new File(directory.getAbsoluteFile() + "" + File.separator + "html" + File.separator + subOutput);
+            htmlDir.mkdir();
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
             for (FileMatrix f : fileMatrices) {
                 //extraction des tableaux de type html au format csv
                 csvFileName = mkCSVFileName(url.substring(url.lastIndexOf("/") + 1, url.length()), i);
+                //System.out.println(url.substring(url.lastIndexOf("/")));
                 f.saveCsv(htmlDir.getAbsolutePath() + File.separator + csvFileName);
                 i++;
             }
@@ -139,8 +141,10 @@ public class wikiMain {
             int i = 0;
             url = urlMatrix.getLink();
             //System.out.println(url);
+            String subOutput = url.substring(url.lastIndexOf("/")).substring(1);
             urlsWikitext.add(url);
-
+            File wikitextDir = new File(directory.getAbsoluteFile() + "" + File.separator + "wikitext" + File.separator + subOutput);
+            wikitextDir.mkdir();
             for (FileMatrix f : fileMatrices) {
                 //extraction des tableaux de type wikitext en format csv
                 csvFileName = mkCSVFileName(url.substring(url.lastIndexOf("/") + 1, url.length()), i);
