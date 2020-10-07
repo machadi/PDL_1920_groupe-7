@@ -379,8 +379,9 @@ class ConverterToCsvTest {
      *
      * @throws IOException
      */
-    @AfterAll
-    static void wikitextVShtml1() {
+
+    @Test
+    public void wikitextVShtml1() {
 
         int html = 0, wikitext = 0;
         int cptHtml = 0, cptWikitext = 0;
