@@ -13,20 +13,21 @@ The code part consists of:
 * 4 "classic" java classes
 
 ### The interface  « Converter »:
-It has two abstract methods implemented by ConverterToCsv (convertFromHtml and convertFromWikitext).
+It has two abstract methods implemented by ConverterToCsv witch are convertFromHtml and convertFromWikitext.
+
 
 ### The class enum « ExtractType»:
-This class defines html and wikitext values as a possible value for data extraction.
+This class defines html and wikitext types as the possible data types of the result of data extraction.
 
 ### The class « WikipediaMatrix »:
-The Main create a WikipediaMatrix and determines the setters of setUrlsMatrix()* and setExtractType().  Depending on the type (HTML and Wikitext) declared in setExtractType(), we use getConvertResult(). 
-The method getConvertConvert(), Depending onhis type and for each UrlMatrix uses the UrlMatrix* class  UrlMatrix  using the setter setFilesMatrix()* to return a set of UrlMatrix.
+The Main creates a WikipediaMatrix which takes as parameters setUrlsMatrix()*, converter() and setExtractType(). 
+Based on the type (HTML or Wikitext) declared in setExtractType() and for each UrlMatrix*, the method getConverterResult() uses the setter setFilesMatrix()* to return a set of UrlMatrix.
 
-###### *setUrlsMatrix': Creates a set of UrlMatrix.
+###### *setUrlsMatrix': Creates a set of UrlMatrix within.
 
 ###### *UrlMatrix: obtained upstream by setUrlsMatrix.
 
-###### *SetFilesMatrix: Use convertFromHtml or convertFromWikitext and return a set of FileMatrix.
+###### *SetFilesMatrix: Use convertFromHtml or convertFromWikitext to return a set of FileMatrix.
 
 ### class  « UrlMatrix »:
 
