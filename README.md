@@ -57,13 +57,18 @@ you will find more informations to increase your comprehension of the project wh
 [Design.md](https://github.com/manuc352/PDL_1920_groupe-7/blob/master/DESIGN.md)
 
 ## Functionalities of  the application
-#### the functionalities which were implemented by the first group to work on the project
+#### the functionalities which were implemented by the previou groups are
 * extraction of csv files through tables from wikipedia pages whose urls are in the wikiurls.txt file of the inputdata directory
 * implementation of some tests to verify a good extraction 
-
-#### Future functionalities 
 * statistics on extracted files and tables not taken into account according to the selection criteria of the tables to be extracted
 * automatic testing of file extraction quality , these tests will show also the  weaknesses of the extractor.
+
+#### Future functionalities 
+In the future, it will be a question for us of:
+* write extractors in languages ​​other than Java (e.g., in Python or JavaScript) - it's a multilingual, polyglot approach
+* tester these extractors written in different languages
+* establish true terrains (i.e., expected CSV results) by building a tool and using extractors
+* (optional) offer an online service to facilitate extraction by any user
 
 ## Deployment
 run mvn package this Build the project to generate the artefac.
