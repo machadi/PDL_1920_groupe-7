@@ -44,9 +44,16 @@ public class wikiMain {
         WikipediaMatrix wiki = new WikipediaMatrix();
         StatExtractor stat = new StatExtractor();
         Set<UrlMatrix> urlMatrixSet;
+        String system = System.getProperties().getProperty("os.name");
+        String sep;
+        if (system.contains("indows")){
+            sep = "\\";
+        }
+        else {
+            sep = "//";
+        }
 
-
-        File urlsFile = new File("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\inputdata\\wikiurls.txt");
+        File urlsFile = new File("inputdata" + sep + "wikiurls.txt");
 
 
         if (!urlsFile.exists() && !urlsFile.isDirectory()) {
@@ -54,7 +61,7 @@ public class wikiMain {
             System.exit(0);
         }
 
-        File directory = new File("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\output");
+        File directory = new File("output");
 
 
         if (!directory.exists() || !directory.isDirectory()) {
@@ -63,18 +70,18 @@ public class wikiMain {
         }
 
 
-        File htmlDir = new File(directory.getAbsoluteFile() + "" + File.separator + "html");
-        File wikitextDir = new File(directory.getAbsoluteFile() + "" + File.separator + "wikitext");
+        //File htmlDir = new File(directory.getAbsoluteFile() + "" + File.separator + "html");
+        //File wikitextDir = new File(directory.getAbsoluteFile() + "" + File.separator + "wikitext");
         String url;
         String csvFileName;
-        htmlDir.mkdir();
-        wikitextDir.mkdir();
+        //htmlDir.mkdir();
+        //wikitextDir.mkdir();
 
 
 
         //stat before extraction
        // FileWriter wikitablestat = new FileWriter("output\\Wkitable_stat.csv");
-        FileWriter wikitablestat = new FileWriter("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\output\\Wkitable_stat.csv");
+        FileWriter wikitablestat = new FileWriter("output" + sep + "Wkitable_stat.csv");
 
         logger.log(Level.INFO, "entering of the function which find tables by criteria");
         logger.log(Level.INFO, "Loading..........");
@@ -101,12 +108,14 @@ public class wikiMain {
             int i = 0;
             url = urlMatrix.getLink();
             urls.add(url);
-            //System.out.println(url);
-
+            String subOutput = url.substring(url.lastIndexOf("/")).substring(1);
+            File htmlDir = new File(directory.getAbsoluteFile() + "" + File.separator + "html" + File.separator + subOutput);
+            htmlDir.mkdir();
             Set<FileMatrix> fileMatrices = urlMatrix.getFileMatrix();
             for (FileMatrix f : fileMatrices) {
                 //extraction des tableaux de type html au format csv
                 csvFileName = mkCSVFileName(url.substring(url.lastIndexOf("/") + 1, url.length()), i);
+                //System.out.println(url.substring(url.lastIndexOf("/")));
                 f.saveCsv(htmlDir.getAbsolutePath() + File.separator + csvFileName);
                 i++;
             }
@@ -132,8 +141,10 @@ public class wikiMain {
             int i = 0;
             url = urlMatrix.getLink();
             //System.out.println(url);
+            String subOutput = url.substring(url.lastIndexOf("/")).substring(1);
             urlsWikitext.add(url);
-
+            File wikitextDir = new File(directory.getAbsoluteFile() + "" + File.separator + "wikitext" + File.separator + subOutput);
+            wikitextDir.mkdir();
             for (FileMatrix f : fileMatrices) {
                 //extraction des tableaux de type wikitext en format csv
                 csvFileName = mkCSVFileName(url.substring(url.lastIndexOf("/") + 1, url.length()), i);
@@ -153,7 +164,7 @@ public class wikiMain {
         //sauvegarde du fichier statistiques apres extraction
         try {
            // fm.saveCsv("output\\statsExtractor.csv");
-            fm.saveCsv("C:\\Users\\anwar\\IdeaProjects\\PDL_1920_groupe-7\\output\\statsExtractor.csv");
+            fm.saveCsv("output" + sep + "statsExtractor.csv");
 
         } catch (IOException e) {
             e.printStackTrace();
