@@ -66,7 +66,7 @@ you will find more informations to increase your comprehension of the project wh
 #### Future functionalities 
 In the future, it will be a question for us of:
 * write extractors in languages ​​other than Java (e.g., in Python or JavaScript) - it's a multilingual, polyglot approach
-* tester these extractors written in different languages
+* to test these extractors written in different languages
 * establish true terrains (i.e., expected CSV results) by building a tool and using extractors
 * (optional) offer an online service to facilitate extraction by any user
 
