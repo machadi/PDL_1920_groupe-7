@@ -200,7 +200,7 @@ public class ConverterToCsv implements Converter {
         try {
             Document doc = Jsoup.connect(url).get();
             Elements tables = doc.getElementsByTag("table");
-            System.out.println(convertHtmlTable(tables.get(5)).getText());
+            //System.out.println(convertHtmlTable(tables.get(5)).getText());
             for (Element table : tables) {
                 if (isRelevant(table) && !isNested(table)) {
                     csvSet.add(convertHtmlTable(table));

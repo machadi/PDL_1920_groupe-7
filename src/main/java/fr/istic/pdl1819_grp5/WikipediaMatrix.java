@@ -33,7 +33,7 @@ public class WikipediaMatrix {
     public Set<UrlMatrix> getConvertResult() throws IOException {
 
         for (UrlMatrix urlMatrix : urlMatrixSet) {
-            System.out.println("url " + urlMatrix.getLink());
+            //System.out.println("url " + urlMatrix.getLink());
             if (extractType == ExtractType.HTML)
                 urlMatrix.setFilesMatrix(converter.convertFromHtml(urlMatrix.getLink()));
             else urlMatrix.setFilesMatrix(converter.convertFromWikitext(urlMatrix.getLink()));
