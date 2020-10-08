@@ -587,7 +587,7 @@ class ConverterToCsvTest {
     public void VeriteTerrain4() throws IOException {
 
 
-        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_between_Esperanto_and_Ido\\\\Comparison_between_Esperanto_and_Ido-3.csv");
+        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_between_Esperanto_and_Ido\\\\Comparison_between_Esperanto_and_Ido-0.csv");
         FileReader file2 = new FileReader("verite\\\\Comparison_between_Esperanto_and_Ido-3 test.csv");
         Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.withQuote(null).parse(file1);
         Iterable<CSVRecord> record2 = CSVFormat.DEFAULT.withQuote(null).parse(file2);
