@@ -200,7 +200,7 @@ public class ConverterToCsv implements Converter {
         try {
             Document doc = Jsoup.connect(url).get();
             Elements tables = doc.getElementsByTag("table");
-            //System.out.println(convertHtmlTable(tables.get(5)).getText());
+            System.out.println(convertHtmlTable(tables.get(5)).getText());
             for (Element table : tables) {
                 if (isRelevant(table) && !isNested(table)) {
                     csvSet.add(convertHtmlTable(table));
@@ -244,7 +244,7 @@ public class ConverterToCsv implements Converter {
         listOfCells.clear();
 
         Elements trs = htmlTable.select("tbody tr");
-        System.out.println("trs " + trs);
+        //System.out.println("trs " + trs);
         writeInCsv(trs, csvBuilder, nbCol);
 
         listOfCells.clear();
@@ -376,7 +376,7 @@ public class ConverterToCsv implements Converter {
      * @see #convertHtmlTable(Element)
      */
     public Set<FileMatrix> convertFromWikitext(String url) {
-        Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
+        LinkedHashSet<FileMatrix> csvSet = new LinkedHashSet<FileMatrix>();
         try {
 
             MediaWikiBot wikiBot = new MediaWikiBot(url.substring(0, url.lastIndexOf("iki/")) + "/");

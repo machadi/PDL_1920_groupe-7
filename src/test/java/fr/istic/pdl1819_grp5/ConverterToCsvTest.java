@@ -505,7 +505,7 @@ class ConverterToCsvTest {
     @Test
     public void VeriteTerrain1() throws IOException {
 
-        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_between_Esperanto_and_Interlingua"+"\\\\Comparison_between_Esperanto_and_Interlingua-0.csv");
+        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_between_Esperanto_and_Interlingua"+"\\\\Comparison_between_Esperanto_and_Interlingua-2.csv");
         FileReader file2 = new FileReader("verite\\\\Comparison_between_Esperanto_and_Interlingua-2 test.csv");
         Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.parse(file1);
         Iterable<CSVRecord> record2 = CSVFormat.DEFAULT.parse(file2);
@@ -516,11 +516,15 @@ class ConverterToCsvTest {
         while (it1.hasNext() && it2.hasNext()) {
             CSVRecord firstelemnt=it1.next();
             CSVRecord secondelement= it2.next();
-            assertTrue(firstelemnt.get(0).equals(secondelement.get(0)));
-            assertTrue(firstelemnt.get(1).equals(secondelement.get(1)));
-            assertTrue(firstelemnt.get(2).equals(secondelement.get(2)));
-            assertTrue(firstelemnt.get(3).equals(secondelement.get(3)));
-            assertEquals(firstelemnt.get(4), secondelement.get(4));
+            for (int i=0; i< firstelemnt.size(); i++){
+                //System.out.println(firstelemnt.get(i) + "---" + secondelement.get(i));
+                assertEquals(firstelemnt.get(i), secondelement.get(i));
+            }
+//            assertTrue(firstelemnt.get(0).equals(secondelement.get(0)));
+//            assertTrue(firstelemnt.get(1).equals(secondelement.get(1)));
+//            assertTrue(firstelemnt.get(2).equals(secondelement.get(2)));
+//            assertTrue(firstelemnt.get(3).equals(secondelement.get(3)));
+//            assertEquals(firstelemnt.get(4), secondelement.get(4));
 
         }
 
@@ -528,7 +532,7 @@ class ConverterToCsvTest {
 
     @Test
     public void VeriteTerrain2() throws IOException {
-        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_of_ADC_software\\\\Comparison_of_ADC_software-5.csv");
+        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_of_ADC_software\\\\Comparison_of_ADC_software-10.csv");
         FileReader file2 = new FileReader("verite\\\\Comparison_of_ADC_software-8 test.csv");
         Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.parse(file1);
         Iterable<CSVRecord> record2 = CSVFormat.DEFAULT.parse(file2);
@@ -557,7 +561,7 @@ class ConverterToCsvTest {
     @Test
     public void VeriteTerrain3() throws IOException {
 
-        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_between_Esperanto_and_Ido\\\\Comparison_between_Esperanto_and_Ido-5.csv");
+        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_between_Esperanto_and_Ido\\\\Comparison_between_Esperanto_and_Ido-4.csv");
         FileReader file2 = new FileReader("verite\\\\Comparison_between_Esperanto_and_Ido-1 test.csv");
         Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.parse(file1);
         Iterable<CSVRecord> record2 = CSVFormat.DEFAULT.parse(file2);
@@ -583,7 +587,7 @@ class ConverterToCsvTest {
     public void VeriteTerrain4() throws IOException {
 
 
-        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_between_Esperanto_and_Ido\\\\Comparison_between_Esperanto_and_Ido-2.csv");
+        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_between_Esperanto_and_Ido\\\\Comparison_between_Esperanto_and_Ido-3.csv");
         FileReader file2 = new FileReader("verite\\\\Comparison_between_Esperanto_and_Ido-3 test.csv");
         Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.withQuote(null).parse(file1);
         Iterable<CSVRecord> record2 = CSVFormat.DEFAULT.withQuote(null).parse(file2);
@@ -605,7 +609,7 @@ class ConverterToCsvTest {
     @Test
     public void VeriteTerrain5() throws IOException {
 
-        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_of_3D_computer_graphics_software\\\\Comparison_of_3D_computer_graphics_software-7.csv");
+        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_of_3D_computer_graphics_software\\\\Comparison_of_3D_computer_graphics_software-10.csv");
         FileReader file2 = new FileReader("verite\\\\Comparison_of_3D_computer_graphics_software-2 test.csv");
         Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.parse(file1);
         Iterable<CSVRecord> record2 = CSVFormat.DEFAULT.parse(file2);
