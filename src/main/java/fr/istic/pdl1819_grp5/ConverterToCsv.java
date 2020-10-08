@@ -195,25 +195,26 @@ public class ConverterToCsv implements Converter {
      */
     public Set<FileMatrix> convertFromHtml(String url) throws IOException {
 
-        Set<FileMatrix> csvSet = new HashSet<FileMatrix>();
+        LinkedHashSet<FileMatrix> csvSet = new LinkedHashSet<FileMatrix>();
 
         try {
             Document doc = Jsoup.connect(url).get();
             Elements tables = doc.getElementsByTag("table");
-
-            for (int i = 0; i < tables.size(); i++) {
-                if (isRelevant(tables.get(i)) && !isNested(tables.get(i))) {
-                    csvSet.add(convertHtmlTable(tables.get(i)));
+            //System.out.println(convertHtmlTable(tables.get(5)).getText());
+            for (Element table : tables) {
+                if (isRelevant(table) && !isNested(table)) {
+                    csvSet.add(convertHtmlTable(table));
                     nbRelev++;
                 } else {
                     nbNotRelev++;
                 }
 
             }
-
-
         } catch (HttpStatusException e) {
         }
+//        for(FileMatrix s : csvSet)
+//            System.out.println(s.getText());
+
         return csvSet;
     }
 
@@ -237,16 +238,19 @@ public class ConverterToCsv implements Converter {
         StringBuilder csvBuilder = new StringBuilder("");
 
         Elements trh = htmlTable.select("thead tr");
+        //System.out.println("trh " + trh);
         writeInCsv(trh, csvBuilder, nbCol);
 
         listOfCells.clear();
 
         Elements trs = htmlTable.select("tbody tr");
+        System.out.println("trs " + trs);
         writeInCsv(trs, csvBuilder, nbCol);
 
         listOfCells.clear();
 
         Elements trf = htmlTable.select("tfoot tr");
+        //System.out.println("trf " + trf);
         writeInCsv(trf, csvBuilder, nbCol);
 
         numberOfcsv++;
@@ -263,6 +267,7 @@ public class ConverterToCsv implements Converter {
      */
     private static void writeInCsv(Elements trs, StringBuilder csvBuilder, int nbCol) {
 
+        //System.out.println(trs.get(0));
         for (int i = 0; i < trs.size(); i++) {
             Element tr = trs.get(i);
             Elements tds = tr.children();
