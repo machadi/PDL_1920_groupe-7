@@ -98,7 +98,7 @@ public class wikiMain {
         urlMatrixSet = wiki.getConvertResult();
 
 
-        //save files
+//        //save files
         long execHtml = System.currentTimeMillis();//to measure time of execution
         ArrayList<Integer> extractedHTML = new ArrayList<Integer>();
         ArrayList<String> urls = new ArrayList<String>();
