@@ -59,8 +59,7 @@ For a given url this method creates a Mediawikibot (automated tools that can be 
 
 ### class « FileMatrix »:  saveCsv
 
-For each FileMatrix obtained using the UrlMatrix class I save the file using the method saveCsv (String csvPath).
-
+For each FileMatrix obtained using the UrlMatrix class, a backup file is created using the saveCsv (String csvPath) method.
 # UML Diagram
 
 <img align="center" src="/src/img/ipdl_uml.png">
