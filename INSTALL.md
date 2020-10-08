@@ -35,7 +35,10 @@ You will find more information on the website of IntelliJ : https://www.jetbrain
 ## Before running
 
 - If you don't change anything, the extractor will extract tables that are extracted from wikipedia pages which corresponds of the list of URL written in the file *wikiurls.txt* in the repertory *inputdata*. 
-- If you want to run the extractor with only one URL, you have to replace links in *wikiurls.txt* by your URL.   
+- If you want to run the extractor with only one URL, you have to replace links in *wikiurls.txt* by your URL.
+### Run unit test with maven
+- You can use the "mvn test" command to run the unit test in Maven and run the two extractors on the list of 300+ Wikipedia URLs.
+See more details on [unit test with maven](https://www.codeflow.site/fr/article/maven__how-to-run-unit-test-with-maven)
 
 ## After running 
 
