@@ -12,7 +12,7 @@ Also, for given URLs we have:
 - less table extracted in wikitext than in html
 - less table extracted in html than in wikitext
 
-# Critique of the existing
+# Criticism of the existing
 
 By resuming the project of last year, we noticed that there were several tests that did not work, 
 such as veriteterrain tests which led us to analyze the code of the ConverterToCsv class where the convertFromHtml method and the convertFromWikitext method 

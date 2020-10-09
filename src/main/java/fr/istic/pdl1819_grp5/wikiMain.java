@@ -1,9 +1,5 @@
 package fr.istic.pdl1819_grp5;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;

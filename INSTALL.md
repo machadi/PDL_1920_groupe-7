@@ -10,8 +10,8 @@
 
 - Clone the project, URL=*https://github.com/machadi/PDL_2021_groupe-9.git*;
 - Open the project as an existing __Maven__ project on IntelliJ/Eclipse;
-- In the class wikiMain, change the path at line 49 by your personal path to access your repertory inputdata;
-- Same thing for the path at line 57 with the repertory output
+- In the class wikiMain, change the path at line 52 by your personal path to access your repertory inputdata;
+- Same thing for the path at line 60, 80, 163 with the repertory output
 
 ### Open an existing Maven project on IntelliJ
 

@@ -180,14 +180,13 @@ class ConverterToCsvTest {
             //check redirection
             if (article.getText().contains("REDIRECT")) {
                 nbRedirectionTotal++;
-
+                //System.out.println(article.getText());
                 if (article.getText().lastIndexOf("#") != 0) {
                     url = "https://en.wikipedia.org/wiki/" + article.getText().substring(article.getText().lastIndexOf("[") + 1, article.getText().lastIndexOf("#"));
-                    nbRedirectionCheck++;
                 } else {
                     url = "https://en.wikipedia.org/wiki/" + article.getText().substring(article.getText().lastIndexOf("[") + 1, article.getText().lastIndexOf("]]"));
-                    nbRedirectionCheck++;
                 }
+                nbRedirectionCheck++;
 
 
                 wikiBot = new MediaWikiBot(url.substring(0, url.lastIndexOf("iki/")) + "/");
@@ -378,14 +377,14 @@ class ConverterToCsvTest {
      *
      * @throws IOException
      */
-    @AfterAll
+    @Test
     static void wikitextVShtml1() {
 
         int html = 0, wikitext = 0;
         int cptHtml = 0, cptWikitext = 0;
         int numberTablesNotEquals = 0;
         int numberTablesEquals = 0;
-
+        nombreOfTable("s", ExtractType.HTML);
         for (String s : urls) {
 
             if ((html = nombreOfTable(s, ExtractType.HTML)) != (wikitext = nombreOfTable(s, ExtractType.WIKITEXT))) {
@@ -401,7 +400,7 @@ class ConverterToCsvTest {
         assertEquals(311, numberTablesNotEquals + numberTablesEquals, "check if consitent number link active with test init");
 
         if (cptHtml != cptWikitext) {
-            assertTrue(false, "check if on set of files, they have the same number of files between wikitext and HTML");
+            fail("check if on set of files, they have the same number of files between wikitext and HTML");
         }
         assertEquals(0, numberTablesNotEquals, "return number of urlMatrix in wikitext and HTML wich are not same number tables");
     }
@@ -417,17 +416,18 @@ class ConverterToCsvTest {
     static int nombreOfTable(String title, ExtractType e) {
 
         String[] files = new File(e == ExtractType.HTML ? outputDirHtml : outputDirWikitext).list();
-
         int nbre = 0;
 
         for (String s : files) {
-            s = s.substring(0, s.lastIndexOf("-"));
-
+            //System.out.println(s);
+//            s = s.substring(0, s.lastIndexOf("-"));
             if (s.compareTo(title) == 0)
                 nbre++;
         }
         return nbre;
     }
+
+//    public String[] csvFiles (String[] folders)
 
 
     public static String ReadFile(String file) {
@@ -471,8 +471,8 @@ class ConverterToCsvTest {
         int nbretabwikihtmlsimilaires = 0;
         assert filesHtmls != null;
         assert filesWikitexts != null;
-        assertEquals(filesHtmls.length, filesWikitexts.length);
-        System.out.println(filesHtmls.length + " - "+filesWikitexts.length);
+        //assertEquals(filesHtmls.length, filesWikitexts.length);
+        //System.out.println(filesHtmls.length + " - "+filesWikitexts.length);
         for (int i = 0; i < filesHtmls.length; i++) {
             File[] filesHtml = filesHtmls[i].listFiles();
             File[] filesWikitext = filesWikitexts[i].listFiles();
