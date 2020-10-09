@@ -61,13 +61,14 @@ class ConverterToCsvTest {
     }
 
     @Test
-    public  void extractor() throws IOException {
-        boolean test= false;
+    public void extractor() throws IOException {
+        boolean test = false;
         wikiMain.extracteurenmarche();
-        test=true;
-        Assertions.assertTrue(test,"the extraction of tables has been done ");
+        test = true;
+        Assertions.assertTrue(test, "the extraction of tables has been done ");
 
     }
+
     /**
      * check number of url
      * check url connexion (failure,ok and total)
@@ -458,43 +459,64 @@ class ConverterToCsvTest {
         File repertoireHtml = new File("output\\html");
         File repertoireWikitext = new File("output\\wikitext");
 
-        File[] filesHtml = repertoireHtml.listFiles();
-        File[] filesWikitext = repertoireWikitext.listFiles();
+        File[] filesHtmls = repertoireHtml.listFiles();
+        File[] filesWikitexts = repertoireWikitext.listFiles();
 
         FileInputStream fileInputStreamHTML = null;
         FileInputStream fileInputStreamWikitext = null;
         Scanner scHTML = null;
         Scanner scWikitext = null;
+        int nbreHtmlCsv = 0;
+        int nbreWikitextCsv = 0;
         int nbretabwikihtmlsimilaires = 0;
-
-        for (int i = 0; i < filesHtml.length; i++) {
-            for (int y = 0; y < filesWikitext.length; y++) {
-                if (filesHtml[i].getName().substring(0, filesHtml[i].getName().lastIndexOf("-")).compareTo(filesWikitext[y].getName().substring(0, filesWikitext[y].getName().lastIndexOf("-"))) == 0) {
-                    fileInputStreamHTML = new FileInputStream((filesHtml[i]));
-                    fileInputStreamWikitext = new FileInputStream(filesWikitext[y]);
-                    scHTML = new Scanner(fileInputStreamHTML);
-                    scWikitext = new Scanner(fileInputStreamWikitext);
-                    Boolean similary = true;
-                    while (scHTML.hasNext() && scWikitext.hasNext()) {
-                        //System.out.println(filesHtml[i].getName()+" --- "+ filesWikitext[y].getName());
-                        //System.out.println(scHTML.nextLine()+" --- "+ scWikitext.nextLine());
-                        if (!scHTML.nextLine().equals(scWikitext.nextLine())) {
-                            similary = false;
+        assert filesHtmls != null;
+        assert filesWikitexts != null;
+        assertEquals(filesHtmls.length, filesWikitexts.length);
+        System.out.println(filesHtmls.length + " - "+filesWikitexts.length);
+        for (int i = 0; i < filesHtmls.length; i++) {
+            File[] filesHtml = filesHtmls[i].listFiles();
+            File[] filesWikitext = filesWikitexts[i].listFiles();
+            assert filesHtml != null;
+            assert filesWikitext != null;
+//            System.out.println(filesHtmls[i].getName());
+//            System.out.println(filesHtml.length + " - "+filesWikitext.length);
+            //assertEquals(filesHtml.length, filesWikitext.length);
+            nbreHtmlCsv = nbreHtmlCsv + filesHtml.length;
+            nbreWikitextCsv = nbreWikitextCsv + filesWikitext.length;
+            if (filesHtml.length == filesWikitext.length) {
+                for (int y = 0; y < filesHtml.length; y++) {
+                    if (filesHtml[y].getName().substring(0, filesHtml[y].getName().lastIndexOf("-")).compareTo(filesWikitext[y].getName().substring(0, filesWikitext[y].getName().lastIndexOf("-"))) == 0) {
+                        //System.out.println(filesHtml[y].getName() + " --- " + filesWikitext[y]);
+                        fileInputStreamHTML = new FileInputStream((filesHtml[y]));
+                        fileInputStreamWikitext = new FileInputStream(filesWikitext[y]);
+                        scHTML = new Scanner(fileInputStreamHTML);
+                        scWikitext = new Scanner(fileInputStreamWikitext);
+                        //boolean similary = true;
+                        if (compareTwoFiles(scHTML, scWikitext)) {
+                            nbretabwikihtmlsimilaires++;
                         }
-                    }
-                    if (similary) {
-                        nbretabwikihtmlsimilaires++;
                     }
                 }
             }
-            System.out.println("html "+ filesHtml[i].getName());
         }
 
-        System.out.println(nbretabwikihtmlsimilaires);
-        System.out.println(filesWikitext.length);
-        assertEquals(filesHtml.length, filesWikitext.length, "We check if the set of html files is equal to the set of wiki files");
-        assertEquals(filesHtml.length, nbretabwikihtmlsimilaires, "We check if the set of html files is equal to the number of similar tables");
-        //assertEquals(filesWikitext.length, nbretabwikihtmlsimilaires, "We check if the set of wiki files is equal to the number of similar tables");
+        //System.out.println("nb" + nbretabwikihtmlsimilaires);
+        assertEquals(nbreHtmlCsv, nbreWikitextCsv, "We check if the set of html files is equal to the set of wiki files");
+        assertEquals(nbreHtmlCsv, nbretabwikihtmlsimilaires, "We check if the set of html files is equal to the number of similar tables");
+        assertEquals(nbreWikitextCsv, nbretabwikihtmlsimilaires, "We check if the set of wiki files is equal to the number of similar tables");
+    }
+
+    public boolean compareTwoFiles(Scanner scHTML, Scanner scWikitext) {
+        while (scHTML.hasNextLine()) {
+            //System.out.println(scHTML.nextLine() + " - " + scWikitext.nextLine());
+            String lineHtml = scHTML.nextLine();
+            String lineWikitext = scWikitext.nextLine();
+            if (lineHtml.compareTo(lineWikitext) != 0) {
+                //System.out.println(lineHtml + " - " + lineWikitext);
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -505,7 +527,7 @@ class ConverterToCsvTest {
     @Test
     public void VeriteTerrain1() throws IOException {
 
-        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_between_Esperanto_and_Interlingua"+"\\\\Comparison_between_Esperanto_and_Interlingua-2.csv");
+        FileReader file1 = new FileReader("output\\html" + File.separator + "Comparison_between_Esperanto_and_Interlingua" + "\\\\Comparison_between_Esperanto_and_Interlingua-2.csv");
         FileReader file2 = new FileReader("verite\\\\Comparison_between_Esperanto_and_Interlingua-2 test.csv");
         Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.parse(file1);
         Iterable<CSVRecord> record2 = CSVFormat.DEFAULT.parse(file2);
@@ -514,9 +536,9 @@ class ConverterToCsvTest {
         Iterator<CSVRecord> it2 = record2.iterator();
 
         while (it1.hasNext() && it2.hasNext()) {
-            CSVRecord firstelemnt=it1.next();
-            CSVRecord secondelement= it2.next();
-            for (int i=0; i< firstelemnt.size(); i++){
+            CSVRecord firstelemnt = it1.next();
+            CSVRecord secondelement = it2.next();
+            for (int i = 0; i < firstelemnt.size(); i++) {
                 //System.out.println(firstelemnt.get(i) + "---" + secondelement.get(i));
                 assertEquals(firstelemnt.get(i), secondelement.get(i));
             }
@@ -532,7 +554,7 @@ class ConverterToCsvTest {
 
     @Test
     public void VeriteTerrain2() throws IOException {
-        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_of_ADC_software\\\\Comparison_of_ADC_software-10.csv");
+        FileReader file1 = new FileReader("output\\html" + File.separator + "Comparison_of_ADC_software\\\\Comparison_of_ADC_software-10.csv");
         FileReader file2 = new FileReader("verite\\\\Comparison_of_ADC_software-8 test.csv");
         Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.parse(file1);
         Iterable<CSVRecord> record2 = CSVFormat.DEFAULT.parse(file2);
@@ -541,9 +563,9 @@ class ConverterToCsvTest {
         Iterator<CSVRecord> it2 = record2.iterator();
 
         while (it1.hasNext() && it2.hasNext()) {
-            CSVRecord firstelemnt=it1.next();
-            CSVRecord secondelement= it2.next();
-            for (int i=0; i< firstelemnt.size(); i++){
+            CSVRecord firstelemnt = it1.next();
+            CSVRecord secondelement = it2.next();
+            for (int i = 0; i < firstelemnt.size(); i++) {
                 //System.out.println(firstelemnt.get(i) + "---" + secondelement.get(i));
                 assertEquals(firstelemnt.get(i), secondelement.get(i));
             }
@@ -561,7 +583,7 @@ class ConverterToCsvTest {
     @Test
     public void VeriteTerrain3() throws IOException {
 
-        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_between_Esperanto_and_Ido\\\\Comparison_between_Esperanto_and_Ido-4.csv");
+        FileReader file1 = new FileReader("output\\html" + File.separator + "Comparison_between_Esperanto_and_Ido\\\\Comparison_between_Esperanto_and_Ido-4.csv");
         FileReader file2 = new FileReader("verite\\\\Comparison_between_Esperanto_and_Ido-1 test.csv");
         Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.parse(file1);
         Iterable<CSVRecord> record2 = CSVFormat.DEFAULT.parse(file2);
@@ -569,9 +591,9 @@ class ConverterToCsvTest {
         Iterator<CSVRecord> it1 = record1.iterator();
         Iterator<CSVRecord> it2 = record2.iterator();
         while (it1.hasNext() && it2.hasNext()) {
-            CSVRecord firstelemnt=it1.next();
-            CSVRecord secondelement= it2.next();
-            for (int i=0; i< firstelemnt.size(); i++){
+            CSVRecord firstelemnt = it1.next();
+            CSVRecord secondelement = it2.next();
+            for (int i = 0; i < firstelemnt.size(); i++) {
                 //System.out.println(firstelemnt.get(i) + "---" + secondelement.get(i));
                 assertEquals(firstelemnt.get(i), secondelement.get(i));
             }
@@ -583,11 +605,12 @@ class ConverterToCsvTest {
         }
 
     }
+
     @Test
     public void VeriteTerrain4() throws IOException {
 
 
-        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_between_Esperanto_and_Ido\\\\Comparison_between_Esperanto_and_Ido-0.csv");
+        FileReader file1 = new FileReader("output\\html" + File.separator + "Comparison_between_Esperanto_and_Ido\\\\Comparison_between_Esperanto_and_Ido-0.csv");
         FileReader file2 = new FileReader("verite\\\\Comparison_between_Esperanto_and_Ido-3 test.csv");
         Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.withQuote(null).parse(file1);
         Iterable<CSVRecord> record2 = CSVFormat.DEFAULT.withQuote(null).parse(file2);
@@ -597,7 +620,7 @@ class ConverterToCsvTest {
         while (it1.hasNext() && it2.hasNext()) {
             CSVRecord firstelemnt = it1.next();
             CSVRecord secondelement = it2.next();
-            for (int i=0; i< firstelemnt.size(); i++){
+            for (int i = 0; i < firstelemnt.size(); i++) {
 //                System.out.println(i);
 //                System.out.println(firstelemnt.get(i) + "---" + secondelement.get(i));
                 assertEquals(firstelemnt.get(i), secondelement.get(i));
@@ -609,7 +632,7 @@ class ConverterToCsvTest {
     @Test
     public void VeriteTerrain5() throws IOException {
 
-        FileReader file1 = new FileReader("output\\html"+ File.separator+"Comparison_of_3D_computer_graphics_software\\\\Comparison_of_3D_computer_graphics_software-10.csv");
+        FileReader file1 = new FileReader("output\\html" + File.separator + "Comparison_of_3D_computer_graphics_software\\\\Comparison_of_3D_computer_graphics_software-10.csv");
         FileReader file2 = new FileReader("verite\\\\Comparison_of_3D_computer_graphics_software-2 test.csv");
         Iterable<CSVRecord> record1 = CSVFormat.DEFAULT.parse(file1);
         Iterable<CSVRecord> record2 = CSVFormat.DEFAULT.parse(file2);
@@ -618,9 +641,9 @@ class ConverterToCsvTest {
         Iterator<CSVRecord> it2 = record2.iterator();
 
         while (it1.hasNext() && it2.hasNext()) {
-            CSVRecord firstelemnt=it1.next();
-            CSVRecord secondelement= it2.next();
-            for (int i=0; i< firstelemnt.size(); i++){
+            CSVRecord firstelemnt = it1.next();
+            CSVRecord secondelement = it2.next();
+            for (int i = 0; i < firstelemnt.size(); i++) {
                 //System.out.println(firstelemnt.get(i) + "---" + secondelement.get(i));
                 assertEquals(firstelemnt.get(i), secondelement.get(i));
             }
@@ -664,9 +687,6 @@ class ConverterToCsvTest {
         fileMatrix = c4.convertHtmlTable(table);
         assertTrue(FileUtils.contentEquals(new File("src/test/thead_tfoot/csv.csv"), fileMatrix.saveCsv("src/test/thead_tfoot/" + fileMatrix.getName() + ".csv")));
     }
-
-
-
 
 
 }
